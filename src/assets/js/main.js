@@ -1,6 +1,12 @@
 console.log("Hello from main.js");
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Set current year in footer
+  const currentYearElement = document.getElementById('current-year');
+  if (currentYearElement) {
+    currentYearElement.textContent = new Date().getFullYear();
+  }
+
   const modal = document.getElementById('gallery-modal');
   const modalImage = document.getElementById('modal-image');
   const modalCaption = document.getElementById('modal-caption');

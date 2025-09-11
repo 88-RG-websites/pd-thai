@@ -74,4 +74,4 @@ module.exports = {
     platter: 'Family Platter',
     dessert: 'Dessert',
   },
-
+}

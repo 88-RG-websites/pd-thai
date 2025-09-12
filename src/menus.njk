@@ -1,0 +1,14 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+  <iframe 
+    src="https://88restaurants.com/{{ client.id }}/online_orders/frame" 
+    style="width: 100%; height: 100vh; border: none;" 
+    title="{{ client.name }} Online Menu and Ordering"
+    loading="lazy"
+    allow="payment"
+  >
+  </iframe>
+</div>
+{% endblock %}

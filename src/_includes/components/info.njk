@@ -8,7 +8,8 @@
           <div class="p-5 lg:p-10">
             <h3 class="text-lg font-semibold text-primary-500">Hours</h3>
             <div class="mt-4">
-              <table class="w-full text-sm text-gray-600">
+              <!-- Desktop table view (lg and up) -->
+              <table class="hidden lg:table w-full text-sm text-gray-600">
                 <thead>
                   <tr class="border-b border-gray-200">
                     <th class="text-left py-2 font-medium text-gray-900">Day</th>
@@ -26,6 +27,16 @@
                   {% endfor %}
                 </tbody>
               </table>
+              
+              <!-- Mobile list view (below lg) -->
+              <div class="lg:hidden space-y-3">
+                {% for schedule in client.hours.schedule %}
+                <div>
+                  <div class="font-medium text-gray-900 mb-1">{{ schedule.day }}</div>
+                  <div class="text-sm text-gray-600">{{ schedule.lunch }}, {{ schedule.dinner }}</div>
+                </div>
+                {% endfor %}
+              </div>
             </div>
           </div>
         </div>

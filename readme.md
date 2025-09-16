@@ -47,7 +47,13 @@ Select from available components in `src/_includes/components/`:
 - Update page content in `src/pages/`
 - Customize component content as needed
 
-#### Step 5: Test & Deploy
+#### Step 5: Add Google Analytics (Optional)
+To enable Google Analytics tracking:
+1. Edit `src/_includes/components/google_analytics.njk`
+2. Replace `GA_TRACKING_ID` with your actual Google Analytics tracking ID
+3. Uncomment the script block by removing the `{# #}` comment wrapper
+
+#### Step 6: Test & Deploy
 ```bash
 # Build for production
 npm run build

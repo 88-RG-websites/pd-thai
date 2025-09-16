@@ -1,166 +1,159 @@
-# 11ty Template Project
+# Restaurant Website Template
 
-This project is a customizable starter template for creating static websites using [11ty (Eleventy)](https://www.11ty.dev/), with integrations for [Nunjucks](https://mozilla.github.io/nunjucks/), [TailwindCSS](https://tailwindcss.com/), [SASS](https://sass-lang.com/), and JavaScript. The template also includes plugins for navigation, sitemap generation, and file minification. It's designed for rapid development and deployment on Netlify.
+A professional 11ty (Eleventy) template specifically designed for restaurant websites. This template provides a complete foundation for building beautiful, fast-loading restaurant sites with modern components and easy customization.
 
-## Table of Contents
+## Quick Start
 
-- [Features](#features)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Available Scripts](#available-scripts)
-- [Customization](#customization)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
+### 1. Clone & Setup
+```bash
+# Use this template or clone directly
+git clone https://github.com/your-username/restaurant-template.git client-restaurant-name
+cd client-restaurant-name
 
-## Features
-
-- **11ty (Eleventy):** Static site generation with flexible templating.
-- **Nunjucks:** Powerful templating engine with support for logic and partials.
-- **TailwindCSS:** Utility-first CSS framework with SASS integration.
-- **SASS:** Extendable CSS with variables, nesting, and more.
-- **JavaScript:** Custom scripts to enhance functionality.
-- **11ty Plugins:**
-  - **eleventy-navigation:** Simple, powerful navigation.
-  - **eleventy-plugin-sitemap:** Generate a sitemap for SEO.
-  - **eleventy-plugin-files-minifier:** Minify HTML, CSS, and JavaScript files for production.
-
-## Project Structure
-
-```
-my-11ty-template/
-├── .eleventy.js # Eleventy configuration
-├── .gitignore # Files and directories to ignore in version control
-├── netlify.toml # Netlify deployment configuration
-├── package.json # Project dependencies and scripts
-├── postcss.config.js # PostCSS configuration for TailwindCSS
-├── tailwind.config.js # TailwindCSS configuration
-├── src/ # Source files
-│ ├── assets/ # Static assets (CSS, JS, images, etc.)
-│ │ ├── css/ # Compiled CSS
-│ │ ├── favicons/ # Favicons
-│ │ ├── fonts/ # Custom fonts
-│ │ ├── images/ # Images
-│ │ ├── js/ # JavaScript files
-│ │ ├── sass/ # SASS files
-│ │ └── svgs/ # SVG files
-│ ├── \_data/ # Global data accessible in templates
-│ │ └── client.js # Client-specific data
-│ ├── \_includes/ # Reusable templates and components
-│ │ ├── layouts/ # Layout files
-│ │ └── components/ # Template components (header, footer, etc.)
-│ ├── pages/ # Static pages (e.g., About, Contact)
-│ └── posts/ # Blog posts or other content
-└── dist/ # Output directory (auto-generated)
-```
-
-## Getting Started
-
-### Prerequisites
-
-Ensure you have the following installed:
-
-- [Node.js](https://nodejs.org/) (v16 or higher recommended)
-- [npm](https://www.npmjs.com/) (comes with Node.js)
-
-### Installation
-
-### Use this template:
-
-1. Click the green "Use this template" button at the top of this repository
-2. Choose "Create a new repository"
-3. Name your new repository (e.g., `client-website`)
-4. Clone your new repository:
-
-```
-git clone https://github.com/your-username/client-website.git
-cd client-website
-```
-
-### Install dependencies:
-
-```
+# Install dependencies
 npm install
-```
 
-### Development
-
-To start the development server with live reloading:
-
-```
+# Start development server
 npm run serve
 ```
 
-Visit http://localhost:8080 to view your site. Changes to the files in src/ will automatically rebuild and reload the site.
+Visit http://localhost:8080 to see your site with live reloading.
 
-### Available Scripts
+### 2. Build Your Restaurant Website
 
-npm run build: Build the project for production, generating the static files in the dist/ directory.
-npm run serve: Start a local development server with live reloading.
-npm run watch: Watch for changes and rebuild the CSS and Eleventy templates.
-npm run build:css: Compile the SASS files into CSS using PostCSS and TailwindCSS.
-npm run clean: Remove the dist/ directory to ensure a fresh build (add this script as needed).
+Follow this order of operations for the best workflow:
 
-### Customization
+#### Step 1: Update Restaurant Information
+Edit `src/_data/client.js` with your restaurant's details:
+- Restaurant name, cuisine type, contact info
+- Business hours and location
+- Social media links
+- Menu categories
 
-### TailwindCSS
+#### Step 2: Customize Brand Colors
+Update `tailwind.config.js` to match the restaurant's branding:
+- Primary colors (main brand color)
+- Secondary colors (accent/neutral colors)
 
-Modify tailwind.config.js to customize TailwindCSS settings, such as colors, spacing, and fonts.
-Add or update styles in src/assets/sass/styles.scss.
+#### Step 3: Choose Your Component Structure
+Select from available components in `src/_includes/components/`:
+- **Headers**: Choose from 2 header styles
+- **Galleries**: Choose from 2 gallery layouts
+- **Contact Sections**: Choose from 3 contact section styles
+- **Hero Sections**: Multiple hero banner options
 
-### Nunjucks Templates
+#### Step 4: Add Images & Content
+- Replace images in `src/assets/images/`
+- Update page content in `src/pages/`
+- Customize component content as needed
 
-Add new layouts in src/\_includes/layouts/.
-Create reusable components in src/\_includes/components/.
-Store global data in src/\_data/.
-
-### Eleventy Plugins
-
-Configure navigation in the eleventyConfig.addPlugin(eleventyNavigationPlugin) block in .eleventy.js.
-Update sitemap settings in the eleventyConfig.addPlugin(sitemap) block in .eleventy.js.
-
-### Deployment
-
-This project is configured for easy deployment to Netlify. You can customize the deployment settings in netlify.toml.
-
-#### Deploy to Netlify:
-
-Push your repository to a Git provider like GitHub.
-Connect your repository to Netlify.
-Netlify will automatically build and deploy your site on each push.
-
-#### Manual Deployment:
-
-A `deploy.sh` script is included for manual deployment to a server. Before using it:
-
-1. Update the script with your server details:
-
-   - Replace `username` with your server username
-   - Replace `your-server-ip` with your server's IP address
-   - Replace `/var/www/yourdomain.com/` with your server's web root directory
-
-2. Make the script executable:
-
-   ```bash
-   chmod +x deploy.sh
-   ```
-
-3. Run the deployment:
-   ```bash
-   ./deploy.sh
-   ```
-
-The script will:
-
-- Build the site using `npm run build`
-- Sync the contents of the `dist/` directory to your server using rsync
-- Delete any files on the server that don't exist in your local build
-
-#### Build Locally for Production:
-
-To generate a production-ready build:
-
-```
+#### Step 5: Test & Deploy
+```bash
+# Build for production
 npm run build
-The output will be in the dist/ directory, ready to be served.
+
+# Deploy to Netlify or your preferred host
 ```
+
+## Development Commands
+
+| Command | Purpose |
+|---------|---------|
+| `npm run serve` | Start dev server with live reload at localhost:8080 |
+| `npm run build` | Build for production (outputs to `dist/`) |
+| `npm run watch` | Watch for changes and rebuild CSS/templates |
+| `npm run build:css` | Compile SASS to CSS with TailwindCSS |
+
+## Template Structure
+
+```
+restaurant-template/
+├── src/
+│   ├── _data/
+│   │   └── client.js          # 📝 Restaurant info (START HERE)
+│   ├── _includes/
+│   │   ├── layouts/
+│   │   │   └── base.njk       # Main layout template
+│   │   └── components/        # 🎨 UI components
+│   │       ├── header/        # Header variations
+│   │       ├── gallery/       # Gallery layouts
+│   │       ├── contact/       # Contact sections
+│   │       └── hero/          # Hero banners
+│   ├── assets/
+│   │   ├── images/            # 📷 Replace with restaurant images
+│   │   ├── sass/              # Custom styles
+│   │   └── css/               # Compiled CSS (auto-generated)
+│   └── pages/                 # Site pages
+├── tailwind.config.js         # 🎨 Brand colors (CUSTOMIZE THIS)
+└── dist/                      # Built site (auto-generated)
+```
+
+## Key Features
+
+- **Restaurant-Focused**: Pre-built components for menus, hours, contact, galleries
+- **Mobile-First**: Responsive design optimized for all devices
+- **SEO Ready**: Schema markup, sitemap generation, optimized meta tags
+- **Fast Loading**: Minified assets, optimized images, static generation
+- **Easy Customization**: Data-driven content via `client.js`
+
+## Customization Guide
+
+### Colors & Branding
+Edit `tailwind.config.js`:
+```javascript
+colors: {
+  primary: {
+    500: '#E00040',  // Main brand color
+    // ... other shades
+  },
+  secondary: {
+    700: '#0A1123', // Dark accent
+    // ... other shades
+  }
+}
+```
+
+### Restaurant Data
+Edit `src/_data/client.js`:
+```javascript
+module.exports = {
+  name: 'Your Restaurant Name',
+  cuisine: 'Italian Cuisine',
+  phone: '(555) 123-4567',
+  address: {
+    street: '123 Main St',
+    city: 'Your City',
+    // ...
+  }
+  // ... more restaurant data
+}
+```
+
+### Component Selection
+Components are modular - simply include the ones you want in your pages:
+```njk
+{% include "components/header/header-style-1.njk" %}
+{% include "components/gallery/gallery-grid.njk" %}
+{% include "components/contact/contact-form.njk" %}
+```
+
+## Deployment
+
+### Netlify (Recommended)
+1. Push your repository to GitHub
+2. Connect to Netlify
+3. Build command: `npm run build`
+4. Publish directory: `dist`
+
+### Manual Deployment
+```bash
+npm run build
+# Upload contents of dist/ folder to your web server
+```
+
+## Support
+
+For questions about this template:
+- Check the component examples in `src/_includes/components/`
+- Review the sample data in `src/_data/client.js`
+- Refer to [11ty documentation](https://www.11ty.dev/docs/) for advanced customization

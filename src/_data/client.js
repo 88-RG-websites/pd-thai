@@ -41,12 +41,6 @@ module.exports = {
     ],
   },
 
-  // Contact Information for Info Component
-  contact: {
-    address: '1234 Testing Ln, Test City, TX 12345',
-    phone: '(555) 123-4567',
-    email: 'info@testrestaurant.com',
-  },
 
   // Location & Maps
   googleMapsUrl: 'https://maps.google.com/test-location',

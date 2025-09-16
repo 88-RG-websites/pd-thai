@@ -24,3 +24,22 @@
     --header-height: 5.5rem;
   }
 }
+
+/* Wave Border Styles using CSS Mask */
+.wave-top {
+  --mask:
+    radial-gradient(61.94px at 50% 86.4px, #000 99%, #0000 101%) calc(50% - 72px) 0/144px 100%,
+    radial-gradient(61.94px at 50% -50.4px, #0000 99%, #000 101%) 50% 36px/144px 100% repeat-x;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+  margin-top: -60px;
+}
+
+.wave-bottom {
+  --mask:
+    radial-gradient(61.94px at 50% calc(100% - 86.4px), #000 99%, #0000 101%) calc(50% - 72px) 0/144px 100%,
+    radial-gradient(61.94px at 50% calc(100% + 50.4px), #0000 99%, #000 101%) 50% calc(100% - 36px)/144px 100% repeat-x;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+  margin-bottom: -60px;
+}

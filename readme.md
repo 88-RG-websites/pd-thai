@@ -145,17 +145,24 @@ Components are modular - simply include the ones you want in your pages:
 
 ## Deployment
 
-### Netlify (Recommended)
-1. Push your repository to GitHub
-2. Connect to Netlify
-3. Build command: `npm run build`
-4. Publish directory: `dist`
+### Using the Deploy Script
+This template includes a deployment script that builds and uploads your site:
 
-### Manual Deployment
-```bash
-npm run build
-# Upload contents of dist/ folder to your web server
-```
+1. **Make the script executable:**
+   ```bash
+   chmod +x deploy.sh
+   ```
+
+2. **Update the destination folder** in `deploy.sh`:
+   - Edit line 6 to point to your server and target directory
+   - Replace `deploy@88restaurants.com:/home/deploy/eight_eight/current/public/sites/custom_template` with your server details
+
+3. **Run the deployment:**
+   ```bash
+   ./deploy.sh
+   ```
+
+The script will automatically build the site and upload it via rsync.
 
 ## Support
 

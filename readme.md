@@ -67,6 +67,7 @@ npm run build
 |---------|---------|
 | `npm run serve` | Start dev server with live reload at localhost:8080 |
 | `npm run build` | Build for production (outputs to `dist/`) |
+| `npm run build:preview` | Build for a nested preview folder (adds a path prefix so `/assets`, links, etc. resolve). Override the prefix with `PATH_PREFIX=/your-folder/ npm run build:preview` |
 | `npm run watch` | Watch for changes and rebuild CSS/templates |
 | `npm run build:css` | Compile SASS to CSS with TailwindCSS |
 
@@ -161,23 +162,31 @@ Components are modular - simply include the ones you want in your pages:
 ## Deployment
 
 ### Using the Deploy Script
-This template includes a deployment script that builds and uploads your site:
+This template includes a deployment script that builds and uploads your site to
+either **production** or a **preview** URL:
 
 1. **Make the script executable:**
    ```bash
    chmod +x deploy.sh
    ```
 
-2. **Update the destination folder** in `deploy.sh`:
-   - Edit line 6 to point to your server and target directory
-   - Replace `deploy@88restaurants.com:/home/deploy/eight_eight/current/public/sites/custom_template` with your server details
+2. **Set the site folder name** in `deploy.sh`:
+   - Edit the `SITE_NAME` variable near the top of the script (defaults to
+     `custom_template`). It's used for both the production and preview paths.
 
 3. **Run the deployment:**
    ```bash
    ./deploy.sh
    ```
 
-The script will automatically build the site and upload it via rsync.
+   The script prompts you to choose a target:
+   - **1) Production** — deploys to the live site (asks for confirmation first)
+   - **2) Preview** — deploys to the preview URL
+
+   After you choose, it builds the site and uploads it via rsync. Preview
+   deploys are served from a `/${SITE_NAME}/` subfolder, so the script builds
+   them with a matching path prefix (via `npm run build:preview`) to keep all
+   links and assets working.
 
 ### QA Checklists (Pre & Post Deploy)
 

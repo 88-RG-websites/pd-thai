@@ -5,6 +5,7 @@
   "scripts": {
     "build:css": "postcss src/assets/sass/styles.scss -o src/assets/css/styles.css",
     "build": "npm run build:css && eleventy",
+    "build:preview": "npm run build:css && PATH_PREFIX=${PATH_PREFIX:-/custom_template/} eleventy",
     "serve": "npm-run-all --parallel watch:css serve:eleventy",
     "serve:eleventy": "npx eleventy --serve",
     "watch:css": "postcss src/assets/sass/styles.scss -o src/assets/css/styles.css --watch",

@@ -11,9 +11,11 @@ Tell Claude: **"Run the pre-deploy checklist."**
 **Rules for Claude:**
 - Work through every item below and execute the stated check (run the command,
   read the `file:line`, or grep as described).
-- Produce a results table with three states: **✅ Pass**, **❌ Fail**,
+- Produce a results table with these states: **✅ Pass**, **❌ Fail**,
   **⚠️ Needs review** — each with the evidence (the value found, the line, the
-  command output).
+  command output). Items in **§9 Manual checks** can't be automated — list them
+  as **⚠️ Manual check** reminders for the user to do by hand; don't try to
+  pass/fail them.
 - **Report only — do not modify any files.** After the table, list the
   recommended fixes so the user can approve them separately.
 
@@ -100,6 +102,23 @@ Tell Claude: **"Run the pre-deploy checklist."**
 - [ ] All social links in `client.js` are real (not `test.com`).
 - [ ] The 88restaurants ordering iframe in `src/menus.njk` uses the correct
       `client.id`.
+
+## 9. Manual checks (human — Claude just reminds)
+
+These can't be verified automatically. Claude should **surface them as
+reminders** in the results table (state: **⚠️ Manual check**) for the user to
+perform by hand — not attempt to pass/fail them.
+
+- [ ] **Menu iframe — no double scroll bar.** Open the menu page(s) in a browser
+      and confirm the ordering iframe does not show a second, inner scroll bar.
+      Fix by making sure the header is the proper size (an oversized header
+      shrinks the iframe viewport and triggers the double scroll).
+- [ ] **Rebuild of an old site — link parity.** If this is replacing an existing
+      site, confirm all URLs still match the old ones. 11ty uses directory-style
+      paths (e.g. `/menus/`) while the old site may have used `/menus.html` —
+      set up redirects or matching paths so old links don't 404. Also check any
+      **email marketing** for links, since those may point to pages that aren't
+      linked anywhere on the site itself.
 
 ---
 

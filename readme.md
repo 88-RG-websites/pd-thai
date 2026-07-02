@@ -209,6 +209,12 @@ files, so they're safe to run anytime.
 
 Each run ends with a "Recommended fixes" list you can review and approve.
 
+## New to Git?
+
+If you're just getting started with git and GitHub, read [Git Basics](git-basics.md)
+for a friendly walkthrough of the everyday workflow — pull, commit, push, and
+branches when you're ready.
+
 ## Support
 
 For questions about this template:

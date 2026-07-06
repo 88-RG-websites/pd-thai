@@ -13,7 +13,7 @@ Tell Claude: **"Run the pre-deploy checklist."**
   read the `file:line`, or grep as described).
 - Produce a results table with these states: **✅ Pass**, **❌ Fail**,
   **⚠️ Needs review** — each with the evidence (the value found, the line, the
-  command output). Items in **§9 Manual checks** can't be automated — list them
+  command output). Items in **§10 Manual checks** can't be automated — list them
   as **⚠️ Manual check** reminders for the user to do by hand; don't try to
   pass/fail them.
 - **Report only — do not modify any files.** After the table, list the
@@ -40,7 +40,8 @@ Tell Claude: **"Run the pre-deploy checklist."**
 - [ ] `socialMedia.*` (facebook, instagram, twitter, yelp, googleBusiness) are
       real URLs — not `test.com`.
 - [ ] `googleMapsUrl` points to the client's real location.
-- [ ] `id` is the correct 88restaurants ordering ID for this client.
+- [ ] `id` is the correct 88restaurants ordering ID for this client. It is set
+      (non-empty) — it drives both the ordering iframe and the marketing popup.
 
 ## 3. SEO / meta tags — `src/_includes/layouts/base.njk`
 
@@ -102,8 +103,82 @@ Tell Claude: **"Run the pre-deploy checklist."**
 - [ ] All social links in `client.js` are real (not `test.com`).
 - [ ] The 88restaurants ordering iframe in `src/menus.njk` uses the correct
       `client.id`.
+- [ ] The marketing popup script is present in `src/index.njk`:
+      `<script id="marketing-popup-script" data-restaurant-id="{{ client.id }}" src="https://88restaurants.com/uploads/popup.js"></script>`
+- [ ] After build, the popup script renders in `dist/index.html` with
+      `data-restaurant-id` set to the real `client.id` (empty or missing = Fail).
 
-## 9. Manual checks (human — Claude just reminds)
+## 9. Attribution tracking
+
+Which check applies depends on the type of site being deployed.
+
+### If this is a **restaurant** website
+
+- [ ] `src/assets/js/attribution.js` exists with the first-party attribution
+      snippet below.
+- [ ] The script is included in the base layout
+      (`src/_includes/layouts/base.njk`):
+      `<script src="/assets/js/attribution.js"></script>`
+- [ ] After build, confirm `dist/assets/js/attribution.js` exists and the
+      script tag renders in `dist/index.html`.
+
+Contents of `attribution.js`:
+
+```js
+(function() {
+  'use strict';
+
+  var COOKIE_NAME = '_88_attribution';
+  var TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+  var ATTR_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];
+
+  // Strip the leading subdomain so the cookie is visible to book.<registrable-domain>.
+  // Assumes a single-label TLD (e.g. .com). For ccTLDs like .co.uk this would need a public-suffix list.
+  function cookieDomain() {
+    var parts = window.location.hostname.split('.');
+    return parts.length >= 2 ? '.' + parts.slice(-2).join('.') : window.location.hostname;
+  }
+
+  function readCookie() {
+    var match = document.cookie.match(new RegExp('(?:^|;\\s*)' + COOKIE_NAME + '=([^;]+)'));
+    if (!match) return {};
+    try { return JSON.parse(decodeURIComponent(match[1])) || {}; } catch (e) { return {}; }
+  }
+
+  function writeCookie(params) {
+    var expires = new Date(Date.now() + TTL_MS).toUTCString();
+    document.cookie = COOKIE_NAME + '=' + encodeURIComponent(JSON.stringify(params))
+      + '; expires=' + expires
+      + '; domain=' + cookieDomain()
+      + '; path=/; SameSite=Lax';
+  }
+
+  var urlParams = new URLSearchParams(window.location.search);
+  var fromUrl = {};
+  ATTR_KEYS.forEach(function(k) {
+    if (urlParams.has(k)) fromUrl[k] = urlParams.get(k);
+  });
+
+  if (Object.keys(fromUrl).length === 0) return;
+
+  // Last-touch merge: incoming URL params override stored values for the same keys.
+  writeCookie(Object.assign({}, readCookie(), fromUrl));
+})();
+```
+
+### If this is a **tour** website
+
+- [ ] The base layout includes the hosted ReservationGenie attribution script,
+      with `data-booking-host` set to the client's real booking subdomain:
+
+```html
+<script src="https://reservationgenie.com/attribution.js" data-booking-host="book.domain.com" defer></script>
+```
+
+- [ ] `data-booking-host` is **not** the `book.domain.com` placeholder — it must
+      be the client's actual booking host.
+
+## 10. Manual checks (human — Claude just reminds)
 
 These can't be verified automatically. Claude should **surface them as
 reminders** in the results table (state: **⚠️ Manual check**) for the user to

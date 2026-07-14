@@ -79,8 +79,10 @@ module.exports = {
     paragraphOne: "Sitting right on Guadalupe Street, we're an easy walk from UT Austin — quick enough for a lunch break between classes, and stocked with fast, affordable, vegan-friendly plates for busy students.",
     paragraphTwo: "But we're not just a college spot — families, faculty, and neighbors from around Austin come in for the same fresh, made-to-order Thai cooking, every day of the week.",
     tags: ['Walk from campus', 'Fast & affordable', 'Vegan options', 'Family friendly'],
-    image: 'assets/images/gallery/g8.jpg',
-    imageAlt: 'Pad Thai noodles with spring roll',
+    image: 'assets/images/exterior-leaf.webp',
+    imageAlt: 'Exterior of PD Thai Cuisine on Guadalupe Street',
+    pinTopLeft: { image: 'assets/images/plate-4.webp', alt: 'Tom yum goong — spicy shrimp soup' },
+    pinBottomRight: { image: 'assets/images/plate-5.webp', alt: 'Pad Thai with shrimp, lime and scallions' },
   },
 
   // Our Kitchen / Story Section

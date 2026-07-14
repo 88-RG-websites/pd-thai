@@ -5,24 +5,5 @@ description: "Browse our full menu and place online orders at PD Thai Cuisine. F
 {% extends "layouts/menus.njk" %}
 
 {% block content %}
-<div class="bg-gray-50">
-  <iframe 
-    src="https://88restaurants.com/{{ client.id }}/online_orders/frame" 
-    style="width: 100%; height: calc(100vh - 100px); border: none; scrollbar-width: none; -ms-overflow-style: none;" 
-    title="{{ client.name }} Online Menu and Ordering"
-    loading="lazy"
-    allow="payment"
-  >
-    <!-- Fallback content for browsers that don't support iframes -->
-    <p class="p-8 text-center text-gray-600">
-      Your browser doesn't support iframes. 
-      <a href="https://88restaurants.com/{{ client.id }}/online_orders/frame" 
-         target="_blank" 
-         rel="noopener noreferrer"
-         class="text-primary-600 hover:text-primary-700 underline">
-        Click here to view our menu in a new window
-      </a>
-    </p>
-  </iframe>
-</div>
+<iframe src="https://88restaurants.com/{{ client.id }}/online_orders/frame" style="width: 100%; height: 100vh; border: none;"></iframe>
 {% endblock %}

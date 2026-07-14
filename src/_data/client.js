@@ -16,7 +16,7 @@ module.exports = {
   domain: 'https://testrestaurant.com',
 
   // Ordering (PD Thai uses Clover Online, not the 88Restaurants order flow)
-  orderOnlineUrl: 'https://pd-thai-cuisine-llc-austin.cloveronline.com/menu/all',
+  orderOnlineUrl: 'https://order.pdthaiaustin.com/pd-thai-austin-austin-tx/online_orders/new',
 
   // Location & Maps
   googleMapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=PD%20Thai%20Restaurant&destination_place_id=ChIJF1kf7X_KRIYR_T5-iRSzam4',
@@ -28,7 +28,7 @@ module.exports = {
   hoursDisclaimer: 'Hours vary by day — please confirm current lunch, dinner & late-night hours before you visit.',
 
   // System Integration IDs
-  id: '1119',
+  id: '828',
 
   // Social Media (placeholders for future use)
   socialMedia: {

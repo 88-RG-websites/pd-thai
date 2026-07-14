@@ -1,16 +1,14 @@
-<section class="min-h-screen flex items-center justify-center overflow-hidden bg-fixed bg-cover bg-center bg-no-repeat" style="background-image: url('assets/images/about-bg.jpg');">
+<section id="story" class="relative flex min-h-[640px] items-center overflow-hidden bg-fixed bg-cover bg-center bg-no-repeat" style="background-image: url('{{ client.about_bg }}');">
+  <div class="absolute inset-0 bg-[rgba(20,14,10,0.28)]"></div>
 
   <!-- Content container -->
-  <div id="about" class="relative z-10 w-full px-4 md:px-6 py-16 flex justify-center md:justify-end">
+  <div class="relative z-10 flex w-full justify-end px-7 py-16">
     <!-- White content box -->
-    <div class="bg-white shadow-2xl p-6 md:p-16 max-w-3xl md:mr-16">
-      <p class="text-base/7 font-semibold text-primary-500">About</p>
-      <h1 class="mt-2 text-pretty text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{{ client.about_title }}</h1>
-      <p class="mt-6 text-lg/8 md:text-2xl/9 text-gray-700">{{ client.about_desc_one }}</p>
-      <div class="mt-10 text-base/7 md:text-xl/9 text-gray-600">
-        <p>{{ client.about_desc_two }}</p>
-        <p class="mt-8">{{ client.about_desc_three }}</p>
-      </div>
+    <div class="max-w-xl rounded-[4px] bg-white p-11 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.4)]">
+      <p class="mb-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-600">{{ client.about_kicker }}</p>
+      <h2 class="text-balance mb-5 text-[26px] font-bold leading-[1.2] tracking-tight text-[#241b16] sm:text-4xl">{{ client.about_title }}</h2>
+      <p class="mb-4 text-base leading-relaxed text-[#4a3d34]">{{ client.about_desc_one }}</p>
+      {% if client.about_desc_two %}<p class="text-base leading-relaxed text-[#4a3d34]">{{ client.about_desc_two }}</p>{% endif %}
     </div>
   </div>
 </section>

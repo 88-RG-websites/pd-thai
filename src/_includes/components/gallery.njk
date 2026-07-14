@@ -1,198 +1,71 @@
-<!--
-  RESTAURANT GALLERY TEMPLATE
-  ===========================
-  
-  IMAGE SIZING GUIDELINES FOR CLIENTS:
-  
-  THUMBNAIL IMAGES (for grid display):
-  - Size: 400x400px (square format)
-  - Format: JPEG or WebP
-  - Quality: 75-85% compression
-  - File size target: 15-40KB each
-  - Naming: Use descriptive names (e.g., "beef-steak-thumb.jpg")
-  
-  FULL-SIZE IMAGES (for modal view):
-  - Size: 1200x800px (3:2 aspect ratio recommended)
-  - Format: JPEG or WebP  
-  - Quality: 85-90% compression
-  - File size target: 80-200KB each
-  - Naming: Match thumbnail but with "-full" suffix (e.g., "beef-steak-full.jpg")
-  
-  HOW TO CUSTOMIZE:
-  1. Replace placeholder images with client's food photos
-  2. Update alt text and captions to describe actual dishes
-  3. Ensure images follow the sizing guidelines above
-  4. Test on mobile and desktop for optimal viewing
-  
-  CURRENT SETUP: Uses single placeholder image for all gallery items
--->
-
-<section id="gallery" class="py-16 bg-secondary-700">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-7xl px-4 lg:px-8 mb-10">
-      <div class="mx-auto max-w-2xl sm:text-center">
-        <h2 class="text-base/7 font-semibold text-primary-500">Gallery</h2>
-        <p class="mt-2 text-pretty text-3xl font-semibold tracking-tight text-white sm:text-balance sm:text-5xl">Explore {{ client.name }}</p>
-      </div>
+<section id="gallery" class="bg-[#f7f1e6] py-24">
+  <div class="mx-auto max-w-6xl px-7">
+    <div class="mx-auto mb-12 max-w-xl text-center">
+      <p class="mb-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-600">{{ client.galleryIntro.kicker }}</p>
+      <h2 class="text-balance text-[28px] font-bold tracking-tight text-[#241b16] sm:text-4xl">{{ client.galleryIntro.heading }}</h2>
     </div>
-    
-    <div itemtype="http://schema.org/ImageGallery" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6 itemscope" id="gallery-grid">
-      <!-- Gallery Item 1 -->
-      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="group cursor-pointer">
-        <div class="aspect-square overflow-hidden bg-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img 
-            src="assets/images/gallery/placeholder-thumb.jpg" 
-            itemprop="thumbnail" 
-            alt="Restaurant Gallery Image" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            data-full-image="assets/images/gallery/placeholder-full.jpg"
-          >
-        </div>
-      </figure>
 
-      <!-- Gallery Item 2 -->
+    <div itemtype="http://schema.org/ImageGallery" class="grid grid-cols-2 gap-3.5 itemscope sm:grid-cols-3 lg:grid-cols-4" id="gallery-grid">
+      {% for img in client.galleryImages %}
       <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="group cursor-pointer">
-        <div class="aspect-square overflow-hidden bg-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img 
-            src="assets/images/gallery/placeholder-thumb.jpg" 
-            itemprop="thumbnail" 
-            alt="Restaurant Gallery Image" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            data-full-image="assets/images/gallery/placeholder-full.jpg"
+        <div class="aspect-square overflow-hidden rounded-lg bg-gray-200">
+          <img
+            src="{{ img.thumb }}"
+            itemprop="thumbnail"
+            alt="{{ img.alt }}"
+            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            data-full-image="{{ img.full }}"
           >
         </div>
       </figure>
-
-      <!-- Gallery Item 3 -->
-      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="group cursor-pointer">
-        <div class="aspect-square overflow-hidden bg-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img 
-            src="assets/images/gallery/placeholder-thumb.jpg" 
-            itemprop="thumbnail" 
-            alt="Restaurant Gallery Image" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            data-full-image="assets/images/gallery/placeholder-full.jpg"
-          >
-        </div>
-      </figure>
-
-      <!-- Gallery Item 4 -->
-      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="group cursor-pointer">
-        <div class="aspect-square overflow-hidden bg-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img 
-            src="assets/images/gallery/placeholder-thumb.jpg" 
-            itemprop="thumbnail" 
-            alt="Restaurant Gallery Image" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            data-full-image="assets/images/gallery/placeholder-full.jpg"
-          >
-        </div>
-      </figure>
-
-      <!-- Gallery Item 5 -->
-      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="group cursor-pointer">
-        <div class="aspect-square overflow-hidden bg-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img 
-            src="assets/images/gallery/placeholder-thumb.jpg" 
-            itemprop="thumbnail" 
-            alt="Restaurant Gallery Image" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            data-full-image="assets/images/gallery/placeholder-full.jpg"
-          >
-        </div>
-      </figure>
-
-      <!-- Gallery Item 6 -->
-      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="group cursor-pointer">
-        <div class="aspect-square overflow-hidden bg-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img 
-            src="assets/images/gallery/placeholder-thumb.jpg" 
-            itemprop="thumbnail" 
-            alt="Restaurant Gallery Image" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            data-full-image="assets/images/gallery/placeholder-full.jpg"
-          >
-        </div>
-      </figure>
-
-      <!-- Gallery Item 7 -->
-      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="group cursor-pointer">
-        <div class="aspect-square overflow-hidden bg-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img 
-            src="assets/images/gallery/placeholder-thumb.jpg" 
-            itemprop="thumbnail" 
-            alt="Restaurant Gallery Image" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            data-full-image="assets/images/gallery/placeholder-full.jpg"
-          >
-        </div>
-      </figure>
-
-      <!-- Gallery Item 8 -->
-      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="group cursor-pointer">
-        <div class="aspect-square overflow-hidden bg-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img 
-            src="assets/images/gallery/placeholder-thumb.jpg" 
-            itemprop="thumbnail" 
-            alt="Restaurant Gallery Image" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            data-full-image="assets/images/gallery/placeholder-full.jpg"
-          >
-        </div>
-      </figure>
+      {% endfor %}
     </div>
   </div>
 
   <!-- Image Modal -->
-  <div id="gallery-modal" class="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-    <!-- Close Button - Fixed to top right of screen -->
-    <button 
-      id="modal-close" 
-      class="fixed top-4 right-4 z-50 w-10 h-10 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full flex items-center justify-center text-white transition-colors"
+  <div id="gallery-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-75 p-4 backdrop-blur-sm">
+    <button
+      id="modal-close"
+      class="fixed right-4 top-4 z-50 flex size-10 items-center justify-center rounded-full bg-white bg-opacity-20 text-white transition-colors hover:bg-opacity-30"
       aria-label="Close gallery"
     >
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </button>
-    
-    <div class="relative max-w-4xl max-h-full w-full h-full flex items-center justify-center">
 
-      <!-- Navigation Arrows -->
-      <button 
-        id="modal-prev" 
-        class="absolute left-4 z-10 w-12 h-12 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full flex items-center justify-center text-white transition-colors"
+    <div class="relative flex h-full w-full max-w-4xl max-h-full items-center justify-center">
+      <button
+        id="modal-prev"
+        class="absolute left-4 z-10 flex size-12 items-center justify-center rounded-full bg-white bg-opacity-20 text-white transition-colors hover:bg-opacity-30"
         aria-label="Previous image"
       >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
         </svg>
       </button>
 
-      <button 
-        id="modal-next" 
-        class="absolute right-4 z-10 w-12 h-12 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full flex items-center justify-center text-white transition-colors"
+      <button
+        id="modal-next"
+        class="absolute right-4 z-10 flex size-12 items-center justify-center rounded-full bg-white bg-opacity-20 text-white transition-colors hover:bg-opacity-30"
         aria-label="Next image"
       >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
       </button>
 
-      <!-- Image Container -->
-      <div class="w-full h-full flex items-center justify-center">
-        <img 
-          id="modal-image" 
-          class="max-w-full max-h-full object-contain rounded-lg shadow-2xl" 
+      <div class="flex h-full w-full items-center justify-center">
+        <img
+          id="modal-image"
+          class="max-h-full max-w-full rounded-lg object-contain shadow-2xl"
           alt=""
         >
       </div>
 
-      <!-- Caption -->
-      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-lg">
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-lg bg-black bg-opacity-50 px-4 py-2 text-white">
         <p id="modal-caption" class="text-sm font-medium"></p>
       </div>
     </div>
   </div>
 </section>
-

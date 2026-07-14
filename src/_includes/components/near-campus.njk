@@ -1,0 +1,18 @@
+<section id="campus" class="bg-white py-[88px]">
+  <div class="mx-auto grid max-w-6xl items-center gap-14 px-7 lg:grid-cols-2">
+    <div>
+      <img src="{{ client.campus.image }}" alt="{{ client.campus.imageAlt }}" class="h-[460px] w-full rounded-[18px] object-cover shadow-[0_24px_48px_-20px_rgba(36,27,22,0.35)]" />
+    </div>
+    <div>
+      <p class="mb-3 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-600">{{ client.campus.kicker }}</p>
+      <h2 class="text-balance mb-5 text-[28px] font-bold leading-[1.15] tracking-tight text-[#241b16] sm:text-4xl">{{ client.campus.heading }}</h2>
+      <p class="mb-[18px] text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.campus.paragraphOne }}</p>
+      <p class="mb-[30px] text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.campus.paragraphTwo }}</p>
+      <div class="flex flex-wrap gap-3">
+        {% for tag in client.campus.tags %}
+        <span class="rounded-lg bg-primary-50 px-3.5 py-2 text-[13px] font-semibold text-primary-700">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

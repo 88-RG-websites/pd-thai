@@ -1,32 +1,31 @@
-<section class="bg-white py-24 sm:py-32">
-  <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+<section id="menu" class="bg-[#fdfaf5] py-24">
+  <div class="mx-auto max-w-6xl px-7">
     <!-- Title Section -->
-    <div class="text-center mb-16">
-      <p class="text-base/7 font-semibold text-primary-500">Our Menus</p>
-      <h2 class="mt-2 text-pretty text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{{ client.menus.title or "Explore Our Culinary Offerings" }}</h2>
+    <div class="mx-auto mb-14 max-w-xl text-center">
+      <p class="mb-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-600">{{ client.menus.kicker }}</p>
+      <h2 class="text-balance mb-4 text-[28px] font-bold tracking-tight text-[#241b16] sm:text-4xl">{{ client.menus.title }}</h2>
       {% if client.menus.subtitle %}
-      <p class="mt-6 text-lg/8 text-gray-600 max-w-3xl mx-auto">{{ client.menus.subtitle }}</p>
+      <p class="text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.menus.subtitle }}</p>
       {% endif %}
     </div>
 
     <!-- Menu Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {% for card in client.menuCards %}
-      <div class="group">
-        <a
-          href="#"
-          class="block w-full overflow-hidden rounded-lg bg-white shadow-lg outline outline-1 outline-black/5 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 hover:shadow-xl transition-all duration-300"
-          aria-label="View {{ card.title }} menu - {{ card.pretitle }}"
-        >
-          <div class="h-64 sm:h-72 lg:h-80 w-full bg-cover bg-center relative group-hover:scale-105 transition-transform duration-300" style="background-image: url('{{ card.image }}');">
-            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300"></div>
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
-              <p class="text-xs sm:text-sm font-medium tracking-wider mb-1 sm:mb-2 uppercase opacity-90">{{ card.pretitle }}</p>
-              <h3 class="text-lg sm:text-xl lg:text-2xl font-bold tracking-tight uppercase">{{ card.title }}</h3>
-            </div>
-          </div>
-        </a>
-      </div>
+      <a
+        href="{{ client.orderOnlineUrl }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group relative block h-[340px] overflow-hidden rounded-2xl shadow-[0_16px_32px_-16px_rgba(36,27,22,0.35)]"
+        aria-label="View {{ card.title }} menu - {{ card.pretitle }}"
+      >
+        <img src="{{ card.image }}" alt="{{ card.title }}" class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+        <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(20,14,10,0.1) 30%, rgba(20,14,10,0.75) 100%);"></div>
+        <div class="absolute inset-x-0 bottom-0 p-6 text-white">
+          <div class="mb-1.5 text-xs font-semibold uppercase tracking-[0.1em] opacity-85">{{ card.pretitle }}</div>
+          <div class="text-[23px] font-bold">{{ card.title }}</div>
+        </div>
+      </a>
       {% endfor %}
     </div>
   </div>

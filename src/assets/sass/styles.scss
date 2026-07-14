@@ -7,6 +7,11 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
 /* Hero section that accounts for absolute header */
 .hero-with-header {
   min-height: 100vh;

@@ -50,22 +50,4 @@ export function initHeader() {
       // e.preventDefault();
     });
   }
-
-  // Header scroll functionality
-  const header = document.getElementById('main-header');
-
-  if (header) {
-    function handleScroll() {
-      if (window.scrollY > 0) {
-        header.classList.add('bg-secondary-700');
-      } else {
-        header.classList.remove('bg-secondary-700');
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll);
-
-    // Initial check in case page loads scrolled
-    handleScroll();
-  }
 }

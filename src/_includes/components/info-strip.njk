@@ -1,0 +1,40 @@
+<section class="border-b border-[#ece2d3] bg-white">
+  <div class="mx-auto grid max-w-6xl grid-cols-1 gap-5 px-7 py-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="flex items-center gap-3.5">
+      <div class="flex size-10 flex-none items-center justify-center rounded-[10px] bg-primary-50">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#5f9c56" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[#a08c78]">Location</div>
+        <div class="text-[14.5px] font-semibold text-[#241b16]">{{ client.address.street }}, {{ client.address.city }} {{ client.address.state }}</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3.5">
+      <div class="flex size-10 flex-none items-center justify-center rounded-[10px] bg-primary-50">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#5f9c56" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[#a08c78]">Hours</div>
+        <div class="text-[14.5px] font-semibold text-[#241b16]">{{ client.hoursNote }}</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3.5">
+      <div class="flex size-10 flex-none items-center justify-center rounded-[10px] bg-primary-50">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#5f9c56" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[#a08c78]">Call In</div>
+        <div class="text-[14.5px] font-semibold text-[#241b16]">{{ client.phone }}</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3.5">
+      <div class="flex size-10 flex-none items-center justify-center rounded-[10px] bg-primary-50">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#5f9c56" stroke-width="2"><path d="M12 21C12 21 4 13.5 4 8.5C4 5.46 6.46 3 9.5 3C11.24 3 12.91 3.81 14 5.08C15.09 3.81 16.76 3 18.5 3C21.54 3 24 5.46 24 8.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[#a08c78]">Good To Know</div>
+        <div class="text-[14.5px] font-semibold text-[#241b16]">Vegan &amp; vegetarian options</div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,23 +1,15 @@
-<footer class="px-4 py-8 bg-secondary-700 md:p-8 lg:p-10">
-  <div class="mx-auto max-w-screen-xl text-center">
-      <a href="#" class="flex justify-center items-center text-2xl font-semibold text-white">
-          <img src="assets/images/logo.png" alt="{{ client.restaurantName }} Logo" class="mr-2 h-16 w-auto" />
+<footer class="border-t border-[#ece2d3] bg-[#fffdf9] px-7 py-9 text-[#3a2f27]">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-5">
+      <a href="/" class="flex items-center">
+          <img src="assets/logo.png" alt="{{ client.restaurantName }} Logo" class="h-[34px] w-auto" />
       </a>
-      <p class="my-6 text-gray-200">Experience exceptional {{ client.cuisine }} in the heart of {{ client.address.city }}. Come dine with us!</p>
-      <ul class="flex flex-wrap justify-center items-center mb-6 text-white">
-          <li>
-              <a href="#about" class="mr-4 hover:underline md:mr-6">About</a>
-          </li>
-          <li>
-              <a href="/menus/" class="mr-4 hover:underline md:mr-6">Menu</a>
-          </li>
-          <li>
-              <a href="#gallery" class="mr-4 hover:underline md:mr-6">Gallery</a>
-          </li>
-          <li>
-              <a href="#contact" class="mr-4 hover:underline md:mr-6">Contact</a>
-          </li>
-      </ul>
-      <span class="text-sm text-gray-300 sm:text-center">Copyright <span id="current-year"></span> © All rights reserved.</span>
+      <nav class="flex flex-wrap gap-[22px]">
+          <a href="#story" class="text-[13.5px] text-[#3a2f27] hover:text-primary-700">Our Story</a>
+          <a href="#campus" class="text-[13.5px] text-[#3a2f27] hover:text-primary-700">Near UT</a>
+          <a href="#menu" class="text-[13.5px] text-[#3a2f27] hover:text-primary-700">Menu</a>
+          <a href="#gallery" class="text-[13.5px] text-[#3a2f27] hover:text-primary-700">Gallery</a>
+          <a href="#contact" class="text-[13.5px] text-[#3a2f27] hover:text-primary-700">Contact</a>
+      </nav>
+      <div class="text-[12.5px] text-[#8a7a6a]">© <span id="current-year"></span> {{ client.name }} · {{ client.address.street }}, {{ client.address.city }} {{ client.address.state }}</div>
   </div>
 </footer>

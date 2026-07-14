@@ -1,0 +1,18 @@
+<section class="bg-white py-24">
+  <div class="mx-auto max-w-6xl px-7">
+    <div class="mx-auto mb-12 max-w-xl text-center">
+      <p class="mb-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-600">{{ client.reviewsIntro.kicker }}</p>
+      <h2 class="text-balance text-[28px] font-bold tracking-tight text-[#241b16] sm:text-4xl">{{ client.reviewsIntro.heading }}</h2>
+    </div>
+    <div class="grid grid-cols-1 gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
+      {% for review in client.reviews %}
+      <div class="rounded-2xl border border-[#ece2d3] bg-[#fdfaf5] p-7">
+        <div class="mb-3.5 text-base tracking-[2px] text-[#e0a52a]">★★★★★</div>
+        <p class="mb-[18px] text-[15px] leading-relaxed text-[#4a3d34]">&ldquo;{{ review.text }}&rdquo;</p>
+        <div class="text-[13.5px] font-bold text-[#241b16]">{{ review.name }}</div>
+        <div class="text-xs text-[#a08c78]">Google Review</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

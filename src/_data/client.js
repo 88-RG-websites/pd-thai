@@ -44,7 +44,7 @@ module.exports = {
     titleLine1: 'Real Thai Flavor,',
     titleLine2: 'Steps From Campus',
     subtitle: "Traditional Thai cooking made with locally grown herbs and spices, in a colorful, modern dining room on Guadalupe Street — quick enough between classes, easy enough for the whole family.",
-    video: 'assets/hero-video.mp4',
+    video: 'assets/videos/hero.mp4',
     poster: 'assets/images/gallery/g1.jpg',
   },
 

@@ -156,4 +156,14 @@ module.exports = {
     kicker: 'Visit Us',
     heading: 'Find us on Guadalupe',
   },
+
+  // Catering Page
+  catering: {
+    kicker: 'Catering',
+    heading: 'Bring PD Thai To Your Next Austin Gathering',
+    paragraphOne: "Birthdays, graduations, office parties — for eight years we've been cooking real, made-to-order Thai food for North Campus, and under Arnaldo's ownership that same care carries over into every catering order. Our small kitchen team preps each dish fresh, so your guests get the same quality we serve in the dining room.",
+    paragraphTwo: "Vegetarian, vegan, and gluten-free options are all available, so there's something for everyone on the table. We cater parties of up to 40 guests, with pickup or delivery.",
+    formNote: "Let us know your date and any special requests below, and our team will follow up to build a catering order around your event.",
+    formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/catering_submissions/new',
+  },
 };

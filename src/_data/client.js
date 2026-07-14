@@ -21,6 +21,7 @@ module.exports = {
   // Location & Maps
   googleMapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=PD%20Thai%20Restaurant&destination_place_id=ChIJF1kf7X_KRIYR_T5-iRSzam4',
   googleMapsEmbedUrl: 'https://www.google.com/maps?q=3208+Guadalupe+St,+Austin,+TX+78705&output=embed',
+  googlePlacesUrl: 'https://www.google.com/maps/place/PD+Thai+Restaurant+3208+Guadalupe+Street,+Austin+TX/data=!4m2!3m1!1s0x8644ca7fed1f5917:0x6e6ab314897e3efd',
 
   // Hours (kept intentionally general - confirm current hours before visiting)
   hoursNote: 'Lunch, Dinner & Late Night · Daily',

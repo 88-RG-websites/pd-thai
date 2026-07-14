@@ -2,7 +2,7 @@
 set -e
 
 # Site folder name on the servers. Edit this once per client.
-SITE_NAME="custom_template"
+SITE_NAME="pd-thai"
 
 PROD_DEST="deploy@88restaurants.com:/home/deploy/eight_eight/current/public/sites/${SITE_NAME}"
 PREVIEW_DEST="rg@104.237.128.61:/var/www/preview.88restaurants.com/_site/${SITE_NAME}/"

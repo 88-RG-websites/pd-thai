@@ -14,8 +14,8 @@
     <meta property="og:description" content="{{ description }}"/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="{{ client.domain }}{{ page.url }}"/>
-    <meta property="og:image" content="/assets/images/og-image.webp"/>
-    <meta property="og:image:secure_url" content="/assets/images/og-image.webp"/>
+    <meta property="og:image" content="{{ '/assets/images/og-image.webp' | htmlBaseUrl }}"/>
+    <meta property="og:image:secure_url" content="{{ '/assets/images/og-image.webp' | htmlBaseUrl }}"/>
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">

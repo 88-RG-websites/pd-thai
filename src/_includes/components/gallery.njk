@@ -14,7 +14,7 @@
             itemprop="thumbnail"
             alt="{{ img.alt }}"
             class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-            data-full-image="{{ img.full }}"
+            data-full-image="{{ img.full | htmlBaseUrl }}"
           >
         </div>
       </figure>

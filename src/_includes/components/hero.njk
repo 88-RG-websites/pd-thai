@@ -1,12 +1,4 @@
-<section class="relative flex min-h-[88vh] items-center overflow-hidden">
+<section class="relative min-h-[88vh] overflow-hidden">
   <video src="{{ client.hero.video }}" autoplay muted loop playsinline poster="{{ client.hero.poster }}" class="absolute inset-0 h-full w-full object-cover" style="object-position:center 35%;"></video>
-  <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(20,14,10,0.55) 0%, rgba(20,14,10,0.72) 60%, rgba(20,14,10,0.86) 100%);"></div>
-  <div class="relative mx-auto max-w-3xl px-7 pb-[90px] pt-[120px] text-center">
-    <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-[#f5d98a]">{{ client.hero.kicker }}</div>
-    <h1 class="text-balance mb-5 text-[38px] font-bold leading-[1.06] tracking-tight text-white sm:text-5xl lg:text-[64px]">{{ client.hero.titleLine1 }}<br />{{ client.hero.titleLine2 }}</h1>
-    <p class="text-pretty mx-auto mb-9 max-w-xl text-lg leading-relaxed text-[#f0e6d8]">{{ client.hero.subtitle }}</p>
-    <div class="flex flex-wrap justify-center gap-3.5">
-      <a href="{{ client.orderOnlineUrl }}" target="_blank" rel="noopener noreferrer" class="rounded-full bg-primary-500 px-7 py-[15px] text-[15.5px] font-semibold text-white shadow-[0_10px_24px_-8px_rgba(95,156,86,0.55)] hover:bg-primary-600">Order Online</a>
-    </div>
-  </div>
+  <h1 class="sr-only">{{ client.hero.titleLine1 }} {{ client.hero.titleLine2 }}</h1>
 </section>

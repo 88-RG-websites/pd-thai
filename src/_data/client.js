@@ -90,9 +90,7 @@ module.exports = {
   about_title: 'Traditional recipes, fresh local ingredients',
   about_desc_one: "Eight years of history on Guadalupe Street meet an exciting new chapter under Arnaldo's ownership. Authenticity still defines us — every dish is crafted with real, fresh, locally grown ingredients, and a devoted team of five makes sure each plate reflects that dedication.",
   about_desc_two: "Our menu spans diverse options from vegetarian to gluten-free, so health-conscious guests are covered too. Add in convenient car parking, and it's easy to make PD Thai part of your regular routine.",
-  about_desc_three: '',
   about_kicker: 'Our Kitchen',
-  about_bg: '/assets/images/gallery/g12.jpg',
 
   // Menu Teaser Section
   menus: {

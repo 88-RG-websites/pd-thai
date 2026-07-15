@@ -1,14 +1,13 @@
-<section id="story" class="relative flex min-h-[640px] items-center overflow-hidden bg-fixed bg-cover bg-center bg-no-repeat" style="background-image: url('{{ client.about_bg | htmlBaseUrl }}');">
-  <div class="absolute inset-0 bg-[rgba(20,14,10,0.28)]"></div>
-
-  <!-- Content container -->
-  <div class="relative z-10 flex w-full justify-end px-7 py-16">
-    <!-- White content box -->
-    <div class="max-w-xl rounded-[4px] bg-white p-11 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.4)]">
+<section id="story" class="bg-[#f7f1e6] py-24">
+  <div class="mx-auto grid max-w-6xl items-center gap-14 px-7 lg:grid-cols-2">
+    <div>
       <p class="mb-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-600">{{ client.about_kicker }}</p>
-      <h2 class="text-balance mb-5 text-[26px] font-bold leading-[1.2] tracking-tight text-[#241b16] sm:text-4xl">{{ client.about_title }}</h2>
-      <p class="mb-4 text-base leading-relaxed text-[#4a3d34]">{{ client.about_desc_one }}</p>
-      {% if client.about_desc_two %}<p class="text-base leading-relaxed text-[#4a3d34]">{{ client.about_desc_two }}</p>{% endif %}
+      <h2 class="text-balance mb-5 text-[28px] font-bold leading-[1.15] tracking-tight text-[#241b16] sm:text-4xl">{{ client.about_title }}</h2>
+      <p class="mb-4 text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.about_desc_one }}</p>
+      {% if client.about_desc_two %}<p class="text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.about_desc_two }}</p>{% endif %}
+    </div>
+    <div class="lg:-my-12 lg:-mr-10">
+      <img src="{{ '/assets/images/plate-extra.webp' | htmlBaseUrl }}" alt="Tom yum soup with fresh shrimp, herbs, and spices" class="mx-auto w-full max-w-lg lg:max-w-none lg:w-[640px] drop-shadow-[0_20px_35px_rgba(36,27,22,0.25)]" />
     </div>
   </div>
 </section>

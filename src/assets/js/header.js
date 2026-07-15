@@ -50,4 +50,17 @@ export function initHeader() {
       // e.preventDefault();
     });
   }
+
+  // Homepage-only: shrink the large logo down to standard size once the user scrolls
+  const header = document.getElementById('main-header');
+  if (header && header.hasAttribute('data-shrink-header')) {
+    const SCROLL_THRESHOLD = 50;
+
+    function updateHeaderScrollState() {
+      header.classList.toggle('is-scrolled', window.scrollY > SCROLL_THRESHOLD);
+    }
+
+    updateHeaderScrollState();
+    window.addEventListener('scroll', updateHeaderScrollState, { passive: true });
+  }
 }

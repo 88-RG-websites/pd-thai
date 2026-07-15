@@ -12,6 +12,33 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Homepage header: loads with a large logo, shrinks to the standard size on scroll */
+#header-logo-img {
+  transition: height 0.3s ease;
+}
+
+#header-logo-link {
+  transition: margin 0.3s ease, padding 0.3s ease;
+}
+
+[data-shrink-header] #header-logo-img {
+  height: 6rem;
+}
+
+[data-shrink-header] #header-logo-link {
+  margin: 0;
+  padding: 0;
+}
+
+[data-shrink-header].is-scrolled #header-logo-img {
+  height: 2.75rem;
+}
+
+[data-shrink-header].is-scrolled #header-logo-link {
+  margin: -0.375rem;
+  padding: 0.375rem;
+}
+
 /* Hero section that accounts for absolute header */
 .hero-with-header {
   min-height: 100vh;

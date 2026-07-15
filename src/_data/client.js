@@ -23,9 +23,9 @@ module.exports = {
   googleMapsEmbedUrl: 'https://www.google.com/maps?q=3208+Guadalupe+St,+Austin,+TX+78705&output=embed',
   googlePlacesUrl: 'https://www.google.com/maps/place/PD+Thai+Restaurant+3208+Guadalupe+Street,+Austin+TX/data=!4m2!3m1!1s0x8644ca7fed1f5917:0x6e6ab314897e3efd',
 
-  // Hours (kept intentionally general - confirm current hours before visiting)
-  hoursNote: 'Lunch, Dinner & Late Night · Daily',
-  hoursDisclaimer: 'Hours vary by day — please confirm current lunch, dinner & late-night hours before you visit.',
+  // Hours
+  hoursNote: 'Daily · 10am – 3am',
+  hoursDisclaimer: 'Open daily from 10am to 3am.',
 
   // System Integration IDs
   id: '828',
@@ -49,37 +49,12 @@ module.exports = {
     poster: '/assets/images/gallery/g1.jpg',
   },
 
-  // Quick Info Strip
-  quickInfo: [
-    {
-      label: 'Location',
-      value: '3208 Guadalupe St, Austin TX',
-      icon: 'location',
-    },
-    {
-      label: 'Hours',
-      value: 'Lunch, Dinner & Late Night · Daily',
-      icon: 'clock',
-    },
-    {
-      label: 'Call In',
-      value: '(512) 371-8777',
-      icon: 'phone',
-    },
-    {
-      label: 'Good To Know',
-      value: 'Vegan & vegetarian options',
-      icon: 'heart',
-    },
-  ],
 
   // Near Campus Section
   campus: {
-    kicker: 'Two Blocks From The Forty Acres',
     heading: 'Built for campus life, loved by the whole neighborhood',
-    paragraphOne: "Sitting right on Guadalupe Street, we're an easy walk from UT Austin — quick enough for a lunch break between classes, and stocked with fast, affordable, vegan-friendly plates for busy students.",
+    paragraphOne: "Eight years of history on Guadalupe Street meet an exciting new chapter under Arnaldo's ownership. We're still an easy walk from UT Austin — quick enough for a lunch break between classes, and stocked with fast, affordable, vegan-friendly plates for busy students.",
     paragraphTwo: "But we're not just a college spot — families, faculty, and neighbors from around Austin come in for the same fresh, made-to-order Thai cooking, every day of the week.",
-    tags: ['Walk from campus', 'Fast & affordable', 'Vegan options', 'Family friendly'],
     image: '/assets/images/exterior-leaf.webp',
     imageAlt: 'Exterior of PD Thai Cuisine on Guadalupe Street',
     pinTopLeft: { image: '/assets/images/plate-4.webp', alt: 'Tom yum goong — spicy shrimp soup' },
@@ -88,7 +63,7 @@ module.exports = {
 
   // Our Kitchen / Story Section
   about_title: 'Traditional recipes, fresh local ingredients',
-  about_desc_one: "Eight years of history on Guadalupe Street meet an exciting new chapter under Arnaldo's ownership. Authenticity still defines us — every dish is crafted with real, fresh, locally grown ingredients, and a devoted team of five makes sure each plate reflects that dedication.",
+  about_desc_one: "Authenticity still defines us — every dish is crafted with real, fresh, locally grown ingredients, and a devoted team of five makes sure each plate reflects that dedication.",
   about_desc_two: "Our menu spans diverse options from vegetarian to gluten-free, so health-conscious guests are covered too. Add in convenient car parking, and it's easy to make PD Thai part of your regular routine.",
   about_kicker: 'Our Kitchen',
 
@@ -151,7 +126,6 @@ module.exports = {
 
   // Contact Section
   contact: {
-    kicker: 'Visit Us',
     heading: 'Find us on Guadalupe',
   },
 

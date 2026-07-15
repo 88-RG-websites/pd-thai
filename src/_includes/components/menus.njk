@@ -1,33 +1,42 @@
-<section id="menu" class="bg-[#fdfaf5] py-24">
+<section id="menu" class="bg-[#d3e6d1] py-24">
   <div class="mx-auto max-w-6xl px-7">
     <!-- Title Section -->
     <div class="mx-auto mb-14 max-w-xl text-center">
-      <p class="mb-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-600">{{ client.menus.kicker }}</p>
-      <h2 class="text-balance mb-4 text-[28px] font-bold tracking-tight text-[#241b16] sm:text-4xl">{{ client.menus.title }}</h2>
+      <p class="mb-3 text-sm font-bold uppercase tracking-[0.1em] text-primary-700">{{ client.menus.kicker }}</p>
+      <h2 class="text-balance mb-5 text-[36px] font-bold tracking-tight text-[#241b16] sm:text-5xl">{{ client.menus.title }}</h2>
       {% if client.menus.subtitle %}
-      <p class="text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.menus.subtitle }}</p>
+      <p class="text-lg leading-relaxed text-[#33422e]">{{ client.menus.subtitle }}</p>
       {% endif %}
     </div>
+  </div>
 
-    <!-- Menu Cards Grid -->
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {% for card in client.menuCards %}
-      <a
-        href="{{ client.orderOnlineUrl }}"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group relative block h-[340px] overflow-hidden rounded-2xl shadow-[0_16px_32px_-16px_rgba(36,27,22,0.35)]"
-        aria-label="View {{ card.title }} menu - {{ card.pretitle }}"
-      >
-        <img src="{{ card.image }}" alt="{{ card.title }}" class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
-        <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(20,14,10,0.1) 30%, rgba(20,14,10,0.75) 100%);"></div>
-        <div class="absolute inset-x-0 bottom-0 p-6 text-white">
-          <div class="mb-1.5 text-xs font-semibold uppercase tracking-[0.1em] opacity-85">{{ card.pretitle }}</div>
-          <div class="text-[23px] font-bold">{{ card.title }}</div>
+  <div class="relative mx-auto max-w-6xl px-7 pb-10">
+    <button id="menu-gallery-prev" type="button" aria-label="Previous dish" class="absolute left-0 top-[calc(50%-20px)] z-10 -translate-y-1/2 p-2 text-white/90 transition hover:text-white sm:left-2 lg:left-0">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button id="menu-gallery-next" type="button" aria-label="Next dish" class="absolute right-0 top-[calc(50%-20px)] z-10 -translate-y-1/2 p-2 text-white/90 transition hover:text-white sm:right-2 lg:right-0">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div id="menu-gallery-viewport" class="overflow-hidden py-10 -my-10">
+      <div id="menu-gallery-track" class="flex gap-6 transition-transform duration-500 ease-in-out">
+        {% for dish in client.menuGallery %}
+        <div class="menu-gallery-slide w-full shrink-0 sm:w-[calc((100%-48px)/3)]">
+          <div class="aspect-square overflow-hidden rounded-full bg-white p-3 shadow-[0_20px_35px_-10px_rgba(36,27,22,0.35)]">
+            <img src="{{ dish.image }}" alt="{{ dish.alt }}" class="h-full w-full rounded-full object-cover" />
+          </div>
         </div>
-      </a>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
+
+    <button id="menu-gallery-toggle" type="button" aria-label="Pause carousel" aria-pressed="false" class="absolute bottom-0 left-2 z-10 flex size-9 items-center justify-center text-white/90 transition hover:text-white sm:left-4">
+      <svg id="menu-gallery-pause-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>
+      <svg id="menu-gallery-play-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="hidden"><path d="M8 5v14l11-7z"></path></svg>
+    </button>
+  </div>
+
+  <div class="text-center">
+    <a href="/menus/" class="inline-block rounded-full bg-primary-500 px-8 py-[15px] text-[15.5px] font-semibold text-white hover:bg-primary-600">View Menu</a>
   </div>
 </section>
-

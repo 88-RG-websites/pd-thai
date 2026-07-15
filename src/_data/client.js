@@ -73,22 +73,17 @@ module.exports = {
     title: 'Something for every craving',
     subtitle: 'From quick lunch specials to shareable dinner plates and full vegan options — browse it all and order online in minutes.',
   },
-  menuCards: [
-    {
-      image: '/assets/images/gallery/g9.jpg',
-      pretitle: 'Midday · Fast & Affordable',
-      title: 'Lunch Specials',
-    },
-    {
-      image: '/assets/images/gallery/g11.jpg',
-      pretitle: 'Shareable Plates',
-      title: 'Dinner Favorites',
-    },
-    {
-      image: '/assets/images/gallery/g6.jpg',
-      pretitle: 'Plant-Based',
-      title: 'Vegan & Vegetarian',
-    },
+  menuGallery: [
+    { image: '/assets/images/old-site-pics/spring-rolls.webp', alt: 'Crispy spring rolls with dipping sauce' },
+    { image: '/assets/images/old-site-pics/chicken-stir-fry-1.webp', alt: 'Chicken stir-fried with green beans and chili' },
+    { image: '/assets/images/old-site-pics/shrimp-stir-fry.webp', alt: 'Shrimp stir-fry with jasmine rice' },
+    { image: '/assets/images/old-site-pics/grilled-beef.webp', alt: 'Grilled beef salad with mixed greens' },
+    { image: '/assets/images/old-site-pics/pork-dumplings.webp', alt: 'Steamed pork dumplings with dipping sauce' },
+    { image: '/assets/images/old-site-pics/greek-papaya.webp', alt: 'Green papaya salad with sticky rice' },
+    { image: '/assets/images/old-site-pics/chicken-stir-fry-2.webp', alt: 'Chicken basil stir-fry with crispy fried egg' },
+    { image: '/assets/images/old-site-pics/ground-pork.webp', alt: 'Ground pork larb salad with sticky rice' },
+    { image: '/assets/images/old-site-pics/black-sticky-rice.webp', alt: 'Black sticky rice with mango' },
+    { image: '/assets/images/old-site-pics/fried-banana.webp', alt: 'Fried banana with whipped cream and chocolate drizzle' },
   ],
 
   // Gallery Section

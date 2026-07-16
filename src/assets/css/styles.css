@@ -709,6 +709,9 @@ video {
 .mt-10 {
   margin-top: 2.5rem;
 }
+.mt-16 {
+  margin-top: 4rem;
+}
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -803,6 +806,9 @@ video {
 .h-\[40vh\] {
   height: 40vh;
 }
+.h-\[420px\] {
+  height: 420px;
+}
 .h-\[71px\] {
   height: 71px;
 }
@@ -814,9 +820,6 @@ video {
 }
 .max-h-full {
   max-height: 100%;
-}
-.min-h-\[420px\] {
-  min-height: 420px;
 }
 .min-h-\[88vh\] {
   min-height: 88vh;
@@ -939,6 +942,9 @@ video {
 .justify-between {
   justify-content: space-between;
 }
+.gap-12 {
+  gap: 3rem;
+}
 .gap-14 {
   gap: 3.5rem;
 }
@@ -1004,9 +1010,6 @@ video {
 }
 .rounded-\[10px\] {
   border-radius: 10px;
-}
-.rounded-\[20px\] {
-  border-radius: 20px;
 }
 .rounded-full {
   border-radius: 9999px;
@@ -1163,9 +1166,6 @@ video {
 .p-7 {
   padding: 1.75rem;
 }
-.p-9 {
-  padding: 2.25rem;
-}
 .p-px {
   padding: 1px;
 }
@@ -1307,6 +1307,9 @@ video {
 }
 .text-\[16\.5px\] {
   font-size: 16.5px;
+}
+.text-\[22px\] {
+  font-size: 22px;
 }
 .text-\[26px\] {
   font-size: 26px;
@@ -1484,9 +1487,9 @@ video {
   --tw-shadow-colored: 0 20px 35px -10px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
-.shadow-\[0_24px_48px_-20px_rgba\(36\2c 27\2c 22\2c 0\.25\)\] {
-  --tw-shadow: 0 24px 48px -20px rgba(36,27,22,0.25);
-  --tw-shadow-colored: 0 24px 48px -20px var(--tw-shadow-color);
+.shadow-\[0_20px_40px_-15px_rgba\(36\2c 27\2c 22\2c 0\.3\)\] {
+  --tw-shadow: 0 20px 40px -15px rgba(36,27,22,0.3);
+  --tw-shadow-colored: 0 20px 40px -15px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .shadow-\[inset_0_1px_0_rgba\(255\2c 255\2c 255\2c 0\.4\)\2c 0_8px_32px_-8px_rgba\(0\2c 0\2c 0\2c 0\.45\)\] {
@@ -1909,10 +1912,6 @@ body {
     padding: 2.5rem;
   }
 
-  .sm\:p-14 {
-    padding: 3.5rem;
-  }
-
   .sm\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -2148,6 +2147,10 @@ body {
     justify-content: space-between;
   }
 
+  .lg\:gap-16 {
+    gap: 4rem;
+  }
+
   .lg\:gap-x-7 {
     -moz-column-gap: 1.75rem;
          column-gap: 1.75rem;
@@ -2190,11 +2193,6 @@ body {
   .lg\:px-24 {
     padding-left: 6rem;
     padding-right: 6rem;
-  }
-
-  .lg\:px-7 {
-    padding-left: 1.75rem;
-    padding-right: 1.75rem;
   }
 
   .lg\:px-8 {

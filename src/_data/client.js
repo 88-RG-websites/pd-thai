@@ -122,6 +122,8 @@ module.exports = {
   // Contact Section
   contact: {
     heading: 'Find us on Guadalupe',
+    formHeading: 'Send Us a Message',
+    formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/contact_forms',
   },
 
   // Catering Page

@@ -709,9 +709,6 @@ video {
 .mt-10 {
   margin-top: 2.5rem;
 }
-.mt-16 {
-  margin-top: 4rem;
-}
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -764,6 +761,10 @@ video {
 .size-12 {
   width: 3rem;
   height: 3rem;
+}
+.size-5 {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 .size-6 {
   width: 1.5rem;
@@ -1271,6 +1272,9 @@ video {
 .pb-24 {
   padding-bottom: 6rem;
 }
+.pr-8 {
+  padding-right: 2rem;
+}
 .pt-16 {
   padding-top: 4rem;
 }
@@ -1705,12 +1709,21 @@ body {
   }
 }
 
+.backdrop\:bg-black\/60::backdrop {
+  background-color: rgb(0 0 0 / 0.6);
+}
+
 .backdrop\:bg-transparent::backdrop {
   background-color: transparent;
 }
 
 .hover\:border-white\/40:hover {
   border-color: rgb(255 255 255 / 0.4);
+}
+
+.hover\:bg-\[\#f7f1e6\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(247 241 230 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gray-50:hover {
@@ -1910,6 +1923,10 @@ body {
 
   .sm\:p-10 {
     padding: 2.5rem;
+  }
+
+  .sm\:p-9 {
+    padding: 2.25rem;
   }
 
   .sm\:px-6 {

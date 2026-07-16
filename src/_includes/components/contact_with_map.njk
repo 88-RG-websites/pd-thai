@@ -28,7 +28,7 @@
       </div>
 
       <div class="flex flex-wrap gap-3">
-        <a href="{{ client.orderOnlineUrl }}" target="_blank" rel="noopener noreferrer" class="rounded-full bg-primary-500 px-[22px] py-[13px] text-[14.5px] font-semibold text-white hover:bg-primary-600">Order Online</a>
+        <button type="button" command="show-modal" commandfor="contact-modal" class="rounded-full bg-primary-500 px-[22px] py-[13px] text-[14.5px] font-semibold text-white hover:bg-primary-600">Get in Touch</button>
         <a href="tel:{{ client.phone }}" class="rounded-full border-[1.5px] border-primary-500 px-[21px] py-3 text-[14.5px] font-semibold text-primary-700 hover:bg-primary-50">Call Us</a>
       </div>
     </div>
@@ -37,8 +37,17 @@
     </div>
   </div>
 
-  <div class="mx-auto mt-16 max-w-2xl px-7">
-    <h3 class="mb-6 text-center text-[22px] font-bold tracking-tight text-[#241b16]">{{ client.contact.formHeading }}</h3>
-    <iframe src="{{ client.contact.formUrl }}" frameborder="0" width="100%" height="545" scrolling="no"></iframe>
-  </div>
+  <el-dialog>
+    <dialog id="contact-modal" class="m-0 p-0 backdrop:bg-black/60">
+      <div tabindex="0" class="fixed inset-0 z-50 flex items-center justify-center p-4 focus:outline-none">
+        <el-dialog-panel class="relative w-full max-w-lg rounded-2xl bg-white p-7 shadow-2xl sm:p-9">
+          <button type="button" command="close" commandfor="contact-modal" aria-label="Close" class="absolute right-4 top-4 flex size-9 items-center justify-center rounded-full text-[#6b5d50] hover:bg-[#f7f1e6]">
+            <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <h3 class="mb-6 pr-8 text-center text-[22px] font-bold tracking-tight text-[#241b16]">{{ client.contact.formHeading }}</h3>
+          <iframe src="{{ client.contact.formUrl }}" frameborder="0" width="100%" height="545" scrolling="no"></iframe>
+        </el-dialog-panel>
+      </div>
+    </dialog>
+  </el-dialog>
 </section>

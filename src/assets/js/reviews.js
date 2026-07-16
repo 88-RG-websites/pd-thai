@@ -57,8 +57,8 @@ export function initReviews() {
     Array.from(dotsWrap.children).forEach((dot, i) => {
       const isActive = i === centerIndex;
       const bullet = dot.firstElementChild;
-      bullet.classList.toggle('bg-primary-500', isActive);
-      bullet.classList.toggle('bg-primary-200', !isActive);
+      bullet.classList.toggle('bg-white', isActive);
+      bullet.classList.toggle('bg-white/40', !isActive);
       dot.setAttribute('aria-current', isActive ? 'true' : 'false');
     });
   }
@@ -101,7 +101,7 @@ export function initReviews() {
       dot.type = 'button';
       dot.setAttribute('aria-label', `Go to review ${i + 1}`);
       dot.className = 'flex h-6 w-6 items-center justify-center';
-      dot.innerHTML = '<span class="h-2 w-2 rounded-full bg-primary-200 transition-colors"></span>';
+      dot.innerHTML = '<span class="h-2 w-2 rounded-full bg-white/40 transition-colors"></span>';
       dot.addEventListener('click', () => manualGoTo(i));
       dotsWrap.appendChild(dot);
     });

@@ -133,4 +133,13 @@ module.exports = {
     formNote: "Let us know your date and any special requests below, and our team will follow up to build a catering order around your event.",
     formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/catering_submissions/new',
   },
+
+  // Parties & Events Page
+  parties: {
+    kicker: 'Parties & Events',
+    heading: 'Host Your Next Get-Together With Us',
+    paragraphOne: "Birthday dinner, team lunch, or just a big group craving Thai food — we love hosting parties at PD Thai. Send us a few details about what you have in mind and we'll help you find a table that fits.",
+    formNote: "Tell us your group size, preferred date, and any details about your event below, and our team will follow up to help plan it.",
+    formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/party_inquiry_forms',
+  },
 };

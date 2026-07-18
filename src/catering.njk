@@ -5,7 +5,8 @@ description: "Thai catering for birthdays, graduations, and office parties near 
 {% extends "layouts/base.njk" %}
 
 {% block content %}
-<section class="bg-[#fdfaf5] py-24">
+<section class="relative isolate overflow-hidden bg-[#fdfaf5] py-24">
+  <img src="/assets/images/basil-leaf.webp" alt="" aria-hidden="true" class="pointer-events-none absolute -right-24 top-0 -z-10 w-[65vw] max-w-[760px] rotate-12 select-none opacity-[0.16]" />
   <div class="mx-auto max-w-3xl px-7">
     <div class="mb-14 text-center" data-reveal="up">
       <p class="mb-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-600">{{ client.catering.kicker }}</p>

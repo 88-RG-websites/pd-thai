@@ -51,13 +51,19 @@ export function initHeader() {
     });
   }
 
-  // Homepage-only: shrink the large logo down to standard size once the user scrolls
+  // Homepage-only: shrink the large logo down to standard size once the user scrolls,
+  // swapping to the same logo.png the other pages use
   const header = document.getElementById('main-header');
   if (header && header.hasAttribute('data-shrink-header')) {
     const SCROLL_THRESHOLD = 50;
+    const logoImg = document.getElementById('header-logo-img');
 
     function updateHeaderScrollState() {
-      header.classList.toggle('is-scrolled', window.scrollY > SCROLL_THRESHOLD);
+      const scrolled = window.scrollY > SCROLL_THRESHOLD;
+      header.classList.toggle('is-scrolled', scrolled);
+      if (logoImg) {
+        logoImg.src = scrolled ? '/assets/images/logo.png' : '/assets/images/logo.webp';
+      }
     }
 
     updateHeaderScrollState();

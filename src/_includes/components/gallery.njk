@@ -1,13 +1,13 @@
 <section id="gallery" class="bg-[#f7f1e6] py-24">
   <div class="mx-auto max-w-6xl px-7">
-    <div class="mx-auto mb-12 max-w-xl text-center">
+    <div class="mx-auto mb-12 max-w-xl text-center" data-reveal="up">
       <p class="mb-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-600">{{ client.galleryIntro.kicker }}</p>
       <h1 class="text-balance text-[28px] font-bold tracking-tight text-[#241b16] sm:text-4xl">{{ client.galleryIntro.heading }}</h1>
     </div>
 
     <div itemtype="http://schema.org/ImageGallery" class="grid grid-cols-2 gap-3.5 itemscope sm:grid-cols-3 lg:grid-cols-4" id="gallery-grid">
       {% for img in client.galleryImages %}
-      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="group cursor-pointer">
+      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="group cursor-pointer" data-reveal="up" data-reveal-delay="{{ loop.index0 % 4 }}">
         <div class="aspect-square overflow-hidden rounded-lg bg-gray-200">
           <img
             src="{{ img.thumb }}"

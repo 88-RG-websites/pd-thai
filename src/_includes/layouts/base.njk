@@ -3,6 +3,19 @@
   <head>
     <!-- Standard meta tags -->
     <meta charset="UTF-8">
+    <script>
+      document.documentElement.classList.add('js-reveal');
+      // Safety net: if scroll-reveal.js never confirms it's watching the page
+      // (blocked script, stale cache, ad blocker, etc.), stop hiding content
+      // rather than leave the page permanently blank.
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!window.__scrollRevealReady) {
+            document.documentElement.classList.remove('js-reveal');
+          }
+        }, 2000);
+      });
+    </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ description }}">

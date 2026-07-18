@@ -2,12 +2,12 @@
   <div class="absolute inset-0 bg-[rgba(20,14,10,0.5)]"></div>
 
   <div class="relative mx-auto max-w-6xl px-7">
-    <div class="mx-auto mb-12 max-w-xl text-center">
+    <div class="mx-auto mb-12 max-w-xl text-center" data-reveal="up">
       <p class="mb-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-200">{{ client.reviewsIntro.kicker }}</p>
       <h2 class="text-balance text-[28px] font-bold tracking-tight text-white sm:text-4xl">{{ client.reviewsIntro.heading }}</h2>
     </div>
 
-    <div class="relative">
+    <div class="relative" data-reveal="up" data-reveal-delay="1">
       <div id="reviews-viewport" class="overflow-hidden">
         <div id="reviews-track" class="flex gap-[22px] transition-transform duration-500 ease-in-out">
           {% for review in client.reviews %}

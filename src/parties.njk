@@ -7,12 +7,12 @@ description: "Planning a party or group event near UT Austin? Submit an inquiry 
 {% block content %}
 <section class="bg-[#fdfaf5] py-24">
   <div class="mx-auto max-w-3xl px-7">
-    <div class="mb-14 text-center">
+    <div class="mb-14 text-center" data-reveal="up">
       <p class="mb-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-600">{{ client.parties.kicker }}</p>
       <h1 class="text-balance mb-6 text-[32px] font-bold tracking-tight text-[#241b16] sm:text-[40px]">{{ client.parties.heading }}</h1>
       <p class="text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.parties.paragraphOne }}</p>
     </div>
-    <div class="rounded-2xl border border-[#ece2d3] bg-white p-7 sm:p-10">
+    <div class="rounded-2xl border border-[#ece2d3] bg-white p-7 sm:p-10" data-reveal="up" data-reveal-delay="1">
       <p class="mb-6 text-center text-[15px] leading-relaxed text-[#4a3d34]">{{ client.parties.formNote }}</p>
       <iframe src="{{ client.parties.formUrl }}" frameborder="0" width="100%" height="565" scrolling="no"></iframe>
     </div>

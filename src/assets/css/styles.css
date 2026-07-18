@@ -2011,6 +2011,10 @@ body {
     text-wrap: balance;
   }
 
+  .sm\:bg-fixed {
+    background-attachment: fixed;
+  }
+
   .sm\:p-10 {
     padding: 2.5rem;
   }

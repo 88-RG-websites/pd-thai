@@ -656,6 +656,10 @@ video {
   margin-left: -0.75rem;
   margin-right: -0.75rem;
 }
+.-mx-5 {
+  margin-left: -1.25rem;
+  margin-right: -1.25rem;
+}
 .-my-10 {
   margin-top: -2.5rem;
   margin-bottom: -2.5rem;
@@ -1216,6 +1220,10 @@ video {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -1733,6 +1741,17 @@ body {
   padding-bottom: 0;
 }
 
+/* Menu carousel: the viewport's horizontal buffer (px-5/-mx-5 in menus.njk)
+   lets each visible dish's drop shadow bleed past its own edge instead of
+   being clipped. That same buffer is wide enough to also catch the edge of
+   the shadow from the next (off-screen) slide, which then hit the clip
+   boundary as a hard line. Fading the buffer zone to transparent lets both
+   shadows dissolve out instead of getting cut off sharply. */
+#menu-gallery-viewport {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent);
+  mask-image: linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent);
+}
+
 /* Hero section that accounts for absolute header */
 .hero-with-header {
   min-height: 100vh;
@@ -2150,16 +2169,16 @@ body {
     inset: 0px;
   }
 
-  .lg\:left-0 {
-    left: 0px;
+  .lg\:-left-8 {
+    left: -2rem;
+  }
+
+  .lg\:-right-8 {
+    right: -2rem;
   }
 
   .lg\:left-1\/2 {
     left: 50%;
-  }
-
-  .lg\:right-0 {
-    right: 0px;
   }
 
   .lg\:top-16 {

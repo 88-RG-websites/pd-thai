@@ -11,14 +11,14 @@
   </div>
 
   <div class="relative mx-auto max-w-6xl px-7 pb-10" data-reveal="up">
-    <button id="menu-gallery-prev" type="button" aria-label="Previous dish" class="absolute left-0 top-[calc(50%-20px)] z-10 -translate-y-1/2 p-2 text-white/90 transition hover:text-white sm:left-2 lg:left-0">
+    <button id="menu-gallery-prev" type="button" aria-label="Previous dish" class="absolute left-0 top-[calc(50%-20px)] z-10 -translate-y-1/2 p-2 text-white/90 transition hover:text-white sm:left-2 lg:-left-8">
       <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
-    <button id="menu-gallery-next" type="button" aria-label="Next dish" class="absolute right-0 top-[calc(50%-20px)] z-10 -translate-y-1/2 p-2 text-white/90 transition hover:text-white sm:right-2 lg:right-0">
+    <button id="menu-gallery-next" type="button" aria-label="Next dish" class="absolute right-0 top-[calc(50%-20px)] z-10 -translate-y-1/2 p-2 text-white/90 transition hover:text-white sm:right-2 lg:-right-8">
       <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
 
-    <div id="menu-gallery-viewport" class="overflow-hidden py-10 -my-10">
+    <div id="menu-gallery-viewport" class="overflow-hidden px-5 py-10 -mx-5 -my-10">
       <div id="menu-gallery-track" class="flex gap-6 transition-transform duration-500 ease-in-out">
         {% for dish in client.menuGallery %}
         <div class="menu-gallery-slide w-full shrink-0 sm:w-[calc((100%-48px)/3)]">

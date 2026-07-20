@@ -119,6 +119,17 @@ body {
   padding-bottom: 0;
 }
 
+/* Menu carousel: the viewport's horizontal buffer (px-5/-mx-5 in menus.njk)
+   lets each visible dish's drop shadow bleed past its own edge instead of
+   being clipped. That same buffer is wide enough to also catch the edge of
+   the shadow from the next (off-screen) slide, which then hit the clip
+   boundary as a hard line. Fading the buffer zone to transparent lets both
+   shadows dissolve out instead of getting cut off sharply. */
+#menu-gallery-viewport {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent);
+  mask-image: linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent);
+}
+
 /* Hero section that accounts for absolute header */
 .hero-with-header {
   min-height: 100vh;

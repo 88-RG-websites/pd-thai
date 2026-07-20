@@ -778,6 +778,10 @@ video {
   width: 2.5rem;
   height: 2.5rem;
 }
+.size-11 {
+  width: 2.75rem;
+  height: 2.75rem;
+}
 .size-12 {
   width: 3rem;
   height: 3rem;
@@ -1118,6 +1122,9 @@ video {
 }
 .bg-black\/40 {
   background-color: rgb(0 0 0 / 0.4);
+}
+.bg-black\/60 {
+  background-color: rgb(0 0 0 / 0.6);
 }
 .bg-gray-200 {
   --tw-bg-opacity: 1;
@@ -1860,6 +1867,10 @@ body {
 .hover\:bg-\[\#f7f1e6\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(247 241 230 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-black\/80:hover {
+  background-color: rgb(0 0 0 / 0.8);
 }
 
 .hover\:bg-gray-50:hover {

@@ -57,12 +57,17 @@ export function initHeader() {
   if (header && header.hasAttribute('data-shrink-header')) {
     const SCROLL_THRESHOLD = 50;
     const logoImg = document.getElementById('header-logo-img');
+    // Derive both srcs from the initial (already path-prefix-correct) rendered
+    // src rather than hardcoding "/assets/...", so this works whether the site
+    // is deployed at the domain root or under a preview subfolder.
+    const logoWebpSrc = logoImg ? logoImg.getAttribute('src') : null;
+    const logoPngSrc = logoWebpSrc ? logoWebpSrc.replace('logo.webp', 'logo.png') : null;
 
     function updateHeaderScrollState() {
       const scrolled = window.scrollY > SCROLL_THRESHOLD;
       header.classList.toggle('is-scrolled', scrolled);
-      if (logoImg) {
-        logoImg.src = scrolled ? '/assets/images/logo.png' : '/assets/images/logo.webp';
+      if (logoImg && logoPngSrc) {
+        logoImg.src = scrolled ? logoPngSrc : logoWebpSrc;
       }
     }
 

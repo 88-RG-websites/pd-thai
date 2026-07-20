@@ -126,10 +126,60 @@ export function initReviews() {
     startAutoplay();
   }
 
+  function goToNext() {
+    manualGoTo((getCenterRealIndex() + 1) % realCount);
+  }
+
+  function goToPrevious() {
+    manualGoTo((getCenterRealIndex() - 1 + realCount) % realCount);
+  }
+
   viewport.addEventListener('mouseenter', stopAutoplay);
   viewport.addEventListener('mouseleave', startAutoplay);
   viewport.addEventListener('focusin', stopAutoplay);
   viewport.addEventListener('focusout', startAutoplay);
+
+  // Touch swipe (mobile): a horizontal drag past the threshold steps one
+  // slide forward/back, same as tapping a dot. Vertical drags are left
+  // alone so the page can still scroll normally.
+  const SWIPE_THRESHOLD = 40;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchDeltaX = 0;
+  let isHorizontalSwipe = false;
+
+  viewport.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    touchDeltaX = 0;
+    isHorizontalSwipe = false;
+    stopAutoplay();
+  }, { passive: true });
+
+  viewport.addEventListener('touchmove', (e) => {
+    const touch = e.touches[0];
+    touchDeltaX = touch.clientX - touchStartX;
+    const touchDeltaY = touch.clientY - touchStartY;
+    if (!isHorizontalSwipe && Math.abs(touchDeltaX) > Math.abs(touchDeltaY)) {
+      isHorizontalSwipe = true;
+    }
+    if (isHorizontalSwipe && Math.abs(touchDeltaX) > 10) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  viewport.addEventListener('touchend', () => {
+    if (isHorizontalSwipe && Math.abs(touchDeltaX) > SWIPE_THRESHOLD) {
+      if (touchDeltaX < 0) {
+        goToNext();
+      } else {
+        goToPrevious();
+      }
+    } else {
+      startAutoplay();
+    }
+  });
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {

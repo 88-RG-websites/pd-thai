@@ -1,29 +1,25 @@
 <header id="logo-header" class="sticky top-0 z-50 bg-[#fffdf9] shadow-[0_1px_0_rgba(36,27,22,0.08)]">
   <nav aria-label="Global" class="relative mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3.5 lg:px-8">
-    <div class="flex lg:flex-1">
-      <a href="/" class="-m-1.5 p-1.5">
-        <span class="sr-only">{{ client.restaurantName }}</span>
-        <img src="/assets/images/logo.png" alt="{{ client.restaurantName }} Logo" class="h-11 w-auto" />
-      </a>
-    </div>
-    <div class="flex lg:hidden">
-      <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[#3a2f27]">
+    <a href="/" class="absolute left-4 top-full z-10 -translate-y-1/2 lg:left-8 lg:top-[calc(100%-25px)]">
+      <span class="sr-only">{{ client.restaurantName }}</span>
+      <span class="flex h-24 w-24 items-center justify-center rounded-full bg-[#fffdf9] lg:h-[225px] lg:w-[225px]">
+        <img src="/assets/images/logo-art.png" alt="{{ client.restaurantName }} Logo" class="w-[68px] lg:w-[175px]" style="margin-top: 50px;" />
+      </span>
+    </a>
+    <div class="flex flex-1 items-center justify-end lg:gap-x-7">
+      <a href="/#campus" class="hidden lg:block text-sm font-medium text-[#3a2f27] hover:text-primary-700">Our Story</a>
+      <a href="/menus/" class="hidden lg:block text-sm font-medium text-[#3a2f27] hover:text-primary-700">Menu</a>
+      <a href="/gallery/" class="hidden lg:block text-sm font-medium text-[#3a2f27] hover:text-primary-700">Gallery</a>
+      <a href="/catering/" class="hidden lg:block text-sm font-medium text-[#3a2f27] hover:text-primary-700">Catering</a>
+      <a href="/parties/" class="hidden lg:block text-sm font-medium text-[#3a2f27] hover:text-primary-700">Parties</a>
+      <a href="/#contact" class="hidden lg:block text-sm font-medium text-[#3a2f27] hover:text-primary-700">Contact</a>
+      <a href="{{ client.orderOnlineUrl }}" target="_blank" rel="noopener noreferrer" class="hidden lg:inline-block rounded-full bg-primary-500 px-[18px] py-[11px] text-sm font-semibold whitespace-nowrap text-white shadow-sm hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">Order Online</a>
+      <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[#3a2f27] lg:hidden">
         <span class="sr-only">Open main menu</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
           <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </button>
-    </div>
-    <div class="hidden lg:flex lg:items-center lg:gap-x-7">
-      <a href="/#campus" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Our Story</a>
-      <a href="/menus/" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Menu</a>
-      <a href="/gallery/" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Gallery</a>
-      <a href="/catering/" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Catering</a>
-      <a href="/parties/" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Parties</a>
-      <a href="/#contact" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Contact</a>
-    </div>
-    <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center">
-      <a href="{{ client.orderOnlineUrl }}" target="_blank" rel="noopener noreferrer" class="rounded-full bg-primary-500 px-[18px] py-[11px] text-sm font-semibold whitespace-nowrap text-white shadow-sm hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">Order Online</a>
     </div>
   </nav>
   <el-dialog>

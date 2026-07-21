@@ -625,9 +625,6 @@ video {
 .top-\[calc\(50\%-20px\)\] {
   top: calc(50% - 20px);
 }
-.top-full {
-  top: 100%;
-}
 .isolate {
   isolation: isolate;
 }
@@ -813,9 +810,6 @@ video {
 .h-2 {
   height: 0.5rem;
 }
-.h-24 {
-  height: 6rem;
-}
 .h-4 {
   height: 1rem;
 }
@@ -864,9 +858,6 @@ video {
 .w-2 {
   width: 0.5rem;
 }
-.w-24 {
-  width: 6rem;
-}
 .w-28 {
   width: 7rem;
 }
@@ -890,9 +881,6 @@ video {
 }
 .w-\[65vw\] {
   width: 65vw;
-}
-.w-\[68px\] {
-  width: 68px;
 }
 .w-auto {
   width: auto;

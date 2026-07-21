@@ -62,9 +62,16 @@ export function initHeader() {
     // is deployed at the domain root or under a preview subfolder.
     const logoWebpSrc = logoImg ? logoImg.getAttribute('src') : null;
     const logoPngSrc = logoWebpSrc ? logoWebpSrc.replace('logo.webp', 'logo.png') : null;
+    // index2 only: below the lg breakpoint the header always shows its solid
+    // "scrolled" state, so nothing shifts on scroll
+    const forceScrolledOnMobile = header.hasAttribute('data-nav-top')
+      ? window.matchMedia('(max-width: 1023px)')
+      : null;
 
     function updateHeaderScrollState() {
-      const scrolled = window.scrollY > SCROLL_THRESHOLD;
+      const scrolled =
+        (forceScrolledOnMobile && forceScrolledOnMobile.matches) ||
+        window.scrollY > SCROLL_THRESHOLD;
       header.classList.toggle('is-scrolled', scrolled);
       if (logoImg && logoPngSrc) {
         logoImg.src = scrolled ? logoPngSrc : logoWebpSrc;
@@ -73,5 +80,8 @@ export function initHeader() {
 
     updateHeaderScrollState();
     window.addEventListener('scroll', updateHeaderScrollState, { passive: true });
+    if (forceScrolledOnMobile) {
+      forceScrolledOnMobile.addEventListener('change', updateHeaderScrollState);
+    }
   }
 }

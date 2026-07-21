@@ -55,7 +55,7 @@ module.exports = {
 
   // Near Campus Section
   campus: {
-    heading: 'Built for campus life, loved by the whole neighborhood',
+    heading: 'Authentic Thai, Steps from UT Campus',
     paragraphOne: "Eight years of history on Guadalupe Street meet an exciting new chapter under Arnaldo's ownership. We're still an easy walk from UT Austin — quick enough for a lunch break between classes, and stocked with fast, affordable, vegan-friendly plates for busy students.",
     paragraphTwo: "But we're not just a college spot — families, faculty, and neighbors from around Austin come in for the same fresh, made-to-order Thai cooking, every day of the week.",
     image: '/assets/images/exterior-leaf.webp',

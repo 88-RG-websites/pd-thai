@@ -1,17 +1,36 @@
-<section id="campus" class="overflow-hidden bg-white py-[88px]">
-  <div class="mx-auto mb-14 max-w-6xl px-7 text-center" data-reveal="up">
+<section id="campus" class="overflow-hidden bg-white py-12 md:py-[88px]">
+  <div class="mx-auto mb-9 max-w-6xl px-7 text-center md:mb-14" data-reveal="up">
     <h2 class="text-balance text-[40px] font-bold leading-[1.1] tracking-tight text-[#241b16] sm:text-6xl lg:text-7xl">{{ client.campus.heading }}</h2>
   </div>
-  <div class="mx-auto grid max-w-6xl items-center gap-14 px-7 lg:grid-cols-2">
+  <div class="mx-auto grid max-w-7xl items-center gap-10 px-7 lg:grid-cols-2 lg:gap-14">
     <div class="relative" data-reveal="left">
       <img src="{{ client.campus.image }}" alt="{{ client.campus.imageAlt }}" class="h-auto w-full drop-shadow-[0_24px_38px_rgba(36,27,22,0.35)]" />
-      <img src="{{ client.campus.pinTopLeft.image }}" alt="{{ client.campus.pinTopLeft.alt }}" class="absolute -top-6 -left-6 z-10 w-32 -rotate-6 drop-shadow-[0_14px_22px_rgba(36,27,22,0.4)] sm:-top-9 sm:-left-9 sm:w-40 lg:w-48" />
-      <img src="{{ client.campus.pinBottomRight.image }}" alt="{{ client.campus.pinBottomRight.alt }}" class="absolute -bottom-5 -right-5 z-10 w-28 rotate-6 drop-shadow-[0_14px_22px_rgba(36,27,22,0.4)] sm:-bottom-7 sm:-right-7 sm:w-32 lg:w-36" />
+      <img src="{{ client.campus.pinTopLeft.image }}" alt="{{ client.campus.pinTopLeft.alt }}" class="absolute -top-6 -left-6 z-10 w-36 -rotate-6 drop-shadow-[0_14px_22px_rgba(36,27,22,0.4)] sm:-top-9 sm:-left-9 sm:w-44 lg:w-56" />
+      <img src="{{ client.campus.pinBottomRight.image }}" alt="{{ client.campus.pinBottomRight.alt }}" class="absolute -bottom-5 -right-5 z-10 w-32 rotate-6 drop-shadow-[0_14px_22px_rgba(36,27,22,0.4)] sm:-bottom-7 sm:-right-7 sm:w-36 lg:w-44" />
     </div>
     <div data-reveal="right">
-      <p class="mb-[18px] text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.campus.paragraphOne }}</p>
-      <p class="mb-[30px] text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.campus.paragraphTwo }}</p>
-      <a href="{{ client.orderOnlineUrl }}" target="_blank" rel="noopener noreferrer" class="inline-block rounded-full bg-primary-500 px-7 py-[13px] text-[14.5px] font-semibold text-white hover:bg-primary-600">Order Now</a>
+      <p class="mb-5 text-lg leading-relaxed text-[#4a3d34] lg:text-xl">{{ client.campus.paragraphOne }}</p>
+      <p class="mb-8 text-lg leading-relaxed text-[#4a3d34] lg:text-xl">{{ client.campus.paragraphTwo }}</p>
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-4">
+        <div class="flex items-center gap-2.5">
+          <div class="flex size-9 flex-none items-center justify-center rounded-[10px] bg-primary-50">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5f9c56" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="whitespace-nowrap text-[13.5px] font-semibold text-[#241b16]">{{ client.phone }}</div>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <div class="flex size-9 flex-none items-center justify-center rounded-[10px] bg-primary-50">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5f9c56" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="whitespace-nowrap text-[13.5px] font-semibold text-[#241b16]">{{ client.address.street }}</div>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <div class="flex size-9 flex-none items-center justify-center rounded-[10px] bg-primary-50">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5f9c56" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="whitespace-nowrap text-[13.5px] font-semibold text-[#241b16]">{{ client.hoursNote }}</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

@@ -2,6 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <script>
+      document.documentElement.classList.add('js-reveal');
+      // Safety net: if scroll-reveal.js never confirms it's watching the page
+      // (blocked script, stale cache, ad blocker, etc.), stop hiding content
+      // rather than leave the page permanently blank.
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!window.__scrollRevealReady) {
+            document.documentElement.classList.remove('js-reveal');
+          }
+        }, 2000);
+      });
+    </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Real Thai flavor steps from UT Austin. Fresh, locally sourced ingredients, vegan & vegetarian options, and a colorful modern dining room on Guadalupe Street.">
@@ -20,7 +33,15 @@
     {% include "components/logo-header.njk" %}
     <main>
       {% include "components/hero.njk" %}
+      {% include "components/info-strip.njk" %}
+      {% include "components/near-campus.njk" %}
+      {% include "components/menus.njk" %}
+      {% include "components/about.njk" %}
+      {% include "components/reviews.njk" %}
+      {% include "components/contact_with_map.njk" %}
     </main>
+    {% include "components/footer.njk" %}
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    <script type="module" src="/assets/js/main.js"></script>
   </body>
 </html>

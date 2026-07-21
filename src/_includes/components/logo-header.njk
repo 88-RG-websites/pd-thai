@@ -1,0 +1,64 @@
+<header id="logo-header" class="sticky top-0 z-50 bg-[#fffdf9] shadow-[0_1px_0_rgba(36,27,22,0.08)]">
+  <nav aria-label="Global" class="relative mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3.5 lg:px-8">
+    <div class="flex lg:flex-1">
+      <a href="/" class="-m-1.5 p-1.5">
+        <span class="sr-only">{{ client.restaurantName }}</span>
+        <img src="/assets/images/logo.png" alt="{{ client.restaurantName }} Logo" class="h-11 w-auto" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[#3a2f27]">
+        <span class="sr-only">Open main menu</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+          <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:items-center lg:gap-x-7">
+      <a href="/#campus" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Our Story</a>
+      <a href="/menus/" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Menu</a>
+      <a href="/gallery/" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Gallery</a>
+      <a href="/catering/" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Catering</a>
+      <a href="/parties/" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Parties</a>
+      <a href="/#contact" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Contact</a>
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center">
+      <a href="{{ client.orderOnlineUrl }}" target="_blank" rel="noopener noreferrer" class="rounded-full bg-primary-500 px-[18px] py-[11px] text-sm font-semibold whitespace-nowrap text-white shadow-sm hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">Order Online</a>
+    </div>
+  </nav>
+  <el-dialog>
+    <dialog id="mobile-menu" class="m-0 p-0 backdrop:bg-transparent lg:hidden">
+      <div tabindex="0" class="fixed inset-0 focus:outline focus:outline-0">
+        <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <div class="flex items-center justify-between">
+            <a href="/" class="-m-1.5 p-1.5">
+              <span class="sr-only">{{ client.restaurantName }}</span>
+              <img src="/assets/images/logo.png" alt="{{ client.restaurantName }} Logo" class="h-11 w-auto" />
+            </a>
+            <button type="button" command="close" commandfor="mobile-menu" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+              <span class="sr-only">Close menu</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+          <div class="mt-6 flow-root">
+            <div class="-my-6 divide-y divide-gray-500/10">
+              <div class="space-y-2 py-6">
+                <a href="/#campus" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Our Story</a>
+                <a href="/menus/" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Menu</a>
+                <a href="/gallery/" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Gallery</a>
+                <a href="/catering/" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Catering</a>
+                <a href="/parties/" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Parties</a>
+                <a href="/#contact" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Contact</a>
+              </div>
+              <div class="py-6 space-y-2">
+                <a href="{{ client.orderOnlineUrl }}" target="_blank" rel="noopener noreferrer" class="-mx-3 block rounded-lg px-4 py-3 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 text-center">Order Online</a>
+              </div>
+            </div>
+          </div>
+        </el-dialog-panel>
+      </div>
+    </dialog>
+  </el-dialog>
+</header>

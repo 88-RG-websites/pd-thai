@@ -1,0 +1,17 @@
+<section id="campus" class="overflow-hidden bg-white py-[88px]">
+  <div class="mx-auto mb-14 max-w-6xl px-7 text-center" data-reveal="up">
+    <h2 class="text-balance text-[40px] font-bold leading-[1.1] tracking-tight text-[#241b16] sm:text-6xl lg:text-7xl">{{ client.campus.heading }}</h2>
+  </div>
+  <div class="mx-auto grid max-w-6xl items-center gap-14 px-7 lg:grid-cols-2">
+    <div class="relative" data-reveal="left">
+      <img src="{{ client.campus.image }}" alt="{{ client.campus.imageAlt }}" class="h-auto w-full drop-shadow-[0_24px_38px_rgba(36,27,22,0.35)]" />
+      <img src="{{ client.campus.pinTopLeft.image }}" alt="{{ client.campus.pinTopLeft.alt }}" class="absolute -top-6 -left-6 z-10 w-32 -rotate-6 drop-shadow-[0_14px_22px_rgba(36,27,22,0.4)] sm:-top-9 sm:-left-9 sm:w-40 lg:w-48" />
+      <img src="{{ client.campus.pinBottomRight.image }}" alt="{{ client.campus.pinBottomRight.alt }}" class="absolute -bottom-5 -right-5 z-10 w-28 rotate-6 drop-shadow-[0_14px_22px_rgba(36,27,22,0.4)] sm:-bottom-7 sm:-right-7 sm:w-32 lg:w-36" />
+    </div>
+    <div data-reveal="right">
+      <p class="mb-[18px] text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.campus.paragraphOne }}</p>
+      <p class="mb-[30px] text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.campus.paragraphTwo }}</p>
+      <a href="{{ client.orderOnlineUrl }}" target="_blank" rel="noopener noreferrer" class="inline-block rounded-full bg-primary-500 px-7 py-[13px] text-[14.5px] font-semibold text-white hover:bg-primary-600">Order Now</a>
+    </div>
+  </div>
+</section>

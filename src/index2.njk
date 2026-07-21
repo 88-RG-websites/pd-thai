@@ -1,0 +1,16 @@
+---
+title: "PD Thai Cuisine - Authentic Thai Restaurant Near UT Austin"
+description: "Real Thai flavor steps from UT Austin. Fresh, locally sourced ingredients, vegan & vegetarian options, and a colorful modern dining room on Guadalupe Street."
+---
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+  {% include "components/hero.njk" %}
+  {% include "components/info-strip.njk" %}
+  {% include "components/near-campus.njk" %}
+  {% include "components/menus.njk" %}
+  {% include "components/about.njk" %}
+  {% include "components/reviews.njk" %}
+  {% include "components/contact_with_map.njk" %}
+  <script id="marketing-popup-script" data-restaurant-id="{{ client.id }}" src="https://88restaurants.com/uploads/popup.js"></script>
+{% endblock %}

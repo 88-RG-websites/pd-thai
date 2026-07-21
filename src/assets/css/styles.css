@@ -1748,6 +1748,35 @@ body {
   padding-bottom: 0;
 }
 
+/* index2 variant: nav row sits flush at the top instead of centered in the
+   large header, so only the logo overhangs — and only below, not above. */
+[data-nav-top]:not(.is-scrolled) nav {
+  align-items: flex-start;
+}
+
+[data-nav-top]:not(.is-scrolled) #header-logo-img {
+  margin-top: 0;
+}
+
+@media (min-width: 1024px) {
+  [data-nav-top]:not(.is-scrolled) #header-logo-img {
+    margin-top: -13px;
+  }
+}
+
+[data-nav-top]:not(.is-scrolled) #nav-bg-band {
+  top: 0;
+  transform: none;
+  height: 5rem;
+}
+
+/* Links and order button keep their own centered items-center, now within
+   a 5rem-tall box matching the band, instead of the full 8rem nav height. */
+[data-nav-top]:not(.is-scrolled) #nav-links,
+[data-nav-top]:not(.is-scrolled) #nav-order-btn {
+  height: 5rem;
+}
+
 /* Menu carousel: the viewport's horizontal buffer (px-5/-mx-5 in menus.njk)
    lets each visible dish's drop shadow bleed past its own edge instead of
    being clipped. That same buffer is wide enough to also catch the edge of

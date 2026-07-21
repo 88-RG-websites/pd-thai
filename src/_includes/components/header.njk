@@ -1,10 +1,12 @@
-<header id="main-header" class="sticky top-0 z-50 bg-[#fffdf9] shadow-[0_1px_0_rgba(36,27,22,0.08)]"{% if page.url == '/' %} data-shrink-header{% endif %}>
-  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-1/2 hidden h-[3.75rem] -translate-y-1/2 bg-[#fffdf9] lg:block"></div>
+{% set isHomepage = page.url in ['/', '/index2/'] %}
+{% set isIndex2 = page.url == '/index2/' %}
+<header id="main-header" class="sticky top-0 z-50 bg-[#fffdf9] shadow-[0_1px_0_rgba(36,27,22,0.08)]"{% if isHomepage %} data-shrink-header{% endif %}{% if isIndex2 %} data-nav-top{% endif %}>
+  <div id="nav-bg-band" aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-1/2 hidden h-[3.75rem] -translate-y-1/2 bg-[#fffdf9] lg:block"></div>
   <nav aria-label="Global" class="relative mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3.5 lg:px-8">
     <div class="flex lg:flex-1">
       <a href="/" id="header-logo-link" class="-m-1.5 p-1.5">
         <span class="sr-only">{{ client.restaurantName }}</span>
-        <img id="header-logo-img" src="/assets/images/{{ 'logo.webp' if page.url == '/' else 'logo.png' }}" alt="{{ client.restaurantName }} Logo" class="h-11 w-auto" />
+        <img id="header-logo-img" src="/assets/images/{{ 'logo.webp' if isHomepage else 'logo.png' }}" alt="{{ client.restaurantName }} Logo" class="h-11 w-auto" />
       </a>
     </div>
     <div class="flex lg:hidden">
@@ -15,7 +17,7 @@
         </svg>
       </button>
     </div>
-    <div class="hidden lg:flex lg:items-center lg:gap-x-7">
+    <div id="nav-links" class="hidden lg:flex lg:items-center lg:gap-x-7">
       <a href="/#campus" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Our Story</a>
       <a href="/menus/" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Menu</a>
       <a href="/gallery/" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Gallery</a>
@@ -23,7 +25,7 @@
       <a href="/parties/" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Parties</a>
       <a href="/#contact" class="text-sm font-medium text-[#3a2f27] hover:text-primary-700">Contact</a>
     </div>
-    <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center">
+    <div id="nav-order-btn" class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center">
       <a href="{{ client.orderOnlineUrl }}" target="_blank" rel="noopener noreferrer" class="rounded-full bg-primary-500 px-[18px] py-[11px] text-sm font-semibold whitespace-nowrap text-white shadow-sm hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">Order Online</a>
     </div>
   </nav>
@@ -34,7 +36,7 @@
           <div class="flex items-center justify-between">
             <a href="/" class="-m-1.5 p-1.5">
               <span class="sr-only">{{ client.restaurantName }}</span>
-              <img src="/assets/images/{{ 'logo.webp' if page.url == '/' else 'logo.png' }}" alt="{{ client.restaurantName }} Logo" class="h-11 w-auto" />
+              <img src="/assets/images/{{ 'logo.webp' if isHomepage else 'logo.png' }}" alt="{{ client.restaurantName }} Logo" class="h-11 w-auto" />
             </a>
             <button type="button" command="close" commandfor="mobile-menu" class="-m-2.5 rounded-md p-2.5 text-gray-700">
               <span class="sr-only">Close menu</span>

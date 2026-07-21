@@ -1,9 +1,13 @@
 <header id="logo-header" class="sticky top-0 z-50 bg-[#fffdf9] shadow-[0_1px_0_rgba(36,27,22,0.08)]">
   <nav aria-label="Global" class="relative mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3.5 lg:px-8">
-    <a href="/" class="absolute left-4 top-full z-10 -translate-y-1/2 lg:left-8 lg:top-[calc(100%-25px)]">
+    <a href="/" class="-m-1.5 flex p-1.5 lg:hidden">
       <span class="sr-only">{{ client.restaurantName }}</span>
-      <span class="flex h-24 w-24 items-center justify-center rounded-full bg-[#fffdf9] lg:h-[225px] lg:w-[225px]">
-        <img src="/assets/images/logo-art.png" alt="{{ client.restaurantName }} Logo" class="w-[68px] lg:w-[175px]" style="margin-top: 50px;" />
+      <img src="/assets/images/logo-art.png" alt="{{ client.restaurantName }} Logo" class="h-11 w-auto" />
+    </a>
+    <a href="/" class="absolute z-10 hidden -translate-y-1/2 lg:left-8 lg:top-[calc(100%-25px)] lg:block">
+      <span class="sr-only">{{ client.restaurantName }}</span>
+      <span class="flex items-center justify-center rounded-full bg-[#fffdf9] lg:h-[225px] lg:w-[225px]">
+        <img src="/assets/images/logo-art.png" alt="{{ client.restaurantName }} Logo" class="lg:w-[175px]" style="margin-top: 50px;" />
       </span>
     </a>
     <div class="flex flex-1 items-center justify-end lg:gap-x-7">

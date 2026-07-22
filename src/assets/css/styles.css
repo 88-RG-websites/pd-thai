@@ -1346,9 +1346,6 @@ video {
 .p-7 {
   padding: 1.75rem;
 }
-.p-8 {
-  padding: 2rem;
-}
 .p-px {
   padding: 1px;
 }
@@ -1431,6 +1428,10 @@ video {
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 .py-9 {
   padding-top: 2.25rem;
@@ -2339,6 +2340,10 @@ body {
     padding: 1.5rem;
   }
 
+  .sm\:p-8 {
+    padding: 2rem;
+  }
+
   .sm\:p-9 {
     padding: 2.25rem;
   }
@@ -2346,6 +2351,11 @@ body {
   .sm\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+
+  .sm\:px-7 {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
   }
 
   .sm\:py-32 {

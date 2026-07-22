@@ -1,0 +1,29 @@
+<section id="reviews" class="relative overflow-hidden bg-cover bg-center py-16 sm:bg-fixed md:py-[88px]" style="background-image: url('{{ '/assets/images/parallax4.jpg' | htmlBaseUrl }}');">
+  <div class="absolute inset-0 bg-[rgba(20,14,10,0.5)]"></div>
+
+  <div class="relative mx-auto max-w-6xl px-7">
+    <div class="mx-auto mb-12 max-w-xl text-center" data-reveal="up">
+      <p class="mb-3 text-sm font-bold uppercase tracking-[0.1em] text-primary-200">{{ client.reviewsIntro.kicker }}</p>
+      <h2 class="text-balance text-[36px] font-bold tracking-tight text-white sm:text-5xl">{{ client.reviewsIntro.heading }}</h2>
+    </div>
+
+    <div class="relative" data-reveal="up" data-reveal-delay="1">
+      <div id="reviews-viewport" class="overflow-hidden">
+        <div id="reviews-track" class="flex gap-[22px] transition-transform duration-500 ease-in-out">
+          {% for review in client.reviews %}
+          <div class="reviews-slide w-full shrink-0 sm:w-[calc((100%-44px)/3)]">
+            <a href="{{ client.googlePlacesUrl }}" target="_blank" rel="noopener noreferrer" class="block h-full rounded-2xl border border-white/25 bg-white/10 p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_8px_32px_-8px_rgba(0,0,0,0.45)] backdrop-blur-xl backdrop-saturate-150 transition hover:bg-white/[0.18] hover:border-white/40" aria-label="Read {{ review.name }}'s review of {{ client.name }} on Google">
+              <div class="mb-3.5 text-base tracking-[2px] text-[#f0c14b]">★★★★★</div>
+              <p class="mb-[18px] text-[15px] leading-relaxed text-white/90">&ldquo;{{ review.text }}&rdquo;</p>
+              <div class="text-[13.5px] font-bold text-white">{{ review.name }}</div>
+              <div class="text-xs text-white/60 underline decoration-white/30 underline-offset-2">Google Review</div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div id="reviews-dots" class="mt-8 flex justify-center gap-2"></div>
+  </div>
+</section>

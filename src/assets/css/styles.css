@@ -1280,9 +1280,6 @@ video {
 .text-\[36px\] {
   font-size: 36px;
 }
-.text-\[40px\] {
-  font-size: 40px;
-}
 .text-\[44px\] {
   font-size: 44px;
 }
@@ -1879,11 +1876,6 @@ body {
     line-height: 1;
   }
 
-  .sm\:text-6xl {
-    font-size: 3.75rem;
-    line-height: 1;
-  }
-
   .sm\:text-\[40px\] {
     font-size: 40px;
   }
@@ -2149,8 +2141,8 @@ body {
     line-height: 2rem;
   }
 
-  .lg\:text-7xl {
-    font-size: 4.5rem;
+  .lg\:text-6xl {
+    font-size: 3.75rem;
     line-height: 1;
   }
 

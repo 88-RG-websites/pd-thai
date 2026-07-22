@@ -13,7 +13,7 @@ module.exports = {
   },
   phone: '(512) 371-8777',
   email: 'pdthaicuisine@gmail.com',
-  domain: 'https://testrestaurant.com',
+  domain: 'https://pdthaiaustin.com',
 
   // Ordering (88 online ordering on the order.pdthaiaustin.com domain)
   orderOnlineUrl: 'https://order.pdthaiaustin.com/pd-thai-austin-austin-tx/online_orders/new',
@@ -55,9 +55,9 @@ module.exports = {
 
   // Near Campus Section
   campus: {
-    heading: 'Late Night Thai, Steps from UT Campus',
-    paragraphOne: "Eight years of history on Guadalupe Street meet an exciting new chapter under Arnaldo's ownership. We're still an easy walk from UT Austin — quick enough for a lunch break between classes, and stocked with fast, affordable, vegan-friendly plates for busy students.",
-    paragraphTwo: "And we keep the woks going until 3am, every night of the week. Whether you're wrapping up a late night study session or heading home from Sixth Street, there's a steaming plate of pad thai or drunken noodles waiting for you on Guadalupe.",
+    heading: 'Late Night Thai Cuisine. Steps from the UT Austin Campus',
+    paragraphOne: "Eight years of history on Guadalupe Street meet an exciting new chapter under Ezron's ownership. We're still an easy walk from UT Austin — quick enough for a lunch break between classes, and stocked with fast, affordable, vegetarian and vegan friendly plates for busy students.",
+    paragraphTwo: "We keep the woks going until 3am, every night of the week. Whether you're wrapping up a late night study session or heading home from Sixth Street, there's a hot plate of pad thai or drunken noodles waiting for you on Guadalupe Street.",
     image: '/assets/images/exterior-leaf.webp',
     imageAlt: 'Exterior of PD Thai Cuisine on Guadalupe Street',
     pinTopLeft: { image: '/assets/images/plate-extra.webp', alt: 'Tom yum soup with shrimp, surrounded by fresh Thai chilis, lime leaves and spices' },
@@ -131,7 +131,7 @@ module.exports = {
   catering: {
     kicker: 'Catering',
     heading: 'Bring PD Thai To Your Next Austin Gathering',
-    paragraphOne: "Birthdays, graduations, office parties — for eight years we've been cooking real, made-to-order Thai food for North Campus, and under Arnaldo's ownership that same care carries over into every catering order. Our small kitchen team preps each dish fresh, so your guests get the same quality we serve in the dining room.",
+    paragraphOne: "Birthdays, graduations, office parties — for eight years we've been cooking real, made-to-order Thai food for North Campus, and under Ezron's ownership that same care carries over into every catering order. Our small kitchen team preps each dish fresh, so your guests get the same quality we serve in the dining room.",
     paragraphTwo: "Vegetarian, vegan, and gluten-free options are all available, so there's something for everyone on the table. We cater parties of up to 40 guests, with pickup or delivery.",
     formNote: "Let us know your date and any special requests below, and our team will follow up to build a catering order around your event.",
     formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/catering_submissions/new',

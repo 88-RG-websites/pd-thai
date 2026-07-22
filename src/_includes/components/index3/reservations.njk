@@ -1,0 +1,17 @@
+<section id="reservations" class="relative scroll-mt-24 overflow-hidden bg-[#241b16] bg-cover bg-center py-16 md:py-[88px]" style="background-image:url(/assets/images/reservations-bg.jpg)">
+  <div class="absolute inset-0 bg-[#1a1410]/75"></div>
+  <div class="relative z-10 mx-auto max-w-5xl px-7 lg:px-8">
+    <div class="grid grid-cols-1 items-center gap-12 rounded-3xl border border-white/15 bg-[#1a1410]/65 p-8 backdrop-blur-sm md:grid-cols-2 md:gap-14 md:p-14">
+      <div data-reveal="up">
+        <p class="mb-3 text-sm font-bold uppercase tracking-[0.1em] text-primary-300">Reserve Online</p>
+        <h2 class="text-balance text-[36px] font-bold tracking-tight text-white sm:text-5xl">Book a Table at PD Thai</h2>
+        <div class="mt-6 h-px w-16 bg-primary-400"></div>
+        <p class="mt-8 text-lg leading-relaxed text-white/85">We use 88 Restaurants to manage online reservations at {{ client.name }}. We are currently accepting online reservations for parties of up to 10.</p>
+        <p class="mt-6 text-lg leading-relaxed text-white/85">Planning something bigger? For larger groups and private events, <a href="/parties/" class="font-semibold text-primary-300 transition-colors hover:text-primary-200">plan your party with us</a>.</p>
+      </div>
+      <div class="flex justify-center" data-reveal="up">
+        <iframe id="widget" title="Online reservation booking for {{ client.name }}" loading="lazy" width="300" height="442" src="https://88restaurants.com/pd-thai-austin-austin-tx/widgets/1" style="border:none;background:none;display:block;border-radius:5px"></iframe>
+      </div>
+    </div>
+  </div>
+</section>

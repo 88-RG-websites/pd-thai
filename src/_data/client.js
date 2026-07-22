@@ -15,7 +15,7 @@ module.exports = {
   email: 'pdthaicuisine@gmail.com',
   domain: 'https://testrestaurant.com',
 
-  // Ordering (PD Thai uses Clover Online, not the 88Restaurants order flow)
+  // Ordering (88 online ordering on the order.pdthaiaustin.com domain)
   orderOnlineUrl: 'https://order.pdthaiaustin.com/pd-thai-austin-austin-tx/online_orders/new',
 
   // Location & Maps

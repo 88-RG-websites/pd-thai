@@ -7,14 +7,14 @@
       </a>
     </div>
     <div class="hidden items-center lg:flex lg:gap-x-7">
-      <a href="#menu" class="text-base font-medium text-[#3a2f27] hover:text-primary-700">Menu</a>
+      <a href="/menus/" class="text-base font-medium text-[#3a2f27] hover:text-primary-700">Menu</a>
       <a href="#catering" class="text-base font-medium text-[#3a2f27] hover:text-primary-700">Catering</a>
       <a href="#parties" class="text-base font-medium text-[#3a2f27] hover:text-primary-700">Parties</a>
       <a href="#contact" class="text-base font-medium text-[#3a2f27] hover:text-primary-700">Contact</a>
     </div>
     <div class="flex flex-1 items-center justify-end gap-x-3">
       <a href="{{ client.orderOnlineUrl }}" target="_blank" rel="noopener noreferrer" class="hidden lg:inline-block rounded-full bg-primary-500 px-[18px] py-[11px] text-sm font-semibold whitespace-nowrap text-white shadow-sm hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">Order Online</a>
-      <a href="#" class="hidden lg:inline-block rounded-full border-2 border-primary-500 px-[18px] py-[9px] text-sm font-semibold whitespace-nowrap text-primary-600 hover:bg-primary-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">Reserve Table</a>
+      <a href="#reservations" class="hidden lg:inline-block rounded-full border-2 border-primary-500 px-[18px] py-[9px] text-sm font-semibold whitespace-nowrap text-primary-600 hover:bg-primary-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">Reserve Table</a>
       <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[#3a2f27] lg:hidden">
         <span class="sr-only">Open main menu</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
@@ -41,14 +41,14 @@
           </div>
           <div class="mt-6 flex flex-1 flex-col">
             <div class="space-y-2">
-              <a href="#menu" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Menu</a>
+              <a href="/menus/" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Menu</a>
               <a href="#catering" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Catering</a>
               <a href="#parties" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Parties</a>
               <a href="#contact" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Contact</a>
             </div>
             <div class="mt-auto space-y-2 pt-6">
               <a href="{{ client.orderOnlineUrl }}" target="_blank" rel="noopener noreferrer" class="-mx-3 block rounded-lg px-4 py-3 text-lg font-semibold text-white bg-primary-500 hover:bg-primary-600 text-center">Order Online</a>
-              <a href="#" class="-mx-3 block rounded-lg px-4 py-3 text-lg font-semibold text-primary-600 border-2 border-primary-500 hover:bg-primary-50 text-center">Reserve Table</a>
+              <a href="#reservations" class="-mx-3 block rounded-lg px-4 py-3 text-lg font-semibold text-primary-600 border-2 border-primary-500 hover:bg-primary-50 text-center">Reserve Table</a>
             </div>
           </div>
         </el-dialog-panel>

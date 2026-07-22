@@ -1521,6 +1521,13 @@ body {
   transform: translateY(28px);
 }
 
+/* Slide-only reveal (no fade). Use on containers holding backdrop-filter
+   elements: an ancestor with opacity < 1 isolates its layer group, which
+   blanks the blur until the fade completes. */
+.js-reveal [data-reveal="up-solid"] {
+  transform: translateY(28px);
+}
+
 .js-reveal [data-reveal="left"] {
   opacity: 0;
   transform: translateX(-36px);
@@ -1538,6 +1545,14 @@ body {
 [data-reveal].is-revealed {
   opacity: 1;
   transform: translate(0, 0);
+}
+
+/* Opt out of the reveal animation on mobile — element shows immediately. */
+@media (max-width: 767px) {
+  .js-reveal .no-reveal-mobile[data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 [data-reveal-delay="1"] { transition-delay: 0.1s; }

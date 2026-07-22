@@ -1170,11 +1170,11 @@ video {
 .border-white\/30 {
   border-color: rgb(255 255 255 / 0.3);
 }
+.bg-\[\#1a1410\]\/55 {
+  background-color: rgb(26 20 16 / 0.55);
+}
 .bg-\[\#1a1410\]\/65 {
   background-color: rgb(26 20 16 / 0.65);
-}
-.bg-\[\#1a1410\]\/75 {
-  background-color: rgb(26 20 16 / 0.75);
 }
 .bg-\[\#241b16\] {
   --tw-bg-opacity: 1;

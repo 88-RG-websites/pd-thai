@@ -1,5 +1,5 @@
 /**
- * Order-online carousel (index3): 3 circular dish photos visible on desktop,
+ * Order-online carousel (homepage): 3 circular dish photos visible on desktop,
  * 1 on mobile. Auto-advances on a timer with no play/pause control, and wraps
  * infinitely in both directions via cloned slides at each end of the track.
  */

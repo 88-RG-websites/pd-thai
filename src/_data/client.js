@@ -41,7 +41,7 @@ module.exports = {
 
   // Hero Section
   hero: {
-    kicker: '2 blocks from UT Austin · The Drag',
+    kicker: '2 blocks from UT Austin · North Campus',
     titleLine1: 'Real Thai Flavor,',
     titleLine2: 'Steps From Campus',
     subtitle: "Traditional Thai cooking made with locally grown herbs and spices, in a colorful, modern dining room on Guadalupe Street — quick enough between classes, easy enough for the whole family.",
@@ -55,9 +55,9 @@ module.exports = {
 
   // Near Campus Section
   campus: {
-    heading: 'Authentic Thai, Steps from UT Campus',
+    heading: 'Late Night Thai, Steps from UT Campus',
     paragraphOne: "Eight years of history on Guadalupe Street meet an exciting new chapter under Arnaldo's ownership. We're still an easy walk from UT Austin — quick enough for a lunch break between classes, and stocked with fast, affordable, vegan-friendly plates for busy students.",
-    paragraphTwo: "But we're not just a college spot — families, faculty, and neighbors from around Austin come in for the same fresh, made-to-order Thai cooking, every day of the week.",
+    paragraphTwo: "And we keep the woks going until 3am, every night of the week. Whether you're wrapping up a late night study session or heading home from Sixth Street, there's a steaming plate of pad thai or drunken noodles waiting for you on Guadalupe.",
     image: '/assets/images/exterior-leaf.webp',
     imageAlt: 'Exterior of PD Thai Cuisine on Guadalupe Street',
     pinTopLeft: { image: '/assets/images/plate-4.webp', alt: 'Tom yum goong — spicy shrimp soup' },

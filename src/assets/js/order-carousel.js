@@ -10,6 +10,12 @@ export function initOrderCarousel() {
   const nextBtn = document.getElementById('order-carousel-next');
   const dotsWrap = document.getElementById('order-carousel-dots');
   const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
+  const lightbox = document.getElementById('order-lightbox');
+  const lightboxImage = document.getElementById('order-lightbox-image');
+  const lightboxCaption = document.getElementById('order-lightbox-caption');
+  const lightboxClose = document.getElementById('order-lightbox-close');
+  const lightboxPrev = document.getElementById('order-lightbox-prev');
+  const lightboxNext = document.getElementById('order-lightbox-next');
   const realSlides = track ? Array.from(track.children) : [];
   const realCount = realSlides.length;
 
@@ -101,9 +107,13 @@ export function initOrderCarousel() {
     render();
   }
 
+  function isLightboxOpen() {
+    return lightbox && !lightbox.classList.contains('hidden');
+  }
+
   function startAutoplay() {
     stopAutoplay();
-    if (reducedMotionQuery.matches || realCount <= getVisibleCount()) return;
+    if (reducedMotionQuery.matches || isLightboxOpen() || realCount <= getVisibleCount()) return;
     autoplayTimer = setInterval(() => move(1), AUTOPLAY_MS);
   }
 
@@ -141,6 +151,79 @@ export function initOrderCarousel() {
       startAutoplay();
     }
   });
+
+  // --- Lightbox ---
+  if (lightbox && lightboxImage && lightboxClose && lightboxPrev && lightboxNext) {
+    const images = realSlides.map((slide) => {
+      const img = slide.querySelector('img');
+      return { src: img ? img.src : '', alt: img ? img.alt : '' };
+    });
+    let lightboxIndex = 0;
+
+    const updateLightbox = () => {
+      const image = images[lightboxIndex];
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.alt;
+      if (lightboxCaption) lightboxCaption.textContent = image.alt;
+    };
+
+    const openLightbox = (index) => {
+      lightboxIndex = index;
+      updateLightbox();
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      stopAutoplay();
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+      document.body.style.overflow = '';
+      startAutoplay();
+    };
+
+    const showPrev = () => {
+      lightboxIndex = (lightboxIndex - 1 + images.length) % images.length;
+      updateLightbox();
+    };
+
+    const showNext = () => {
+      lightboxIndex = (lightboxIndex + 1) % images.length;
+      updateLightbox();
+    };
+
+    // Delegate from the track so cloned slides work too; data-index maps a
+    // clone back to the real slide it was copied from.
+    track.addEventListener('click', (e) => {
+      const img = e.target.closest('img[data-index]');
+      if (!img) return;
+      openLightbox(Number(img.dataset.index));
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', showPrev);
+    lightboxNext.addEventListener('click', showNext);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!isLightboxOpen()) return;
+      switch (e.key) {
+        case 'Escape':
+          closeLightbox();
+          break;
+        case 'ArrowLeft':
+          showPrev();
+          break;
+        case 'ArrowRight':
+          showNext();
+          break;
+      }
+    });
+  }
 
   let resizeTimeout;
   window.addEventListener('resize', () => {

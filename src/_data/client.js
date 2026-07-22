@@ -60,7 +60,7 @@ module.exports = {
     paragraphTwo: "And we keep the woks going until 3am, every night of the week. Whether you're wrapping up a late night study session or heading home from Sixth Street, there's a steaming plate of pad thai or drunken noodles waiting for you on Guadalupe.",
     image: '/assets/images/exterior-leaf.webp',
     imageAlt: 'Exterior of PD Thai Cuisine on Guadalupe Street',
-    pinTopLeft: { image: '/assets/images/plate-4.webp', alt: 'Tom yum goong — spicy shrimp soup' },
+    pinTopLeft: { image: '/assets/images/plate-extra.webp', alt: 'Tom yum soup with shrimp, surrounded by fresh Thai chilis, lime leaves and spices' },
     pinBottomRight: { image: '/assets/images/plate-5.webp', alt: 'Pad Thai with shrimp, lime and scallions' },
   },
 

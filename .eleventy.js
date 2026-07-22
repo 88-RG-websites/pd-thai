@@ -1,16 +1,33 @@
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 const sitemap = require("@quasibit/eleventy-plugin-sitemap");
-const eleventyPluginFilesMinifier = require("@sherby/eleventy-plugin-files-minifier");
+const htmlmin = require("html-minifier");
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 
 module.exports = function (eleventyConfig) {
   // Add plugins
   eleventyConfig.addPlugin(sitemap, {
     sitemap: {
-      hostname: "https://www.example.com", // Replace with your client's URL
+      hostname: "https://pdthaiaustin.com",
     },
   });
-  eleventyConfig.addPlugin(eleventyPluginFilesMinifier);
+  // Minify HTML output directly (instead of @sherby/eleventy-plugin-files-minifier,
+  // whose hardcoded sortAttributes/sortClassName reordered attributes in the head)
+  eleventyConfig.addTransform("htmlmin", function (content) {
+    if (this.page.outputPath && this.page.outputPath.endsWith(".html")) {
+      return htmlmin.minify(content, {
+        collapseBooleanAttributes: true,
+        collapseWhitespace: true,
+        decodeEntities: true,
+        html5: true,
+        minifyCSS: true,
+        minifyJS: true,
+        removeComments: true,
+        removeEmptyAttributes: true,
+        useShortDoctype: true,
+      });
+    }
+    return content;
+  });
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
   // Rewrites root-relative URLs (/assets, /menus, etc.) to honor pathPrefix,
   // so preview builds nested in a subfolder still resolve their links.

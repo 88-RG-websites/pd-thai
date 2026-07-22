@@ -1,0 +1,66 @@
+<section id="contact" class="scroll-mt-24 bg-[#fdfaf5] py-16 md:py-[88px]">
+  <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+    <div data-reveal="up">
+      <p class="mb-2 text-sm font-bold uppercase tracking-[0.1em] text-primary-700">Thai Food near UT Austin</p>
+      <h2 class="text-balance text-[36px] font-bold leading-[1.1] tracking-tight text-[#241b16] sm:text-5xl">PD Thai</h2>
+      <p class="mt-5 max-w-3xl text-lg leading-relaxed text-[#33422e]">PD Thai is located at {{ client.address.street }} on The Drag — just two blocks from the UT Austin campus, near North Campus and Hemphill Park, with convenient car parking right off Guadalupe.</p>
+    </div>
+
+    <div class="mt-10 grid grid-cols-1 gap-4 sm:mt-14 lg:grid-cols-3 lg:items-stretch">
+      <div class="space-y-4 lg:col-span-1 lg:flex lg:flex-col" data-reveal="up">
+        <!-- Contact card -->
+        <div class="w-full overflow-hidden rounded-2xl bg-white shadow outline outline-1 outline-black/5">
+          <div class="p-5 lg:px-10 lg:py-7">
+            <h3 class="text-lg font-semibold text-primary-600">Contact</h3>
+            <div class="mt-5 space-y-5">
+              <div class="flex items-start gap-3">
+                <svg class="h-5 w-5 flex-shrink-0 text-primary-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                <div>
+                  <p class="text-sm text-[#33422e]"><span class="font-medium text-[#241b16]">Monday – Sunday</span> · 10:00am – 3:00am</p>
+                  <p class="mt-1 text-xs text-[#33422e]/70">Open late, every day of the week.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="h-5 w-5 flex-shrink-0 text-primary-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                <div>
+                  <p class="text-sm text-[#33422e]">{{ client.address.street }}, {{ client.address.city }}, {{ client.address.state }} {{ client.address.zip }}</p>
+                  <a class="mt-1 inline-block text-sm font-medium text-primary-600 hover:text-primary-700" href="{{ client.googleMapsUrl }}" rel="noopener noreferrer" target="_blank">Open in Google Maps</a>
+                </div>
+              </div>
+              <a class="group flex items-center gap-3" href="tel:{{ client.phone }}">
+                <svg class="h-5 w-5 flex-shrink-0 text-primary-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                <span class="text-sm text-[#33422e] group-hover:text-primary-700">{{ client.phone }}</span>
+              </a>
+              <a class="group flex items-center gap-3" href="mailto:{{ client.email }}">
+                <svg class="h-5 w-5 flex-shrink-0 text-primary-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                <span class="text-sm text-[#33422e] group-hover:text-primary-700">{{ client.email }}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Menu card -->
+        <a class="group relative block w-full overflow-hidden rounded-2xl bg-white shadow outline outline-1 outline-black/5 transition-shadow duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 lg:flex-1" href="/menus/" aria-label="View our menus">
+          <div class="relative h-64 min-h-64 w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105 sm:h-72 lg:h-full" style="background-image:url(/assets/images/menus-card.webp)">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center px-4 text-center text-white">
+              <p class="mb-1 text-xs font-medium uppercase tracking-wider sm:mb-2 sm:text-sm">Explore Our</p>
+              <h3 class="text-lg font-bold uppercase tracking-tight sm:text-xl lg:text-2xl">Menus</h3>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Message card -->
+      <div class="flex lg:col-span-2" data-reveal="up" data-reveal-delay="1">
+        <div class="flex w-full flex-col overflow-hidden rounded-2xl bg-white shadow outline outline-1 outline-black/5">
+          <div class="flex flex-1 flex-col p-5 lg:p-10">
+            <h3 class="text-lg font-semibold text-primary-600">{{ client.contact.formHeading }}</h3>
+            <p class="mt-3 text-base leading-7 text-[#33422e]">Feel free to leave us a message and we'll get back to you as soon as possible. For larger groups and private events, <a class="font-medium text-primary-600 hover:text-primary-700" href="/parties/">plan your party with us</a>.</p>
+            <iframe src="https://88restaurants.com/pd-thai-austin-austin-tx/contact_forms" title="Contact form for {{ client.name }}" loading="lazy" frameborder="0" width="100%" height="545" scrolling="no" class="mt-4 min-h-[545px] w-full flex-1"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

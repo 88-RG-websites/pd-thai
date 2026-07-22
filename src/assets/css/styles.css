@@ -691,6 +691,9 @@ video {
 .mb-14 {
   margin-bottom: 3.5rem;
 }
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
 .mb-2\.5 {
   margin-bottom: 0.625rem;
 }
@@ -742,6 +745,9 @@ video {
 .mt-2 {
   margin-top: 0.5rem;
 }
+.mt-3 {
+  margin-top: 0.75rem;
+}
 .mt-4 {
   margin-top: 1rem;
 }
@@ -780,6 +786,9 @@ video {
 }
 .hidden {
   display: none;
+}
+.aspect-\[16\/10\] {
+  aspect-ratio: 16/10;
 }
 .aspect-\[4\/5\] {
   aspect-ratio: 4/5;
@@ -1487,6 +1496,9 @@ video {
 .text-\[40px\] {
   font-size: 40px;
 }
+.text-\[44px\] {
+  font-size: 44px;
+}
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -2023,6 +2035,11 @@ body {
   background-color: rgb(247 241 230 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-black:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-black\/60:hover {
   background-color: rgb(0 0 0 / 0.6);
 }
@@ -2317,6 +2334,10 @@ body {
     font-size: 40px;
   }
 
+  .sm\:text-\[56px\] {
+    font-size: 56px;
+  }
+
   .sm\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -2340,6 +2361,22 @@ body {
 
 @media (min-width: 768px) {
 
+  .md\:order-1 {
+    order: 1;
+  }
+
+  .md\:order-2 {
+    order: 2;
+  }
+
+  .md\:order-3 {
+    order: 3;
+  }
+
+  .md\:order-4 {
+    order: 4;
+  }
+
   .md\:mb-14 {
     margin-bottom: 3.5rem;
   }
@@ -2356,6 +2393,10 @@ body {
     height: 50vh;
   }
 
+  .md\:min-h-\[500px\] {
+    min-height: 500px;
+  }
+
   .md\:min-h-\[calc\(100vh-96px\)\] {
     min-height: calc(100vh - 96px);
   }
@@ -2370,6 +2411,10 @@ body {
 
   .md\:gap-14 {
     gap: 3.5rem;
+  }
+
+  .md\:p-10 {
+    padding: 2.5rem;
   }
 
   .md\:p-14 {
@@ -2619,6 +2664,11 @@ body {
     padding: 2.5rem;
   }
 
+  .lg\:px-20 {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
   .lg\:px-24 {
     padding-left: 6rem;
     padding-right: 6rem;
@@ -2627,6 +2677,11 @@ body {
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .lg\:py-14 {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
   }
 
   .lg\:py-2 {

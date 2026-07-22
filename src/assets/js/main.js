@@ -5,6 +5,7 @@ import { initHero } from './hero.js';
 import { initHeroVideo } from './hero-video.js';
 import { initReviews } from './reviews.js';
 import { initMenuGallery } from './menu-gallery.js';
+import { initOrderCarousel } from './order-carousel.js';
 import { initScrollReveal } from './scroll-reveal.js';
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -16,5 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
   initHeroVideo();
   initReviews();
   initMenuGallery();
+  initOrderCarousel();
   initScrollReveal();
 });

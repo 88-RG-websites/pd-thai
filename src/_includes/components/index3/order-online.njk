@@ -1,0 +1,41 @@
+<section id="order" class="bg-[#d3e6d1] py-12 md:py-[88px]">
+  <div class="mx-auto max-w-6xl px-7">
+    <!-- Title Section -->
+    <div class="mx-auto mb-9 max-w-xl text-center md:mb-14" data-reveal="up">
+      <p class="mb-3 text-sm font-bold uppercase tracking-[0.1em] text-primary-700">Real Thai Flavor</p>
+      <h2 class="text-balance mb-5 text-[36px] font-bold tracking-tight text-[#241b16] sm:text-5xl">See What's Cooking</h2>
+      <p class="mb-8 text-lg leading-relaxed text-[#33422e]">From rich curries to crispy spring rolls, here's a taste of what comes out of our kitchen every day. Find your favorite on the menu — then dine in, or order online for takeout and delivery.</p>
+      <div class="flex items-center justify-center gap-4">
+        <a href="{{ client.orderOnlineUrl }}" class="inline-block rounded-full bg-primary-500 px-8 py-[15px] text-[15.5px] font-semibold text-white hover:bg-primary-600"><span class="sm:hidden">Order</span><span class="hidden sm:inline">Order Online</span></a>
+        <a href="/menus/" class="inline-block rounded-full border-2 border-primary-500 px-8 py-[13px] text-[15.5px] font-semibold text-primary-700 hover:bg-primary-500 hover:text-white"><span class="sm:hidden">Menu</span><span class="hidden sm:inline">View Menu</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-7" data-reveal="up">
+    <button id="order-carousel-prev" type="button" aria-label="Previous dish" class="absolute left-0 top-[calc(50%-20px)] z-10 -translate-y-1/2 p-2 text-white/90 transition hover:text-white sm:left-2 lg:-left-8">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button id="order-carousel-next" type="button" aria-label="Next dish" class="absolute right-0 top-[calc(50%-20px)] z-10 -translate-y-1/2 p-2 text-white/90 transition hover:text-white sm:right-2 lg:-right-8">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div id="order-carousel-viewport" class="overflow-hidden">
+      <div id="order-carousel-track" class="flex gap-6 transition-transform duration-500 ease-in-out">
+        {% for dish in client.menuGallery %}
+        <div class="w-full shrink-0 sm:w-[calc((100%-48px)/3)]">
+          <div class="aspect-square overflow-hidden rounded-full bg-white p-3">
+            <img src="{{ dish.image }}" alt="{{ dish.alt }}" class="h-full w-full rounded-full object-cover" />
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div id="order-carousel-dots" class="mt-8 flex justify-center gap-2">
+      {% for dish in client.menuGallery %}
+      <button type="button" aria-label="Go to slide {{ loop.index }}" class="size-2.5 rounded-full transition {% if loop.first %}bg-primary-600{% else %}bg-[#241b16]/20 hover:bg-[#241b16]/40{% endif %}"></button>
+      {% endfor %}
+    </div>
+  </div>
+</section>

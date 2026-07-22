@@ -887,6 +887,9 @@ video {
 .min-h-64 {
   min-height: 16rem;
 }
+.min-h-\[320px\] {
+  min-height: 320px;
+}
 .min-h-\[545px\] {
   min-height: 545px;
 }
@@ -1034,6 +1037,9 @@ video {
 }
 .items-center {
   align-items: center;
+}
+.items-stretch {
+  align-items: stretch;
 }
 .justify-start {
   justify-content: flex-start;
@@ -2277,6 +2283,10 @@ body {
     height: 20rem;
   }
 
+  .sm\:min-h-\[400px\] {
+    min-height: 400px;
+  }
+
   .sm\:w-32 {
     width: 8rem;
   }
@@ -2323,6 +2333,10 @@ body {
 
   .sm\:p-10 {
     padding: 2.5rem;
+  }
+
+  .sm\:p-6 {
+    padding: 1.5rem;
   }
 
   .sm\:p-9 {

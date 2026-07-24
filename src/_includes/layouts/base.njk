@@ -19,20 +19,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ description }}">
-    <meta name="keywords" content="">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ client.domain }}{{ page.url }}">
 
     <!-- Social Media Display -->
+    <meta property="og:site_name" content="{{ client.name }}"/>
     <meta property="og:title" content="{{ title }}"/>
     <meta property="og:description" content="{{ description }}"/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="{{ client.domain }}{{ page.url }}"/>
-    <meta property="og:image" content="{{ '/assets/images/og-image.webp' | htmlBaseUrl }}"/>
-    <meta property="og:image:secure_url" content="{{ '/assets/images/og-image.webp' | htmlBaseUrl }}"/>
+    <meta property="og:image" content="{{ client.domain }}/assets/images/og-image.webp"/>
+    <meta property="og:image:secure_url" content="{{ client.domain }}/assets/images/og-image.webp"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="{{ title }}"/>
+    <meta name="twitter:description" content="{{ description }}"/>
+    <meta name="twitter:image" content="{{ client.domain }}/assets/images/og-image.webp"/>
 
     <!-- Favicons -->
+    <link rel="icon" href="/assets/favicons/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png?v1">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png?v2">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="/assets/favicons/site.webmanifest">
     <meta name="msapplication-TileColor" content="#da532c">
@@ -53,14 +61,30 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
+        "@type": "Restaurant",
         "name": "{{ client.name }}",
         "url": "{{ client.domain }}",
         "logo": "{{ client.domain }}/assets/images/logo.png",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "telephone": "{{ client.phone }}",
-          "contactType": "Customer Service"
+        "image": "{{ client.domain }}/assets/images/og-image.webp",
+        "telephone": "{{ client.phone }}",
+        "email": "{{ client.email }}",
+        "servesCuisine": "Thai",
+        "priceRange": "$$",
+        "menu": "{{ client.domain }}/menus.html",
+        "hasMap": "{{ client.googlePlacesUrl }}",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "{{ client.address.street }}",
+          "addressLocality": "{{ client.address.city }}",
+          "addressRegion": "{{ client.address.state }}",
+          "postalCode": "{{ client.address.zip }}",
+          "addressCountry": "US"
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "10:00",
+          "closes": "03:00"
         }
       }
     </script>
@@ -75,6 +99,7 @@
       {% block content %}{% endblock %}
     </main>
     {% include "components/footer.njk" %}
+    <script src="/assets/js/attribution.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
     <script type="module" src="/assets/js/main.js"></script>
   </body>

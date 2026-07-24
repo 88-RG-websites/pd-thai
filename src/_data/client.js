@@ -13,9 +13,9 @@ module.exports = {
   },
   phone: '(512) 371-8777',
   email: 'pdthaicuisine@gmail.com',
-  domain: 'https://testrestaurant.com',
+  domain: 'https://pdthaiaustin.com',
 
-  // Ordering (PD Thai uses Clover Online, not the 88Restaurants order flow)
+  // Ordering (88 online ordering on the order.pdthaiaustin.com domain)
   orderOnlineUrl: 'https://order.pdthaiaustin.com/pd-thai-austin-austin-tx/online_orders/new',
 
   // Location & Maps
@@ -41,23 +41,26 @@ module.exports = {
 
   // Hero Section
   hero: {
-    kicker: '2 blocks from UT Austin · The Drag',
+    kicker: '2 blocks from UT Austin · North Campus',
     titleLine1: 'Real Thai Flavor,',
     titleLine2: 'Steps From Campus',
     subtitle: "Traditional Thai cooking made with locally grown herbs and spices, in a colorful, modern dining room on Guadalupe Street — quick enough between classes, easy enough for the whole family.",
     video: '/assets/videos/hero.mp4',
+    videoWebm: '/assets/videos/hero.webm',
+    videoMobile: '/assets/videos/hero-mobile.mp4',
+    videoMobileWebm: '/assets/videos/hero-mobile.webm',
     poster: '/assets/images/gallery/g1.jpg',
   },
 
 
   // Near Campus Section
   campus: {
-    heading: 'Built for campus life, loved by the whole neighborhood',
-    paragraphOne: "Eight years of history on Guadalupe Street meet an exciting new chapter under Arnaldo's ownership. We're still an easy walk from UT Austin — quick enough for a lunch break between classes, and stocked with fast, affordable, vegan-friendly plates for busy students.",
-    paragraphTwo: "But we're not just a college spot — families, faculty, and neighbors from around Austin come in for the same fresh, made-to-order Thai cooking, every day of the week.",
+    heading: 'Late Night Thai Cuisine. Steps from the UT Austin Campus',
+    paragraphOne: "Eight years of history on Guadalupe Street meet an exciting new chapter under Ezron's ownership. We're still an easy walk from UT Austin — quick enough for a lunch break between classes, and stocked with fast, affordable, vegetarian and vegan friendly plates for busy students.",
+    paragraphTwo: "We keep the woks going until 3am, every night of the week. Whether you're wrapping up a late night study session or heading home from Sixth Street, there's a hot plate of pad thai or drunken noodles waiting for you on Guadalupe Street.",
     image: '/assets/images/exterior-leaf.webp',
     imageAlt: 'Exterior of PD Thai Cuisine on Guadalupe Street',
-    pinTopLeft: { image: '/assets/images/plate-4.webp', alt: 'Tom yum goong — spicy shrimp soup' },
+    pinTopLeft: { image: '/assets/images/plate-extra.webp', alt: 'Tom yum soup with shrimp, surrounded by fresh Thai chilis, lime leaves and spices' },
     pinBottomRight: { image: '/assets/images/plate-5.webp', alt: 'Pad Thai with shrimp, lime and scallions' },
   },
 
@@ -128,7 +131,7 @@ module.exports = {
   catering: {
     kicker: 'Catering',
     heading: 'Bring PD Thai To Your Next Austin Gathering',
-    paragraphOne: "Birthdays, graduations, office parties — for eight years we've been cooking real, made-to-order Thai food for North Campus, and under Arnaldo's ownership that same care carries over into every catering order. Our small kitchen team preps each dish fresh, so your guests get the same quality we serve in the dining room.",
+    paragraphOne: "Birthdays, graduations, office parties — for eight years we've been cooking real, made-to-order Thai food for North Campus, and under Ezron's ownership that same care carries over into every catering order. Our small kitchen team preps each dish fresh, so your guests get the same quality we serve in the dining room.",
     paragraphTwo: "Vegetarian, vegan, and gluten-free options are all available, so there's something for everyone on the table. We cater parties of up to 40 guests, with pickup or delivery.",
     formNote: "Let us know your date and any special requests below, and our team will follow up to build a catering order around your event.",
     formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/catering_submissions/new',

@@ -112,13 +112,16 @@ module.exports = {
     kicker: 'Reviews',
     heading: 'What people are saying',
   },
-  reviews: [
-    { name: 'A O.', text: "One of the best Thai food I've tried so far, so fresh and tasty, and the restaurant is very clean. We ordered pad Thai and thin noodles with beef and basil rice with shrimp — it was amazing." },
-    { name: '_HeyS.', text: "The drunken noodles were so fresh and flavorful! My only problem with the steamed dumplings is that I didn't buy more. Easy 10/10 for me." },
-    { name: 'Tessa T.', text: 'The food always tastes fresh and is hot! My favorite is the pad see ew. Portions are plentiful — if I order for dinner I can have leftovers for lunch the next day.' },
-    { name: 'Kristy K.', text: 'Phenomenal tasting food, always piping hot and freshly cooked. Always nice conversation with their staff and a nice, quiet dining room to have my lunch.' },
-    { name: 'Vegan T.', text: 'The fresh rolls were exceptional. My Panang curry was also delicious. I ordered both with soft tofu.' },
-  ],
+  // Build-time Google reviews (src/_data/reviews.js feeds the carousel in
+  // components/home/reviews.njk; package @reservationgenie/google-reviews).
+  // The Maps URL must contain the !1s0x…:0x… feature-id segment. Full
+  // history caches at the repo root as reviews-cache.json — commit it, never
+  // move it into src/_data/.
+  reviews: {
+    google_maps_url:
+      'https://www.google.com/maps/place/PD%20Thai%20Cuisine/data=!4m2!3m1!1s0x8644ca7fed1f5917:0x6e6ab314897e3efd',
+    display: { max_reviews: 12, min_rating: 5, require_text: true, min_text_length: 0 },
+  },
 
   // Contact Section
   contact: {

@@ -12,9 +12,9 @@
       <p class="mb-4 text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.catering.paragraphOne }}</p>
       <p class="text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.catering.paragraphTwo }}</p>
     </div>
-    <div class="rounded-2xl border border-[#ece2d3] bg-white p-7 sm:p-10" data-reveal="up" data-reveal-delay="1">
+    <div data-reveal="up" data-reveal-delay="1">
       <p class="mb-6 text-center text-[15px] leading-relaxed text-[#4a3d34]">{{ client.catering.formNote }}</p>
-      <iframe src="{{ client.catering.formUrl }}" frameborder="0" width="100%" height="800" style="min-height: 800px; overflow: hidden;" scrolling="no"></iframe>
+      <div class="w-full" data-88-form="{{ client.forms.catering }}"></div>
     </div>
   </div>
 </section>

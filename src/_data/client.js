@@ -190,7 +190,6 @@ const client = {
   contact: {
     heading: 'Find us on Guadalupe',
     formHeading: 'Send Us a Message',
-    formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/contact_forms',
   },
 
   // Catering Page
@@ -200,7 +199,6 @@ const client = {
     paragraphOne: "Birthdays, graduations, office parties — for eight years we've been cooking real, made-to-order Thai food for North Campus, and under Ezron's ownership that same care carries over into every catering order. Our small kitchen team preps each dish fresh, so your guests get the same quality we serve in the dining room.",
     paragraphTwo: "Vegetarian, vegan, and gluten-free options are all available, so there's something for everyone on the table. We cater parties of up to 40 guests, with pickup or delivery.",
     formNote: "Let us know your date and any special requests below, and our team will follow up to build a catering order around your event.",
-    formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/catering_submissions/new',
   },
 
   // Parties & Events Page
@@ -209,7 +207,6 @@ const client = {
     heading: 'Host Your Next Get-Together With Us',
     paragraphOne: "Birthday dinner, team lunch, or just a big group craving Thai food — we love hosting parties at PD Thai. Send us a few details about what you have in mind and we'll help you find a table that fits.",
     formNote: "Tell us your group size, preferred date, and any details about your event below, and our team will follow up to help plan it.",
-    formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/party_inquiry_forms',
   },
 };
 

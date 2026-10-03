@@ -1,6 +1,16 @@
-{# Google reviews carousel — cards come from src/_data/reviews.js (the
-   package scrape, curated by client.reviews.display). Renders nothing until
-   a cache/scrape has produced data. review.text contains real newlines.
+{# Google reviews — cards come from src/_data/reviews.js (the package scrape,
+   curated by client.reviews.display). Renders nothing until a cache/scrape
+   has produced data.
+
+   Three cards show; the rest carry data-review-extra + `hidden` and open with
+   "View more reviews". assets/js/reviews.js drives that and the per-review
+   "Read more" clamp. It depends on: id="reviews", the data-review-toggle /
+   data-review-extra / data-reviews-more attributes, the review-text-N ids and
+   the `line-clamp-5` + `hidden` class names — restyle around those.
+   review.text contains real newlines: it renders through `escape | nl2br`
+   because the HTML minifier collapses a literal newline in a text node and a
+   <br> survives it.
+
    NOTE: do NOT add schema.org Review/AggregateRating markup here — marking up
    reviews sourced from Google violates Google's structured-data policy. #}
 {% if reviews and reviews.items.length %}
@@ -13,25 +23,29 @@
       <h2 class="text-balance text-[36px] font-bold tracking-tight text-white sm:text-5xl">{{ client.reviewsIntro.heading }}</h2>
     </div>
 
-    <div class="relative" data-reveal="up-solid" data-reveal-delay="1">
-      <div id="reviews-viewport" class="overflow-hidden">
-        <div id="reviews-track" class="flex gap-[22px] transition-transform duration-500 ease-in-out">
-          {% for review in reviews.items %}
-          <div class="reviews-slide w-full shrink-0 sm:w-[calc((100%-44px)/3)]">
-            <a href="{{ review.url or client.googlePlacesUrl }}" target="_blank" rel="noopener nofollow" class="flex h-full flex-col rounded-2xl border border-white/25 bg-white/10 p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_8px_32px_-8px_rgba(0,0,0,0.45)] backdrop-blur-xl backdrop-saturate-150 transition hover:bg-white/[0.18] hover:border-white/40" aria-label="Read {{ review.author }}'s review of {{ client.name }} on Google">
-              <div class="mb-3.5 text-base tracking-[2px] text-[#f0c14b]" aria-hidden="true">{% for i in range(review.rating) %}★{% endfor %}</div>
-              <p class="sr-only">Rated {{ review.rating }} out of 5 stars</p>
-              <p class="mb-[18px] line-clamp-6 whitespace-pre-line text-[15px] leading-relaxed text-white/90">{{ review.text }}</p>
-              <div class="mt-auto text-[13.5px] font-bold text-white">{{ review.author }}</div>
-              <div class="text-xs text-white/60 underline decoration-white/30 underline-offset-2">Google Review</div>
-            </a>
-          </div>
-          {% endfor %}
+    <div class="grid grid-cols-1 gap-[22px] sm:grid-cols-3" data-reveal="up-solid" data-reveal-delay="1">
+      {% for review in reviews.items %}
+      <article {% if loop.index > 3 %}data-review-extra {% endif %}class="flex h-full flex-col rounded-2xl border border-white/25 bg-white/10 p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_8px_32px_-8px_rgba(0,0,0,0.45)] backdrop-blur-xl backdrop-saturate-150{{ ' hidden' if loop.index > 3 }}">
+        <div class="mb-3.5 text-base tracking-[2px] text-[#f0c14b]" aria-hidden="true">{% for i in range(review.rating) %}★{% endfor %}</div>
+        <p class="sr-only">Rated {{ review.rating }} out of 5 stars</p>
+        {% if review.text %}
+        <p id="review-text-{{ loop.index }}" class="line-clamp-5 text-[15px] leading-relaxed text-white/90">{{ review.text | escape | nl2br }}</p>
+        <button type="button" data-review-toggle aria-controls="review-text-{{ loop.index }}" aria-expanded="false" class="mt-2 hidden self-start text-[13px] font-semibold text-primary-200 transition-colors hover:text-white">Read more</button>
+        {% endif %}
+        <div class="mt-[18px] flex items-baseline justify-between gap-3">
+          <span class="text-[13.5px] font-bold text-white">{{ review.author }}</span>
+          {% if review.published_at %}<time datetime="{{ review.published_at }}" class="flex-shrink-0 text-xs text-white/60">{{ review.published_at | readableDate }}</time>{% endif %}
         </div>
-      </div>
+        <a href="{{ review.url or client.googlePlacesUrl }}" target="_blank" rel="noopener nofollow" aria-label="View this review on Google" class="mt-auto pt-1 text-xs text-white/60 underline decoration-white/30 underline-offset-2 transition-colors hover:text-white">View on Google</a>
+      </article>
+      {% endfor %}
     </div>
 
-    <div id="reviews-dots" class="mt-8 flex justify-center gap-2"></div>
+    {% if reviews.items.length > 3 %}
+    <div class="mt-10 text-center">
+      <button type="button" data-reviews-more class="inline-block rounded-full border-2 border-white/60 px-8 py-[13px] text-[15.5px] font-semibold text-white transition-colors hover:bg-white/15">View more reviews</button>
+    </div>
+    {% endif %}
   </div>
 </section>
 {% endif %}

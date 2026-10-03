@@ -17,6 +17,15 @@
 }
 /* <<< template:core menu-subdomain-host */
 
+/* The header 88's menu pages borrow (src/_88/header.njk) is this site's own
+   #logo-header bar, which the fenced rule above (written for the template's
+   #main-header) does not name. Same reveal, for this bar. */
+:host #logo-header {
+  visibility: visible !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
@@ -36,6 +45,13 @@ html.viewport-page {
   scrollbar-gutter: auto;
 }
 /* <<< template:core viewport-page */
+
+/* The template's pages offset themselves by --header-height because its bar is
+   fixed. This site's bar is sticky and already takes its own room in the flow,
+   so the offset is zero: the menu frame then fills the rest of the screen. */
+:root {
+  --header-height: 0px;
+}
 
 /* This site's own reveal variants. They sit above the fenced mechanics below
    (which hold the base transition, the "up" and "fade" starts and the

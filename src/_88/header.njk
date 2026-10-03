@@ -35,15 +35,13 @@ solidHeader: true
   @import url({{ theme.fonts.googleFontsUrl | dump | safe }});
   @import url({{ (origin + "/assets/css/styles.css") | dump | safe }});
   :host { display: block; font-family: var(--font-body, Roboto, sans-serif); background-color: var(--c-secondary-700, #0a1123); }
-  /* The bar flows in the host page instead of floating over a hero. It stays hidden, one bar
-     high on the header's ground, until styles.css reveals it (sass/styles.scss, `:host
-     #main-header`): the page paints before an @import in a shadow root arrives, so the bare
-     markup would flash. The animation shows it anyway after 3s, if styles.css never loads. */
-  #main-header { position: relative; top: 0;
+  /* This site's bar is `#logo-header` (sticky on its own pages). Here it flows in the host page.
+     It stays hidden, one bar high on the header's ground, until styles.css reveals it
+     (sass/styles.scss, `:host #logo-header`): the page paints before an @import in a shadow root
+     arrives, so the bare markup would flash. The animation shows it anyway after 3s, if styles.css
+     never loads. */
+  #logo-header { position: relative; top: 0;
     visibility: hidden; max-height: 6rem; overflow: hidden; animation: site-header-fallback 0s 3s forwards; }
-  /* solidHeader puts `is-scrolled` on the bar, which styles.css tints to 82% and blurs. In flow
-     above the menu there is nothing to see through it, so the ground stays solid. */
-  #main-header.is-scrolled { background-color: var(--c-secondary-700, #0a1123); backdrop-filter: none; }
   @keyframes site-header-fallback { to { visibility: visible; max-height: none; overflow: visible; } }
   /* The popover's UA box (centred, bordered, padded) gives way to the site's full-height sheet.
      Not display:none while closed: `display` needs allow-discrete to animate, and the panel's own

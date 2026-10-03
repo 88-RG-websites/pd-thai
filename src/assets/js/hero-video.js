@@ -1,3 +1,5 @@
+// Site-owned module: the template ships no file with this name (it lives under
+// the owned src/assets/js/ glob, so the upgrade tool flags it; kept as written).
 export function initHeroVideo() {
   const video = document.getElementById('hero-video');
   if (!video) return;

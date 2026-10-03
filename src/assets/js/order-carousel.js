@@ -1,3 +1,5 @@
+// Site-owned module: the template ships no file with this name (it lives under
+// the owned src/assets/js/ glob, so the upgrade tool flags it; kept as written).
 /**
  * Order-online carousel (homepage): 3 circular dish photos visible on desktop,
  * 1 on mobile. Auto-advances on a timer with no play/pause control, and wraps

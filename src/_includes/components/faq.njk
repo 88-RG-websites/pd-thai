@@ -1,0 +1,91 @@
+{#- FAQ accordion + FAQPage structured data, generated from the SAME entries
+    (src/_data/faq.js) so the visible copy and the schema can never disagree
+    — Google treats a mismatch between them as a structured-data violation.
+
+    Built with native <details>/<summary> on purpose: the answer text sits in
+    the DOM whether or not the panel is open, so crawlers and AI fetchers
+    that never run JavaScript still read every answer. Do not swap this for
+    a JS-driven accordion that injects or removes the answers — that is
+    exactly the content an answer engine comes for.
+
+    The first item ships open so the section reads as answers, not a row of
+    closed bars.
+
+    Ground: sits between reserve/visit and newsletter/contact in the default
+    homepage order (src/index.njk). `reviews` (src/_data/reviews.js) is off
+    by default, so the usual neighbour above is visit (white) and this ground
+    is secondary-50; a build that also turns on client.reviews gets
+    visit -> reviews (secondary-50) -> faq, so the ground flips to white to
+    still alternate. Re-check this against its actual neighbours if a build
+    also turns visit or newsletter off — same rule as any other section
+    (CLAUDE.md, "Removing a section means re-deriving the grounds"). -#}
+{% if faq and faq.length %}
+{%- set faqGround = 'bg-white' if (reviews and reviews.items.length) else 'bg-secondary-50' %}
+<section id="faq" class="section {{ faqGround }}">
+  <div class="container-site">
+    <div class="section-head" data-reveal="up">
+      <p class="eyebrow">Good to Know</p>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+
+    <div class="mx-auto max-w-3xl divide-y divide-gray-200 border-t border-b border-gray-200" data-reveal="up" data-reveal-delay="1">
+      {% for item in faq %}
+      <details class="group py-6" {% if loop.first %}open{% endif %}>
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 [&::-webkit-details-marker]:hidden">
+          <h3 class="text-lg font-semibold text-gray-900">{{ item.question }}</h3>
+          <svg class="size-5 flex-shrink-0 text-accent-500 transition-transform duration-300 group-open:rotate-45" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M8 2a.75.75 0 0 1 .75.75v4.5h4.5a.75.75 0 0 1 0 1.5h-4.5v4.5a.75.75 0 0 1-1.5 0v-4.5h-4.5a.75.75 0 0 1 0-1.5h4.5v-4.5A.75.75 0 0 1 8 2Z" clip-rule="evenodd" />
+          </svg>
+        </summary>
+        {#- No prefix filter needed on this HTML (unlike MUSASHI's
+            prefixHtmlLinks — see .eleventy.js): this template runs
+            EleventyHtmlBasePlugin, which rewrites every real href it can
+            parse out of the FINAL rendered HTML for pathPrefix, including
+            one spliced in here from faq.js via `| safe`. Verified on a
+            preview build — filtering it too double-prefixes the link
+            (/site/site/#reserve). Links carry no classes of their own;
+            styled generically via the wrapper below rather than in the
+            data file. -#}
+        <div class="mt-4 max-w-none text-base leading-relaxed text-gray-600 [&_a]:text-accent-600 [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-accent-700 [&_p+p]:mt-3">
+          {{ item.answer | safe }}
+        </div>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{#- FAQPage structured data, generated from the same entries rendered above
+    — the visible text and the markup cannot disagree. `about` points at the
+    Restaurant node (base.njk) by @id rather than restating name/phone/
+    address here: one entity, described once. Worth knowing what this does
+    and does not buy: Google narrowed FAQ rich results in 2023 to government
+    and health sites, so this will not draw dropdowns in search results. It
+    stays because answer engines (ChatGPT, Perplexity, Gemini, Copilot) parse
+    JSON-LD to find clean question/answer pairs — that is the audience this
+    block is for.
+
+    `| dump` JSON-encodes each string, quotes included, so answer HTML with
+    embedded quotes cannot break out and corrupt the document. -#}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": {{ (client.domain + page.url + "#faq") | dump | safe }},
+    "mainEntityOfPage": {{ (client.domain + page.url) | dump | safe }},
+    "about": { "@id": {{ (client.domain + "/#restaurant") | dump | safe }} },
+    "mainEntity": [
+      {% for item in faq %}
+      {
+        "@type": "Question",
+        "name": {{ item.question | dump | safe }},
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": {{ item.answer | dump | safe }}
+        }
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+</script>
+{% endif %}

@@ -1,0 +1,13 @@
+<section id="about" class="relative flex items-center overflow-hidden bg-cover bg-fixed bg-center bg-no-repeat" style="background-image: url('{{ client.about.image | url }}');">
+  <div class="container-site section flex justify-center">
+    <div class="panel max-w-2xl" data-reveal="up">
+      {% if client.about.eyebrow %}<p class="eyebrow">{{ client.about.eyebrow }}</p>{% endif %}
+      <h2 class="section-title after:mx-0">{{ client.about_title }}</h2>
+      <p class="mt-6 text-pretty text-lg/8 text-gray-700">{{ client.about_desc_one }}</p>
+      <div class="mt-6 space-y-6 text-pretty text-base/7 text-gray-600">
+        <p>{{ client.about_desc_two }}</p>
+        <p>{{ client.about_desc_three }}</p>
+      </div>
+    </div>
+  </div>
+</section>

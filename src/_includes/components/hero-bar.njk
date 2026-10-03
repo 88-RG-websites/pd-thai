@@ -1,0 +1,117 @@
+{# Info strip under the hero photo (theme.components.heroBar). Sits in normal
+   flow at every width so it never covers the photography — the hero column is
+   sized to the viewport and the photo takes whatever height this bar leaves.
+
+   Mobile packs each item onto one line (icon + value) and hides the label the
+   icon already conveys; the label stays in the DOM for screen readers and
+   comes back from md, where the multi-column layout has room.
+
+   `client.heroBar.social: true` adds a fourth cell carrying the social marks,
+   provided at least one network in `client.socialMedia` actually has a URL.
+   It is off by default, and turning it on changes the grid rather than just
+   appending to it — see the note on that cell.
+
+   Ground follows theme.style.heroBarTone: 'dark' (default) matches the nav and
+   footer so the strip reads as part of the site chrome; 'brand' puts it on
+   primary-600 when a client wants the accent band. #}
+{%- from "macros/social.njk" import socialIcon %}
+{%- set bar = client.heroBar %}
+{#- Four cells across is too many at md. At 768 each value gets about 116px,
+    which wraps a street address onto two lines, so the four-cell layout runs
+    2x2 there and only goes four across with dividers at lg. Three cells keep
+    the original three-across-from-md behaviour exactly. -#}
+{#- Any social value at all? The cell is gated on having something to draw in
+    it, not merely on the flag: a client with `social: true` and every network
+    still '' would otherwise get a fourth column holding a label and nothing
+    else, and the grid would split four ways to make room for it. Same reason
+    `hoursNote: ''` hides the whole strip. -#}
+{%- set known = ['instagram', 'facebook', 'twitter', 'yelp', 'googleBusiness'] %}
+{#- `capitalize` renders the camelCase key as "Googlebusiness" to a screen
+    reader. Only the keys it gets wrong need an entry. -#}
+{%- set socialNames = { 'googleBusiness': 'Google Business' } %}
+{%- set socialCount = 0 %}
+{%- for network, url in client.socialMedia %}{% if url and network in known %}{% set socialCount = socialCount + 1 %}{% endif %}{% endfor %}
+{%- set showSocial = bar.social and socialCount > 0 %}
+{%- if showSocial %}
+  {#- Four cells, so the padding runs pr / px / px / pl. The last cell is the
+      only one with no right-hand neighbour; giving the third cell `pl` alone
+      would leave the phone number flush against the divider on its right
+      while every other value is inset. -#}
+  {%- set barGrid = "md:grid-cols-2 md:gap-x-8 md:gap-y-5 lg:grid-cols-4 lg:gap-8 lg:divide-x lg:divide-white/10" %}
+  {%- set cellA = "lg:pr-8" %}{% set cellB = "lg:px-8" %}{% set cellC = "lg:px-8" %}{% set cellD = "lg:pl-8" %}
+{%- else %}
+  {%- set barGrid = "md:grid-cols-3 md:gap-8 md:divide-x md:divide-white/10" %}
+  {%- set cellA = "md:pr-8" %}{% set cellB = "md:px-8" %}{% set cellC = "md:pl-8" %}{% set cellD = "" %}
+{%- endif %}
+{%- if theme.style.heroBarTone == 'brand' %}
+  {%- set barGround = "bg-primary-600" %}
+  {%- set barLabel = "text-primary-100" %}
+{%- else %}
+  {%- set barGround = "bg-secondary-700" %}
+  {%- set barLabel = "text-white/55" %}
+{%- endif %}
+<div class="relative border-t border-white/10 {{ barGround }}">
+  <div class="container-site py-3 md:py-5">
+    <div class="grid grid-cols-1 gap-y-1.5 text-center {{ barGrid }}">
+      <div class="flex items-center justify-center gap-2.5 md:flex-col md:gap-1.5 {{ cellA }}">
+        <div class="flex flex-none items-center gap-2 text-sm font-semibold uppercase tracking-[0.15em] {{ barLabel }}">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="sr-only md:not-sr-only">{{ bar.addressLabel or "Address" }}</span>
+        </div>
+        <a class="text-sm leading-tight text-white/90 hover:text-white hover:underline md:text-[15px]" href="{{ client.googleMapsUrl }}" target="_blank" rel="noopener noreferrer">{{ client.address.street }}, {{ client.address.city }}, {{ client.address.state }}</a>
+      </div>
+
+      <div class="flex items-center justify-center gap-2.5 md:flex-col md:gap-1.5 {{ cellB }}">
+        <div class="flex flex-none items-center gap-2 text-sm font-semibold uppercase tracking-[0.15em] {{ barLabel }}">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="sr-only md:not-sr-only">{{ bar.hoursLabel or "Hours" }}</span>
+        </div>
+        {# One short line, not the whole schedule — the full table lives in the
+           visit section. #}
+        <p class="text-sm leading-tight text-white/90 md:text-[15px]">{{ bar.hoursNote }}</p>
+      </div>
+
+      <div class="flex items-center justify-center gap-2.5 md:flex-col md:gap-1.5 {{ cellC }}">
+        <div class="flex flex-none items-center gap-2 text-sm font-semibold uppercase tracking-[0.15em] {{ barLabel }}">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="sr-only md:not-sr-only">{{ bar.phoneLabel or "Phone" }}</span>
+        </div>
+        <a class="text-sm leading-tight text-white/90 hover:text-white hover:underline md:text-[15px]" href="tel:{{ client.phone }}">{{ client.phone }}</a>
+      </div>
+
+      {%- if showSocial %}
+      {#- The marks come from the same `client.socialMedia` the footer reads,
+          so a network added to the data appears in both places. Only the five
+          the macro has a mark for are drawn — an unknown key would otherwise
+          render an empty circle.
+
+          They are size-8 and unfilled, unlike the footer's size-10 pills. The
+          footer is where somebody goes looking for them; this bar is one line
+          of chrome, and a row of filled discs there outweighs the three facts
+          beside it.
+
+          Adding this cell is a copy edit as much as a layout one: a quarter
+          of the strip's width moves, and an hours line that fitted across a
+          third of it may not fit across a quarter. Check `heroBar.hoursNote`
+          at 1440 after turning it on. -#}
+      <div class="flex items-center justify-center gap-2.5 md:flex-col md:gap-1.5 {{ cellD }}">
+        <div class="flex flex-none items-center gap-2 text-sm font-semibold uppercase tracking-[0.15em] {{ barLabel }}">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.769-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="sr-only md:not-sr-only">{{ bar.socialLabel or "Follow" }}</span>
+        </div>
+        <div class="flex items-center gap-1">
+          {%- for network, url in client.socialMedia %}{% if url and network in known %}
+          <a
+            href="{{ url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="{{ client.name }} on {{ socialNames[network] or (network | capitalize) }}"
+            class="flex size-8 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+          >{{ socialIcon(network) }}</a>
+          {%- endif %}{% endfor %}
+        </div>
+      </div>
+      {%- endif %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+{# ABOUT, seam variant (theme.components.about = 'about_seam'; needs
+   theme.style.seam set, or the clip ids resolve to nothing and the panel
+   renders as a plain rectangle over the photograph).
+
+   From xl the photograph is the section's ground and a tinted panel is laid
+   over the left 58% of it, its right edge cut with the seam curve. Below xl
+   the split turns horizontal: photograph on top, panel below, the horizontal
+   seam along the bottom of the photograph.
+
+   THE SPLIT STARTS AT xl, NOT lg. 1024-1279 is the iPad-landscape band and
+   gets the stacked arrangement; a photograph beside a column is a layout, a
+   photograph beside a narrow gutter of type is not.
+
+   The clips are Tailwind arbitrary properties so the responsive selectors
+   are generated — a hand-written compound selector in styles.scss may not
+   survive the postcss chain.
+
+   THE PHOTOGRAPH HAS TO CARRY ITS SUBJECT IN ITS RIGHT HALF. The panel
+   covers the left 58% of the viewport, and object-position X is inert on a
+   frame narrower than its box, so pick a room frame with the subject right
+   of centre — a centred portrait gets the panel edge down the middle of the
+   face. Vertical: object-cover on a portrait in a landscape band chooses a
+   ~46% band of the picture; set the Y position to put the
+   subject in it (an arbitrary object-position value on the img).
+
+   Pair it with menus_schedule directly beneath: the photo column there is
+   sized so the two seams meet at the section break (seam-defs.njk). On its
+   own it sits on secondary-50, so re-derive the ground alternation — the
+   stock menus band is secondary-50 too. #}
+<section id="about" class="relative isolate overflow-hidden bg-secondary-50">
+  <img
+    src="{{ client.about.image }}"
+    alt="{{ client.about.imageAlt or client.name }}"
+    loading="lazy"
+    decoding="async"
+    sizes="(min-width: 1280px) 74vw, 100vw"
+    class="h-[22rem] w-full object-cover [clip-path:url(#seam-h)] sm:h-[30rem] xl:absolute xl:inset-y-0 xl:left-auto xl:right-0 xl:h-full xl:w-[74%] xl:[clip-path:none]"
+  />
+
+  {# The panel does the vertical centring (min-height + items-center); an
+     inner h-full against a min-height parent computes to auto and centres
+     nothing. Its left padding is the site wrapper's own text edge, so the
+     copy lines up with every other section. #}
+  <div class="relative w-full bg-secondary-50 xl:flex xl:min-h-[46rem] xl:w-[58%] xl:items-center xl:[clip-path:url(#seam-v-out)]">
+    <div class="container-site py-16 sm:py-20 xl:w-full xl:max-w-none xl:px-0 xl:py-24 xl:pl-[calc(max((100vw-80rem)/2,0px)+2rem)] xl:pr-[20%]">
+      {# Centred while stacked (a full-width band, the same shape as every
+         .section-head), left once it sits inside the off-centre panel. #}
+      <div class="mx-auto max-w-2xl text-center xl:mx-0 xl:max-w-xl xl:text-left" data-reveal="up">
+        {% if client.about.eyebrow %}<p class="eyebrow">{{ client.about.eyebrow }}</p>{% endif %}
+        <h2 class="section-title !mt-0 xl:after:mx-0">{{ client.about_title }}</h2>
+        <p class="mt-6 text-pretty text-lg/8 text-gray-700">{{ client.about_desc_one }}</p>
+        <div class="mt-5 space-y-5 text-pretty text-lg/8 text-gray-600">
+          <p>{{ client.about_desc_two }}</p>
+          <p>{{ client.about_desc_three }}</p>
+        </div>
+        {# Optional sign-off (client.about.tagline): letterspaced in the
+           accent above a short hairline that stops at the text. #}
+        {%- if client.about.tagline %}
+        <p class="mt-9 inline-block border-t border-accent-400 pt-4 font-display text-base font-semibold uppercase tracking-[0.24em] text-accent-700">{{ client.about.tagline }}</p>
+        {%- endif %}
+      </div>
+    </div>
+  </div>
+</section>

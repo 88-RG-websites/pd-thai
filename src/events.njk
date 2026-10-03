@@ -1,0 +1,20 @@
+---
+solidHeader: true
+---
+{% extends "layouts/base.njk" %}
+
+{# Large-party / event page: the room and its conditions, then the inquiry
+   embed. Opt-in — `src/events.11tydata.js` withholds the permalink unless
+   `theme.components.events` and `client.id` are both set, so a build that
+   doesn't want the page never writes one.
+
+   No hero, so `solidHeader` starts the bar tinted and the wrapper pads past
+   it. The opening section carries the page's only h1. #}
+{% set eventsHeadingTag = "h1" %}
+
+{% block content %}
+<div class="pt-[var(--header-height)]">
+  {% include "components/events.njk" %}
+  {% include "components/events-inquiry.njk" %}
+</div>
+{% endblock %}

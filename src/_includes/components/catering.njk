@@ -1,0 +1,71 @@
+{# CATERING band (theme.components.catering; needs client.catering filled).
+
+   For a client whose catering is a real second business rather than a
+   marketing line — it gets a band of its own, on ink, between the
+   reservation band and visit. The action is whatever client.catering.ctaHref
+   says: a mailto to the catering kitchen, a tel:, or the party-inquiry page.
+
+   Two photographs at different scales rather than a pair: the first is the
+   subject and runs tall, the second is a smaller supporting frame offset
+   below it. Equal twins read as a gallery; unequal ones read as a
+   photograph with a footnote. Both are in flow — the offset is a margin on
+   the second frame, not padding on a shared wrapper, because an absolutely
+   positioned child resolves against the padding box and an intended overlap
+   becomes a collision.
+
+   Ink, and no pattern. The build this came from ran it on the brand's deep
+   clay under a Japanese wave-scale at 4%, and the pair read as talavera —
+   a texture composes with the ground it sits on, so test it there. The
+   warmth stays in the accent on the eyebrow and button, and the photographs.
+
+   A step deeper than secondary-700 so it does not flatten into a
+   menus_schedule band or the footer. #}
+<section id="catering" class="ground-ink relative isolate section overflow-hidden bg-secondary-800">
+  <div class="container-site">
+    <div class="grid grid-cols-1 items-center gap-14 sm:gap-24 lg:grid-cols-12 lg:gap-16">
+
+      {# Centred while stacked, left once the copy sits beside the
+         photographs at lg — the same rule about_seam and menus_schedule
+         follow. #}
+      <div class="text-center lg:col-span-5 lg:text-left" data-reveal="up">
+        {% if client.catering.eyebrow %}<p class="eyebrow">{{ client.catering.eyebrow }}</p>{% endif %}
+        <h2 class="section-title !mt-3 text-white lg:after:mx-0">{{ client.catering.title or "Catering" }}</h2>
+        {% if client.catering.lede %}<p class="mt-6 text-pretty text-lg/8 text-gray-300">{{ client.catering.lede }}</p>{% endif %}
+        {% if client.catering.ctaLabel %}
+        <a
+          href="{{ client.catering.ctaHref }}"
+          class="btn-accent mt-9 block w-full rounded-btn border border-transparent px-7 py-3.5 text-center text-sm font-semibold uppercase tracking-[0.08em] sm:inline-block sm:w-auto"
+        >{{ client.catering.ctaLabel }}</a>
+        {% endif %}
+        {% if client.catering.ctaNote %}<p class="mt-4 text-sm text-gray-400">{{ client.catering.ctaNote }}</p>{% endif %}
+      </div>
+
+      <div class="lg:col-span-7" data-reveal="up" data-reveal-delay="1">
+        <div class="grid grid-cols-12 gap-4 sm:gap-6">
+          <div class="col-span-12 sm:col-span-7">
+            <img
+              src="{{ client.catering.image }}"
+              alt="{{ client.catering.imageAlt or '' }}"
+              loading="lazy"
+              decoding="async"
+              sizes="(min-width: 1024px) 32vw, (min-width: 640px) 40vw, 100vw"
+              class="aspect-[4/5] w-full rounded-img object-cover shadow-card"
+            />
+          </div>
+          {% if client.catering.secondImage %}
+          <div class="col-span-12 sm:col-span-5 sm:mt-14 lg:mt-20">
+            <img
+              src="{{ client.catering.secondImage }}"
+              alt="{{ client.catering.secondImageAlt or '' }}"
+              loading="lazy"
+              decoding="async"
+              sizes="(min-width: 1024px) 23vw, (min-width: 640px) 29vw, 100vw"
+              class="aspect-[4/5] w-full rounded-img object-cover shadow-card"
+            />
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

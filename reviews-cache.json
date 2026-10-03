@@ -4,9 +4,116 @@
     "name": "PD Thai Cuisine"
   },
   "feature_id": "0x8644ca7fed1f5917:0x6e6ab314897e3efd",
-  "updated_at": "2026-09-15T18:59:19.300Z",
-  "review_count": 591,
+  "updated_at": "2026-10-03T06:18:17.719Z",
+  "review_count": 598,
   "reviews": [
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2s5NWQzZFRSV3hYY1ZGYVFVNVJUVTAyZURaQ2MwRRAB",
+      "source": "google",
+      "rating": 5,
+      "text": "Really great food",
+      "author": {
+        "name": "Lambda Calculus",
+        "profile_url": "https://www.google.com/maps/contrib/112172057840090845550/reviews?hl=en-US"
+      },
+      "published_at": "2026-09-29T23:42:37.846Z",
+      "edited_at": null,
+      "language": "en",
+      "owner_response": null,
+      "images": null
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2tkQ1RucDVabTVwZEVzd1luQm1XbGhaTmtkNFgzYxAB",
+      "source": "google",
+      "rating": 5,
+      "text": "",
+      "author": {
+        "name": "Taylor Pearson",
+        "profile_url": "https://www.google.com/maps/contrib/107539478098356898386/reviews?hl=en-US"
+      },
+      "published_at": "2026-09-29T23:14:12.210Z",
+      "edited_at": null,
+      "language": null,
+      "owner_response": null,
+      "images": null
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT25SM01XVmhZVVI2TWxWTmRucExUa3QxZG10blExRRAB",
+      "source": "google",
+      "rating": 5,
+      "text": "This is my go-to spot when I need a pick me up. The food is always super good! Highly recommend",
+      "author": {
+        "name": "Sharon Guo",
+        "profile_url": "https://www.google.com/maps/contrib/100667891573859814292/reviews?hl=en-US"
+      },
+      "published_at": "2026-09-24T02:32:34.714Z",
+      "edited_at": null,
+      "language": null,
+      "owner_response": null,
+      "images": null
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2pKdWVYUlVSV1p6T1dKVFgwWnRlVEF6UkdOYWRXYxAB",
+      "source": "google",
+      "rating": 5,
+      "text": "This is my sister and I’s favorite Thai restaurant in Austin. Big portions, the food is delicious, well priced, and the waitress is sweet. Also they are open late so this is one of my go-to late night grub spots. I always get one of the fried rices, pad see ew, and/or tom yum soup.",
+      "author": {
+        "name": "Cynthia Guo",
+        "profile_url": "https://www.google.com/maps/contrib/116578843909268731101/reviews?hl=en-US"
+      },
+      "published_at": "2026-09-24T02:30:05.719Z",
+      "edited_at": null,
+      "language": "en",
+      "owner_response": null,
+      "images": null
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2tsRlZ5MXdlV2RyVjBGb2JWWlNlWFpqWDFWV1JHYxAB",
+      "source": "google",
+      "rating": 5,
+      "text": "Pad thai ginger was superb, fresh vegetables and beef. Also, homemade lemonade, Real lemonade, not Cisco powder drink. Staff is so gentle, patient and professional. Restaurants like Thai Chapin deserves recognition and its affordable.",
+      "author": {
+        "name": "C McG",
+        "profile_url": "https://www.google.com/maps/contrib/110305535666870065632/reviews?hl=en-US"
+      },
+      "published_at": "2026-09-23T16:51:02.160Z",
+      "edited_at": null,
+      "language": "en",
+      "owner_response": null,
+      "images": [
+        "https://lh3.googleusercontent.com/grass-cs/ACvplmNz_8sLZh664gB7DGpe6RDqfvHsR6nNDc2z9gvUR4QN094-du7p1BDSIBXQmuyg4G93Tpaod1j_j6sXouGBoZwKBTVIB2K3jRqbtm0k0SjOMSYY5yEFuwAhvP1SZqRaGrwyWBmls1mWgjmK=k-no"
+      ]
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2twaVlXVnVRWGt3T0VWMmVUaGtRakl4VVdoT1kzYxAB",
+      "source": "google",
+      "rating": 5,
+      "text": "The food is amazing and whoever says it's not is stupid. I've been ordering food here for so long and it never fails in taste period 💅",
+      "author": {
+        "name": "Magenta reyes",
+        "profile_url": "https://www.google.com/maps/contrib/101689621706124439756/reviews?hl=en-US"
+      },
+      "published_at": "2026-09-22T22:14:06.545Z",
+      "edited_at": null,
+      "language": "en",
+      "owner_response": null,
+      "images": null
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2tWS016WlliM0pKUVc5dWFrTlRUM0JDYUhWR1JIYxAB",
+      "source": "google",
+      "rating": 1,
+      "text": "UPDATE AFTER THE RESTAURANT’S RESPONSE:<br><br>I want to clarify the timeline because the restaurant’s response does not fully reflect what our group experienced.<br><br>We placed an order through Bitezar using an online promotion. Before checkout, the website did not clearly state that the deal was limited to a 3–6 PM pickup window. If that had been disclosed, we would not have driven about 15 minutes to the restaurant around 11 AM expecting a normal pickup.<br><br>After arriving, we waited about 10 minutes before anyone clearly explained there was an issue. We were first told the order could be prepared in about 30 minutes, but later the explanation changed and we were told the discounted order was meant to be prepared after 3 PM.<br><br>The restaurant now says their system showed a 4 PM pickup time. I cannot speak to what appeared on their side. What I can say is that this restriction was not clearly shown to us before ordering, and even the restaurant’s own response acknowledges that the timing should have been communicated more clearly.<br><br>What made the situation especially frustrating was that we then placed a regular order in person, and that food was ready in about three minutes. I cannot know the restaurant’s internal reasoning, but the changing explanations and the huge difference in preparation time made the experience feel misleading and frustrating.<br><br>This was not a minor inconvenience. We drove 15 minutes, waited at the restaurant, and the delay disrupted the rest of our schedule.<br><br>Afterward, all five people in our group received texts from the founder of Bitezar. I understand those messages were from Bitezar, not PD Thai, but having everyone contacted unexpectedly using the phone numbers associated with the orders still made us uncomfortable. Another coupon did not address the problem.<br><br>The Thai coffee was also disappointing and tasted more like cheap breakfast coffee than what I expected from Thai coffee. The restaurant itself was very dark, with little to no lighting on, and it was very warm inside — around 27–28°C (81–82°F) — which made the environment uncomfortable.<br><br>Overall, between the unclear pickup restrictions, the changing explanations, the wasted time, and the poor dine-in experience, I left very disappointed. Based on my experience, I would not return and would not recommend this restaurant to others.<br><br>One star.",
+      "author": {
+        "name": "Bruce C",
+        "profile_url": "https://www.google.com/maps/contrib/101072762573981945741/reviews?hl=en-US"
+      },
+      "published_at": "2026-09-17T20:07:09.989Z",
+      "edited_at": null,
+      "language": "en",
+      "owner_response": null,
+      "images": null
+    },
     {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT2psbFVVUm1SVjh3VG1SdFMydGxTV1F3UjJWa1RtYxAB",
       "source": "google",

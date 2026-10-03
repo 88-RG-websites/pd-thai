@@ -1,34 +1,25 @@
 ---
 permalink: /404.html
-solidHeader: true
 eleventyExcludeFromCollections: true
 noindex: true
 ---
 {% extends "layouts/base.njk" %}
 
-{# Not-found page. Excluded from collections so it stays out of the sitemap,
-   and out of client.nav for the same reason. Whether a real 404 actually
-   serves this file is host config — most static hosts pick up /404.html.
-   Copy comes from client.notFound; the links are the site's own nav. #}
+{# Not-found page. Excluded from collections so it stays out of the sitemap.
+   Whether a real 404 serves this file is host config (most static hosts pick
+   up /404.html). Built from the same pieces as the catering and parties
+   pages: the cream ground, the kicker + heading, the site's own buttons. #}
 {% block content %}
-<div class="pt-[var(--header-height)]">
-  <section class="section bg-white">
-    <div class="container-site">
-      <div class="section-head">
-        <p class="eyebrow">{{ client.notFound.eyebrow or "404" }}</p>
-        <h1 class="section-title">{{ client.notFound.title or "We can't find that page" }}</h1>
-        {% if client.notFound.lede %}<p class="lede">{{ client.notFound.lede }}</p>{% endif %}
-      </div>
-
-      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
-        <a href="/" class="rounded-btn border border-transparent btn-accent px-6 py-3 text-sm font-semibold uppercase tracking-[0.08em]">{{ client.notFound.homeLabel or "Back to home" }}</a>
-        {%- for item in client.nav %}
-        {%- if (item.href | first) != '#' %}
-        <a href="{{ item.href }}" class="rounded-btn border border-gray-300 px-6 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-gray-700 transition-colors hover:border-gray-400 hover:bg-gray-50">{{ item.label }}</a>
-        {%- endif %}
-        {%- endfor %}
-      </div>
+<section class="relative isolate overflow-hidden bg-[#fdfaf5] py-24">
+  <img src="/assets/images/basil-leaf.webp" alt="" aria-hidden="true" class="pointer-events-none absolute -right-24 top-0 -z-10 w-[65vw] max-w-[760px] rotate-12 select-none opacity-[0.16]" />
+  <div class="mx-auto max-w-3xl px-7 text-center">
+    <p class="mb-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-600">{{ client.notFound.kicker }}</p>
+    <h1 class="text-balance mb-6 text-[32px] font-bold tracking-tight text-[#241b16] sm:text-[40px]">{{ client.notFound.heading }}</h1>
+    <p class="text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.notFound.text }}</p>
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+      <a href="/" class="inline-block rounded-full bg-primary-500 px-8 py-[15px] text-[15.5px] font-semibold text-white hover:bg-primary-600">Back to Home</a>
+      <a href="{{ client.urls.menus }}" class="inline-block rounded-full border-2 border-primary-500 px-8 py-[13px] text-[15.5px] font-semibold text-primary-600 hover:bg-primary-50">View Menu</a>
     </div>
-  </section>
-</div>
+  </div>
+</section>
 {% endblock %}

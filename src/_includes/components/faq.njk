@@ -20,33 +20,29 @@
     also turns visit or newsletter off — same rule as any other section
     (CLAUDE.md, "Removing a section means re-deriving the grounds"). -#}
 {% if faq and faq.length %}
-{%- set faqGround = 'bg-white' if (reviews and reviews.items.length) else 'bg-secondary-50' %}
-<section id="faq" class="section {{ faqGround }}">
-  <div class="container-site">
-    <div class="section-head" data-reveal="up">
-      <p class="eyebrow">Good to Know</p>
-      <h2 class="section-title">Frequently Asked Questions</h2>
+{#- Ground: white, between the reviews photo band (dark) above and the contact
+    section (cream) below, so no two neighbours share a ground. Re-check if a
+    neighbour changes. Typography follows the other home sections. -#}
+<section id="faq" class="scroll-mt-24 bg-white py-16 md:py-[88px]">
+  <div class="mx-auto max-w-6xl px-7">
+    <div class="mx-auto mb-12 max-w-xl text-center" data-reveal="up">
+      <p class="mb-3 text-sm font-bold uppercase tracking-[0.1em] text-primary-700">Good to Know</p>
+      <h2 class="text-balance text-[36px] font-bold tracking-tight text-[#241b16] sm:text-5xl">Frequently Asked Questions</h2>
     </div>
 
-    <div class="mx-auto max-w-3xl divide-y divide-gray-200 border-t border-b border-gray-200" data-reveal="up" data-reveal-delay="1">
+    <div class="mx-auto max-w-3xl divide-y divide-[#ece2d3] border-y border-[#ece2d3]" data-reveal="up" data-reveal-delay="1">
       {% for item in faq %}
       <details class="group py-6" {% if loop.first %}open{% endif %}>
         <summary class="flex cursor-pointer list-none items-center justify-between gap-6 [&::-webkit-details-marker]:hidden">
-          <h3 class="text-lg font-semibold text-gray-900">{{ item.question }}</h3>
-          <svg class="size-5 flex-shrink-0 text-accent-500 transition-transform duration-300 group-open:rotate-45" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <h3 class="text-lg font-semibold text-[#241b16]">{{ item.question }}</h3>
+          <svg class="size-5 flex-shrink-0 text-primary-600 transition-transform duration-300 group-open:rotate-45" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd" d="M8 2a.75.75 0 0 1 .75.75v4.5h4.5a.75.75 0 0 1 0 1.5h-4.5v4.5a.75.75 0 0 1-1.5 0v-4.5h-4.5a.75.75 0 0 1 0-1.5h4.5v-4.5A.75.75 0 0 1 8 2Z" clip-rule="evenodd" />
           </svg>
         </summary>
-        {#- No prefix filter needed on this HTML (unlike MUSASHI's
-            prefixHtmlLinks — see .eleventy.js): this template runs
-            EleventyHtmlBasePlugin, which rewrites every real href it can
-            parse out of the FINAL rendered HTML for pathPrefix, including
-            one spliced in here from faq.js via `| safe`. Verified on a
-            preview build — filtering it too double-prefixes the link
-            (/site/site/#reserve). Links carry no classes of their own;
-            styled generically via the wrapper below rather than in the
-            data file. -#}
-        <div class="mt-4 max-w-none text-base leading-relaxed text-gray-600 [&_a]:text-accent-600 [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-accent-700 [&_p+p]:mt-3">
+        {#- Answer links are plain <a href> spliced in from faq.js with `| safe`;
+            EleventyHtmlBasePlugin prefixes them for a preview build, so no
+            `| url` here. They are styled by the wrapper, not in the data. -#}
+        <div class="mt-4 max-w-none text-base leading-relaxed text-[#4a3d34] [&_a]:font-medium [&_a]:text-primary-600 [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-primary-700 [&_p+p]:mt-3">
           {{ item.answer | safe }}
         </div>
       </details>

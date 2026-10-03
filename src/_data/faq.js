@@ -36,11 +36,16 @@ const time12 = require('../../lib/time12.js');
 
 // { day, lunch, dinner } rows are already guest-facing strings
 // (client.hours.schedule) — no formatting needed, just listed.
+// SITE PATCH (template drift, reported): the lunch/dinner labels are only true
+// when a row can hold both. PD Thai is open one window all day (10am-3am,
+// written in the `lunch` slot), so the label is dropped unless some row has a
+// lunch AND a dinner window.
+const labelWindows = client.hours.schedule.some((row) => row.lunch && row.dinner);
 const scheduleLines = client.hours.schedule
   .map((row) => {
     const parts = [];
-    if (row.lunch) parts.push(`lunch ${row.lunch}`);
-    if (row.dinner) parts.push(`dinner ${row.dinner}`);
+    if (row.lunch) parts.push(labelWindows ? `lunch ${row.lunch}` : row.lunch);
+    if (row.dinner) parts.push(labelWindows ? `dinner ${row.dinner}` : row.dinner);
     return `<strong>${row.day}:</strong> ${parts.join(', ')}`;
   })
   .join('<br>');
@@ -63,7 +68,7 @@ if (client.acceptsReservations && client.id) {
 if (client.hours.windows.length) {
   items.push({
     question: `What are ${client.name}'s hours?`,
-    answer: `<p>${client.name} is open ${time12(client.hours.opens)} to ${time12(client.hours.closes)}, with hours varying by day:</p><p>${scheduleLines}</p>`,
+    answer: `<p>${client.name} is open ${time12(client.hours.opens)} to ${time12(client.hours.closes)}${client.hours.schedule.length > 1 ? ', with hours varying by day' : ''}:</p><p>${scheduleLines}</p>`,
   });
 }
 

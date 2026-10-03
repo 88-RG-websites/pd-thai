@@ -5,4 +5,8 @@ eleventyExcludeFromCollections: true
 ---
 User-agent: *
 Disallow: /private/
+{#- /_88/header.html is a markup fragment 88's menu.<domain> pages fetch and
+    inject into their own shadow root (menus.md) — it is never a page a
+    visitor or a crawler should land on directly. #}
+Disallow: /_88/
 Sitemap: {{ client.domain }}/sitemap.xml

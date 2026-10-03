@@ -1,0 +1,235 @@
+    {#- EVERY client value below goes through `| dump | safe`, and that is load
+        bearing rather than tidy. A <script> element is a RAW TEXT context: the
+        browser does not decode entities inside it, so Nunjucks' autoescaper —
+        which is an HTML escaper — turns an ampersand in a business name into
+        the literal four characters "&amp;" in the parsed JSON, and an
+        apostrophe in any string into "&#39;". Caught on a client whose
+        registered name contains "&"; nothing on the page reveals it.
+
+        `dump` writes a correctly escaped JSON string INCLUDING its quotes,
+        which is why none of these are wrapped in hand-written quotes, and
+        `safe` stops the escaper touching the result. Numeric values (geo)
+        stay bare. -#}
+    {#- Emitted as an @graph of two linked nodes rather than two loose blocks,
+        so a crawler reads the website and the business as one entity: the
+        Restaurant/LocalBusiness node (unchanged @id, `<domain>/#restaurant` —
+        88's menu subdomain pages reference that exact id to merge entities,
+        see menus.md) and a WebSite node pointing back at it via `publisher`.
+        No separate Place node: FoodEstablishment/LocalBusiness subtypes
+        already carry address + geo directly (below), so a second node would
+        only duplicate them — Musashi's reasoning for a standalone Place
+        doesn't generalize here. -#}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+        {
+        "@type": "{{ client.businessType or 'LocalBusiness' }}",
+        {#- One stable id for the business on every page. 88's menu pages on
+            menu.<domain> emit the same id (from the restaurant's website URL,
+            which must equal client.domain), so search engines read the site
+            and its menus as one entity. -#}
+        "@id": {{ (client.domain + "/#restaurant") | dump | safe }},
+        {#- The REGISTERED name where the client has one. This block is the entity
+            a search engine matches against a Google Business Profile, and NAP
+            parity there is the point of also handing over geo and hours;
+            `client.name` stays the short brand used for og:site_name and for
+            copy that has to fit somewhere. Falls back, so a client file with
+            only `name` is unchanged. -#}
+        "name": {{ (client.restaurantName or client.name) | dump | safe }},
+        {#- The short form a search engine should recognize alongside the
+            registered name above. Only emitted when it differs from `name`,
+            so a client file that leaves `shortName` blank (it falls back to
+            `name` for the webmanifest) does not duplicate the same string as
+            both fields. -#}
+        {%- if client.shortName and client.shortName != (client.restaurantName or client.name) %}
+        "alternateName": {{ client.shortName | dump | safe }},
+        {%- endif %}
+        {#- A short, neutral description of the business. Distinct from the
+            page's own client.seo description below (base.njk's `description`
+            block), which is written for a search-result snippet and can lean
+            on a hook this factual field shouldn't. -#}
+        {%- if client.description %}
+        "description": {{ client.description | dump | safe }},
+        {%- endif %}
+        "url": {{ (client.domain + page.url) | dump | safe }},
+        {#- `logo.schema` (lib/site.js, `src` when unset): the mark on a light
+            ground, for a client whose `src` is cut light-on-dark. -#}
+        "logo": {{ (client.domain + (client.logo.schema or client.logo.src)) | dump | safe }},
+        {#- `image` takes a list where one is allowed, and Google's local-results
+            guidance asks for several at different aspect ratios — a single
+            1200x630 social card is the one shape it explicitly does not want
+            on its own. The og image stays first because it is the only entry
+            guaranteed to be 1.91:1; the hero and a room photograph follow it
+            when the client has them. #}
+        {%- set schemaImages = [client.ogImage] %}
+        {%- if client.heroImages.length %}{% set schemaImages = (schemaImages.push(client.heroImages[0].src), schemaImages) %}{% endif %}
+        {%- if client.galleryImages.length %}{% set schemaImages = (schemaImages.push(client.galleryImages[0].full), schemaImages) %}{% endif %}
+        "image": [{% for img in schemaImages %}{{ (client.domain + img) | dump | safe }}{% if not loop.last %}, {% endif %}{% endfor %}],
+        {%- if client.phone %}
+        "telephone": {{ client.phone | dump | safe }},
+        {%- endif %}
+        {%- if client.email %}
+        "email": {{ client.email | dump | safe }},
+        {%- endif %}
+        {#- Profiles the business actually has — an unknown social is '' and is
+            left out rather than emitted as an empty string. #}
+        {%- set profiles = [] %}
+        {%- for key, url in client.socialMedia %}{% if url %}{% set profiles = (profiles.push(url), profiles) %}{% endif %}{% endfor %}
+        {%- if profiles.length %}
+        "sameAs": [{% for url in profiles %}{{ url | dump | safe }}{% if not loop.last %}, {% endif %}{% endfor %}],
+        {%- endif %}
+        {#- FoodEstablishment properties, for any food type (lib/site.js). #}
+        {%- if client.servesFood %}
+        {#- A list when the client has one. `cuisine` is the human-readable
+            label used in copy ("Newari & Nepali Cuisine"); `cuisines` is the
+            set of terms a search engine should file the business under, and
+            those are rarely the same string. Falls back to the single value,
+            so a client without the array behaves exactly as before. #}
+        {%- if client.cuisines.length %}
+        "servesCuisine": [{% for c in client.cuisines %}{{ c | dump | safe }}{% if not loop.last %}, {% endif %}{% endfor %}],
+        {%- elif client.cuisine %}
+        "servesCuisine": {{ client.cuisine | dump | safe }},
+        {%- endif %}
+        {#- Both spellings: `menu` is the property Restaurant has always had and
+            `hasMenu` is the current one. They are aliases, and emitting the
+            pair costs one line and removes the question of which a given
+            consumer reads. #}
+        "menu": {{ client.urls.menusAbsolute | dump | safe }},
+        {#- An array when the client lists individual menu-subdomain pages
+            (client.js menuPages), so each schedule is its own hasMenu entry
+            instead of one link to the menu root — mirrors
+            musashidallas.com. Falls back to the single menusAbsolute URL
+            when the list is empty (the default for every other client). #}
+        {%- if client.urls.menuPagesAbsolute and client.urls.menuPagesAbsolute.length %}
+        "hasMenu": [{% for u in client.urls.menuPagesAbsolute %}{{ u | dump | safe }}{% if not loop.last %}, {% endif %}{% endfor %}],
+        {%- else %}
+        "hasMenu": {{ client.urls.menusAbsolute | dump | safe }},
+        {%- endif %}
+        {%- endif %}
+        {%- if client.currenciesAccepted %}
+        "currenciesAccepted": {{ client.currenciesAccepted | dump | safe }},
+        {%- endif %}
+        {%- if client.paymentAccepted %}
+        "paymentAccepted": {{ client.paymentAccepted | dump | safe }},
+        {%- endif %}
+        {#- Only when the client file says so: `acceptsReservations` is a factual
+            claim in BOTH directions, so an absent key emits nothing rather than
+            guessing a default. `false` on a business that does take bookings
+            and merely is not surfacing them here would tell a search engine to
+            stop offering a real service. -#}
+        {%- if client.acceptsReservations is defined %}
+        "acceptsReservations": {{ client.acceptsReservations | dump | safe }},
+        {%- endif %}
+        {#- An explicit action, so an assistant knows where to send someone
+            rather than only that the business takes bookings. Gated on the
+            same flag as the property above, plus `id` — `urls.reserve` is a
+            template literal built from `id`, so with `id` blank it is still
+            a non-empty (and broken) string; `id` itself is the real signal
+            the 88restaurants widget exists to reserve through. -#}
+        {%- if client.acceptsReservations and client.id %}
+        "potentialAction": {
+          "@type": "ReserveAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": {{ client.urls.reserve | dump | safe }},
+            "actionPlatform": [
+              "http://schema.org/DesktopWebPlatform",
+              "http://schema.org/IOSPlatform",
+              "http://schema.org/AndroidPlatform"
+            ]
+          },
+          "result": {
+            "@type": "FoodEstablishmentReservation",
+            "name": {{ ("Reserve a table at " + (client.restaurantName or client.name)) | dump | safe }}
+          }
+        },
+        {%- endif %}
+        "priceRange": {{ client.priceRange | dump | safe }}
+        {#- Everything from here to the end of this node is optional, so each
+            block opens with its own comma instead of trailing one: the node
+            may end at any of them without a stray comma breaking the JSON. -#}
+        {#- A business with no map pin, street or postcode (a truck, a caterer)
+            leaves each key out. An empty string is still a claim, and
+            "hasMap": "" is a malformed URL. -#}
+        {%- if client.googleMapsUrl %},
+        "hasMap": {{ client.googleMapsUrl | dump | safe }}
+        {%- endif %}
+        {%- set addr = client.address or {} %}
+        {%- if addr.street or addr.city or addr.state or addr.zip %},
+        "address": {
+          "@type": "PostalAddress",
+          {%- if addr.street %}
+          "streetAddress": {{ addr.street | dump | safe }},
+          {%- endif %}
+          {%- if addr.city %}
+          "addressLocality": {{ addr.city | dump | safe }},
+          {%- endif %}
+          {%- if addr.state %}
+          "addressRegion": {{ addr.state | dump | safe }},
+          {%- endif %}
+          {%- if addr.zip %}
+          "postalCode": {{ addr.zip | dump | safe }},
+          {%- endif %}
+          "addressCountry": {{ (addr.country or "US") | dump | safe }}
+        }
+        {%- endif %}
+        {#- Neighboring cities/areas the business also serves, beyond its own
+            address above, or the states a mobile business travels to. Each
+            entry is { type, name } by now (lib/site.js). [] (the default)
+            omits the property entirely. -#}
+        {%- if client.areaServed.length %},
+        "areaServed": [{% for area in client.areaServed %}{ "@type": {{ area.type | dump | safe }}, "name": {{ area.name | dump | safe }} }{% if not loop.last %}, {% endif %}{% endfor %}]
+        {%- endif %}
+        {#- Coordinates when the client has them. Local results are ranked partly
+            on proximity to the searcher, and handing over the point beats
+            leaving a crawler to geocode a street address — particularly a
+            hyphenated address, which geocoders split badly.
+
+            Take them from the PLACE MARKER in the resolved maps.google.com
+            URL — the `!8m2!3d<lat>!4d<lng>` pair — not from an embed's
+            `!2d`/`!3d`, which is the map VIEWPORT centre and can sit a couple
+            of hundred metres off the pin. On one client the two differed by
+            220m. Never geocode the street address yourself. #}
+        {%- if client.geo %},
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": {{ client.geo.lat }},
+          "longitude": {{ client.geo.lng }}
+        }
+        {%- endif %}
+        {#- One entry per (days, opens, closes) window — client.js's
+            `flattenHours` derives this from the exact same hoursSchedule
+            rows components/visit.njk and info.njk render, so a day with two
+            windows (lunch + dinner) gets two entries and a closed day (one
+            covered by neither) is simply never emitted. Only when no row
+            parses (an older client's prose) is it the client's typed
+            opens/closes on openDays, the one entry its old base.njk emitted.
+            No window at all (a business not open yet, hours left blank on
+            purpose) omits the property: an empty list is still a claim. -#}
+        {%- if client.hours.windows.length %},"openingHoursSpecification": [
+          {% for w in client.hours.windows %}
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [{% for d in w.days %}{{ d | dump | safe }}{% if not loop.last %}, {% endif %}{% endfor %}],
+            "opens": {{ w.opens | dump | safe }},
+            "closes": {{ w.closes | dump | safe }}
+          }{% if not loop.last %},{% endif %}
+          {% endfor %}
+        ]
+        {%- endif %}
+        },
+        {
+        "@type": "WebSite",
+        "@id": {{ (client.domain + "/#website") | dump | safe }},
+        "url": {{ (client.domain + "/") | dump | safe }},
+        "name": {{ (client.restaurantName or client.name) | dump | safe }},
+        {%- if client.description %}
+        "description": {{ client.description | dump | safe }},
+        {%- endif %}
+        "inLanguage": {{ (client.locale or "en") | dump | safe }},
+        "publisher": { "@id": {{ (client.domain + "/#restaurant") | dump | safe }} }
+        }
+        ]
+      }
+    </script>

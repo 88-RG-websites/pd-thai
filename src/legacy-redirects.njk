@@ -1,0 +1,44 @@
+---
+pagination:
+  data: legacyRedirects
+  size: 1
+  alias: legacy
+permalink: "{{ legacy.from }}"
+eleventyExcludeFromCollections: true
+---
+{#- One stub per entry in src/_data/legacyRedirects.js — see that file for why
+    they exist and why a server-side 301 is still the better answer.
+
+    Excluded from collections so the sitemap advertises only the real URLs; a
+    sitemap that lists a redirect asks a crawler to index the wrong address.
+    `noindex, follow` says the same thing in the page's own head, and the
+    canonical names the destination, so a crawler that arrives here has three
+    consistent instructions.
+
+    No `| url` on either destination. EleventyHtmlBasePlugin already rewrites
+    `href` AND the `content` of a meta refresh for pathPrefix, so filtering
+    them as well ships /<site-name>/woodside-cafe/menus/ on the preview
+    build — checked, not assumed. The canonical is deliberately absolute and
+    unfiltered: it names the production URL from every build, which is the
+    one address a crawler should be told about.
+
+    `to` may also be absolute: a menu on the menu subdomain, as `menuLink()`
+    returns it (see legacyRedirects.js). That one is already the production
+    URL, so it is used as-is rather than prefixed with the domain.
+
+    The 0-second refresh fires before paint; the link is for anything that
+    ignores it. -#}
+{%- set dest = legacy.to if '://' in legacy.to else client.domain ~ legacy.to %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting…</title>
+    <meta name="robots" content="noindex, follow">
+    <meta http-equiv="refresh" content="0; url={{ legacy.to }}">
+    <link rel="canonical" href="{{ dest }}">
+  </head>
+  <body>
+    <p>This page has moved to <a href="{{ legacy.to }}">{{ dest }}</a>.</p>
+  </body>
+</html>

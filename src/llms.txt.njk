@@ -1,0 +1,45 @@
+---
+permalink: /llms.txt
+layout: null
+eleventyExcludeFromCollections: true
+---
+# {{ client.restaurantName or client.name }}
+
+{{ client.seo.index.description }}
+
+{{ client.address.city }}, {{ client.address.state }}
+{% if client.address.street -%}
+{{ client.addressLine }}
+{% endif -%}
+{% if client.phone -%}
+Phone: {{ client.phone }}
+{% endif -%}
+{% if client.email -%}
+Email: {{ client.email }}
+{% endif %}
+
+{% if client.hours.schedule.length -%}
+## Hours
+{% for row in client.hours.schedule -%}
+{{ row.day }}: {% if row.lunch %}Lunch {{ row.lunch }}{% endif %}{% if row.lunch and row.dinner %}, {% endif %}{% if row.dinner %}Dinner {{ row.dinner }}{% endif %}
+
+{% endfor %}
+{% endif -%}
+{% if client.id and client.urls.reserve -%}
+## Reservations
+{{ client.urls.reserve }}
+
+{% endif -%}
+## Menus
+{% if client.menuSubdomain and client.urls.menuPagesAbsolute and client.urls.menuPagesAbsolute.length -%}
+Full menus, with every section and item, are on {{ client.menuHost }}:
+{% for m in client.menuPages -%}
+- {{ m.name }}: {{ client.urls.menuPagesAbsolute[loop.index0] }}
+{% endfor -%}
+
+Machine-readable menu list, generated from the same menus: {{ client.menuHost }}/llms.txt
+{% elif client.menuSubdomain -%}
+Full menus, with every section and item, are on {{ client.urls.menusAbsolute }}, generated from the same menus as {{ client.menuHost }}/llms.txt.
+{% else -%}
+The menu: {{ client.domain }}{{ client.urls.menus }}
+{% endif -%}

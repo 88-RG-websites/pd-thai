@@ -1,107 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+{# `client.locale` sets the document language — a client whose site is in
+   Spanish sets 'es' and screen readers/search follow. #}
+<html lang="{{ client.locale or 'en' }}"{% if viewportPage %} class="viewport-page"{% endif %}>
   <head>
-    <!-- Standard meta tags -->
-    <meta charset="UTF-8">
-    <script>
-      document.documentElement.classList.add('js-reveal');
-      // Safety net: if scroll-reveal.js never confirms it's watching the page
-      // (blocked script, stale cache, ad blocker, etc.), stop hiding content
-      // rather than leave the page permanently blank.
-      window.addEventListener('load', function () {
-        setTimeout(function () {
-          if (!window.__scrollRevealReady) {
-            document.documentElement.classList.remove('js-reveal');
-          }
-        }, 2000);
-      });
-    </script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ description }}">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="{{ client.domain }}{{ page.url }}">
-
-    <!-- Social Media Display -->
-    <meta property="og:site_name" content="{{ client.name }}"/>
-    <meta property="og:title" content="{{ title }}"/>
-    <meta property="og:description" content="{{ description }}"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="{{ client.domain }}{{ page.url }}"/>
-    <meta property="og:image" content="{{ client.domain }}/assets/images/og-image.webp"/>
-    <meta property="og:image:secure_url" content="{{ client.domain }}/assets/images/og-image.webp"/>
-    <meta property="og:image:width" content="1200"/>
-    <meta property="og:image:height" content="630"/>
-    <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content="{{ title }}"/>
-    <meta name="twitter:description" content="{{ description }}"/>
-    <meta name="twitter:image" content="{{ client.domain }}/assets/images/og-image.webp"/>
-
-    <!-- Favicons -->
-    <link rel="icon" href="/assets/favicons/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png?v2">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/assets/favicons/site.webmanifest">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-
-    <!-- Sitewide Stylesheets and Scripts -->
-    <link rel="stylesheet" href="/assets/css/styles.css">
-
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+    {% include "core/head.njk" %}
 
     {% block head %}{% endblock %}
 
-    <title>{{ title }}</title>
+    {% block schema %}
+    {% include "core/schema.njk" %}
+    {% endblock %}
 
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Restaurant",
-        "name": "{{ client.name }}",
-        "url": "{{ client.domain }}",
-        "logo": "{{ client.domain }}/assets/images/logo.png",
-        "image": "{{ client.domain }}/assets/images/og-image.webp",
-        "telephone": "{{ client.phone }}",
-        "email": "{{ client.email }}",
-        "servesCuisine": "Thai",
-        "priceRange": "$$",
-        "menu": "{{ client.domain }}/menus.html",
-        "hasMap": "{{ client.googlePlacesUrl }}",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "{{ client.address.street }}",
-          "addressLocality": "{{ client.address.city }}",
-          "addressRegion": "{{ client.address.state }}",
-          "postalCode": "{{ client.address.zip }}",
-          "addressCountry": "US"
-        },
-        "openingHoursSpecification": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-          "opens": "10:00",
-          "closes": "03:00"
-        }
-      }
-    </script>
-
-    {% include "components/google_analytics.njk" %}
-
+    {% block head_extra %}
+    {#- The one head tag core/head.njk does not carry: the legacy .ico that
+        older browsers and some crawlers still request. #}
+    <link rel="icon" href="/assets/favicons/favicon.ico" sizes="any">
+{% endblock %}
   </head>
 
-  <body>
-    {% include "components/header.njk" %}
-    <main>
+  {# `viewportPage` (set at the top of a child template) is for pages whose
+     content is a single embed sized to the space under the header — the menu
+     iframe. They lock the page scroll and drop the footer so the only
+     scrollbar is the embed's own; without this the page is one viewport plus
+     a footer and the browser shows a second, near-useless outer scrollbar. #}
+  {# The centered-logo header is taller than the default bar and floats below
+     the top edge on desktop, so it re-anchors --header-height (styles.scss) —
+     hero padding and anchor scroll offsets follow from that one variable. #}
+  <body class="font-body{% if theme.style.titleRule == 'bar' %} has-title-rule{% endif %}{% if theme.components.header == 'header_center' %} is-header-center{% endif %}{% if viewportPage %} h-svh overflow-hidden{% endif %}">
+    {# Skip link: a keyboard or screen-reader visitor otherwise tabs through
+       every nav label and CTA on each page before reaching the content.
+       Hidden until focused, written as Tailwind focus: utilities (a
+       hand-written :focus rule can lose half its selector in this build,
+       leaving the link hidden for the only people who use it). z-[60]
+       clears the header's z-50 and stays under the 88 layers. `main`
+       takes tabindex="-1" so the jump moves focus, not just the scroll. Its
+       class is marked important because the site-wide keyboard focus style
+       in styles.scss would otherwise draw round the whole page. #}
+    <a href="#main" class="sr-only rounded-btn focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-white focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-secondary-900 focus:shadow-card">Skip to content</a>
+    {% include "components/" + theme.components.header + ".njk" %}
+    <main id="main" tabindex="-1" class="!outline-none">
       {% block content %}{% endblock %}
     </main>
-    {% include "components/footer.njk" %}
-    <script src="https://88restaurants.com/uploads/attribution.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
-    <script type="module" src="/assets/js/main.js"></script>
+    {% if not viewportPage %}{% include "components/footer.njk" %}{% endif %}
+    {% include "core/scripts.njk" %}
     {% block bodyEnd %}{% endblock %}
+    {% block body_end_extra %}{% endblock %}
   </body>
 </html>

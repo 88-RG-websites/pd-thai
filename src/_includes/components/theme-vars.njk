@@ -1,0 +1,42 @@
+<style>
+  :root {
+    {%- for step, hex in theme.colors.primary %}
+    --c-primary-{{ step }}: {{ hex }};
+    {%- endfor %}
+    {%- for step, hex in theme.colors.secondary %}
+    --c-secondary-{{ step }}: {{ hex }};
+    {%- endfor %}
+    {#- Optional third scale. A client without one omits theme.colors.accent
+        entirely; every --c-accent-* then falls back to its stock value in
+        tailwind.config.js, so nothing downstream has to branch on it. #}
+    {%- for step, hex in theme.colors.accent %}
+    --c-accent-{{ step }}: {{ hex }};
+    {%- endfor %}
+    --font-display: '{{ theme.fonts.display.family }}', {{ theme.fonts.display.fallback }};
+    --font-body: '{{ theme.fonts.body.family }}', {{ theme.fonts.body.fallback }};
+    --overlay: {{ theme.overlay }};
+    --radius-btn: {{ theme.style.radius.btn }};
+    --radius-card: {{ theme.style.radius.card }};
+    --radius-img: {{ theme.style.radius.img }};
+    {#- Filled-button type and hover. `theme.style.button.text` is 'white'
+        (stock) or 'ink'; `.hover` is 'darker' (stock) or 'lighter'. They
+        exist because whether a filled accent button wants white or ink type
+        is a contrast MEASUREMENT, not a preference — a light warm accent
+        fails white outright — and because the hover should go whichever way
+        has the headroom. Omit `theme.style.button` and .btn-accent falls back
+        to white type over an accent-600 hover, which is what it always did. #}
+    {%- set btn = theme.style.button or {} %}
+    {%- if btn.text == 'ink' %}
+    --btn-accent-fg: var(--c-secondary-950);
+    {%- endif %}
+    {%- if btn.hover == 'lighter' %}
+    --btn-accent-hover: var(--c-accent-400, var(--c-primary-400));
+    {%- endif %}
+    --shadow-card: {{ theme.style.shadowCard }};
+    --shadow-card-hover: {{ theme.style.shadowCardHover }};
+    --reveal-duration: {{ theme.style.animations.duration }};
+    --reveal-distance: {{ theme.style.animations.distance }};
+    --reveal-ease: {{ theme.style.animations.easing }};
+    --reveal-stagger: {{ theme.style.animations.stagger }};
+  }
+</style>

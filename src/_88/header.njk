@@ -1,0 +1,88 @@
+---
+layout: null
+permalink: /_88/header.html
+eleventyExcludeFromCollections: true
+solidHeader: true
+---
+{#- The site's header as a fragment for 88restaurants' menu.<domain> pages.
+    88 fetches https://<domain>/_88/header.html, strips script/link/iframe/noscript/math tags, SVG
+    animations, on*= attributes and javascript: URLs, drops the whole fragment if what is left does
+    not parse back to itself (a <form> inside a <form>, say), and renders the rest inside a shadow
+    root. The one <link rel="icon"> below is read first and becomes the menu pages' tab icon.
+    So: absolute URLs, CSS through a style tag (an @import survives, a link tag does not), and no
+    script at all. The site's own hamburger needs header.js, so here the mobile panel is a popover
+    instead: the browser opens and closes it from the same two buttons (popovertarget), puts it in
+    the top layer above everything on the menu page, and gives Escape and click-outside for free. The site's styles.css draws the panel.
+    SITE_HEADER_ORIGIN is the local Eleventy server during development; production is the
+    client's own domain.
+
+    Three things the site's page does have to be redone here: base.njk's Google Fonts <link>
+    becomes an @import, theme-vars.njk's colour and font variables move from :root (the menu
+    page's, which the shadow root does not see) to :host, and styles.scss's body font moves to
+    :host too. A shadow root has no <body>, and Tailwind's preflight gives :host its sans stack, so
+    the desktop nav (no font class of its own) would draw in the system sans. -#}
+{%- set origin = siteHeaderOrigin or client.domain -%}
+{%- set headerHtml -%}{% include "components/" + theme.components.header + ".njk" %}{%- endset -%}
+{%- set themeVars -%}{% include "components/theme-vars.njk" %}{%- endset -%}
+{#- 88 reads this one <link> (before stripping the rest) as the menu pages' tab icon: a square PNG,
+    192px (a multiple of 48 for Google), absolute and on this site. -#}
+<link rel="icon" type="image/png" sizes="192x192" href="{{ origin }}/assets/favicons/android-chrome-192x192.png">
+<style>
+  {#- dump, not autoescape: <style> is raw text, so an escaped &amp; reaches Google Fonts as a
+      literal and every family after the first is dropped. Chrome and Safari ignore @font-face in a
+      shadow root, so 88 also loads this Google Fonts @import (up to three, fonts.googleapis.com
+      only) in the menu page's <head>; any other web font here would not reach the header. -#}
+  @import url({{ theme.fonts.googleFontsUrl | dump | safe }});
+  @import url({{ (origin + "/assets/css/styles.css") | dump | safe }});
+  :host { display: block; font-family: var(--font-body, Roboto, sans-serif); background-color: var(--c-secondary-700, #0a1123); }
+  /* The bar flows in the host page instead of floating over a hero. It stays hidden, one bar
+     high on the header's ground, until styles.css reveals it (sass/styles.scss, `:host
+     #main-header`): the page paints before an @import in a shadow root arrives, so the bare
+     markup would flash. The animation shows it anyway after 3s, if styles.css never loads. */
+  #main-header { position: relative; top: 0;
+    visibility: hidden; max-height: 6rem; overflow: hidden; animation: site-header-fallback 0s 3s forwards; }
+  /* solidHeader puts `is-scrolled` on the bar, which styles.css tints to 82% and blurs. In flow
+     above the menu there is nothing to see through it, so the ground stays solid. */
+  #main-header.is-scrolled { background-color: var(--c-secondary-700, #0a1123); backdrop-filter: none; }
+  @keyframes site-header-fallback { to { visibility: visible; max-height: none; overflow: visible; } }
+  /* The popover's UA box (centred, bordered, padded) gives way to the site's full-height sheet.
+     Not display:none while closed: `display` needs allow-discrete to animate, and the panel's own
+     transform transition in styles.css is what slides it in and out. */
+  #mobile-menu { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+    margin: 0; padding: 0; border: 0; overflow: visible; background: transparent; color: inherit;
+    transition: display 0.42s allow-discrete, overlay 0.42s allow-discrete; }
+  /* The dim scrim is a button that hides the popover (popovertargetaction), placed under the
+     panel: it dims and blocks the page like the site's dialog backdrop and closes on a tap, with
+     no script. (A popover's ::backdrop takes no pointer events, so it cannot do this.) */
+  .frag-scrim { position: absolute; inset: 0; border: 0; padding: 0; margin: 0; cursor: default;
+    background: rgb(17 24 39 / 0.6); opacity: 0; transition: opacity 0.3s ease; }
+  #mobile-menu:popover-open .frag-scrim { opacity: 1; }
+  #mobile-menu:popover-open el-dialog-panel { transform: translateX(0); }
+  #mobile-menu:popover-open .mobile-nav-logo,
+  #mobile-menu:popover-open [data-mobile-close],
+  #mobile-menu:popover-open .mobile-nav-link {
+    opacity: 1; transform: translateY(0); transition-duration: 0.4s; transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  #mobile-menu:popover-open .mobile-nav-logo,
+  #mobile-menu:popover-open [data-mobile-close] { transition-delay: 0.06s; }
+  {%- for n in range(1, 9) %}
+  #mobile-menu:popover-open .mobile-nav-link:nth-of-type({{ n }}) { transition-delay: {{ 50 + n * 50 }}ms; }
+  {%- endfor %}
+  /* The first frame after opening starts from the closed pose, so the slide and stagger run. */
+  @starting-style {
+    #mobile-menu:popover-open el-dialog-panel { transform: translateX(100%); }
+    #mobile-menu:popover-open .frag-scrim { opacity: 0; }
+    #mobile-menu:popover-open .mobile-nav-logo,
+    #mobile-menu:popover-open [data-mobile-close],
+    #mobile-menu:popover-open .mobile-nav-link { opacity: 0; transform: translateY(10px); }
+  }
+</style>
+{{ themeVars | replace(':root', ':host') | safe }}
+{{ headerHtml
+   | replace('href="/', 'href="' + origin + '/')
+   | replace('src="/', 'src="' + origin + '/')
+   | replace('<dialog id="mobile-menu"', '<dialog id="mobile-menu" popover')
+   | replace(' aria-expanded="false"', '')
+   | replace('data-mobile-open', 'data-mobile-open popovertarget="mobile-menu"')
+   | replace('data-mobile-close', 'data-mobile-close popovertarget="mobile-menu" popovertargetaction="hide"')
+   | replace('<el-dialog-panel', '<button type="button" class="frag-scrim" popovertarget="mobile-menu" popovertargetaction="hide" aria-label="Close menu"></button><el-dialog-panel')
+   | safe }}

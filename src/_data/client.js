@@ -1,4 +1,4 @@
-module.exports = {
+const client = {
   // Basic Restaurant Information
   name: 'PD Thai Cuisine',
   restaurantName: 'PD Thai Cuisine',
@@ -23,12 +23,73 @@ module.exports = {
   googleMapsEmbedUrl: 'https://www.google.com/maps?q=3208+Guadalupe+St,+Austin,+TX+78705&output=embed',
   googlePlacesUrl: 'https://www.google.com/maps/place/PD+Thai+Restaurant+3208+Guadalupe+Street,+Austin+TX/data=!4m2!3m1!1s0x8644ca7fed1f5917:0x6e6ab314897e3efd',
 
-  // Hours
+  // Hours. `hours.schedule` is the one source the schema's
+  // openingHoursSpecification and the FAQ read (lib/site.js flattens it);
+  // the visible copy keeps its own display strings below. One all-day window,
+  // written in the `lunch` slot because that is the first key the flattener reads.
+  hours: {
+    schedule: [{ day: 'Monday - Sunday', lunch: '10:00am - 3:00am' }],
+  },
+  timezone: 'America/Chicago',
   hoursNote: 'Daily · 10am – 3am',
   hoursDisclaimer: 'Open daily from 10am to 3am.',
 
+  // Facts the template's schema block reads (core/schema.njk). Each is what
+  // the hand-written JSON-LD in base.njk said before this sync.
+  businessType: 'Restaurant',
+  priceRange: '$$',
+  cuisines: ['Thai'],
+  geo: { lat: 30.299852, lng: -97.740363 }, // the Maps place marker (!3d/!4d), not an embed's centre
+  acceptsReservations: true,
+  logo: { src: '/assets/images/logo.png', alt: 'PD Thai Cuisine Logo' },
+  ogImage: '/assets/images/og-pd-thai.jpg',
+  ogImageAlt: 'Overhead view of Thai dishes from PD Thai Cuisine: dumplings, fried banana, spring rolls and a yellow curry',
+  analytics: { ga4: 'G-VL6LLVRV6M' },
+
+  // Page titles and meta descriptions, keyed by page file slug
+  // (src/_data/eleventyComputed.js). Moved here from each page's front matter;
+  // the wording is what the live site already serves.
+  seo: {
+    index: {
+      title: 'PD Thai Cuisine - Authentic Thai Restaurant Near UT Austin',
+      description: 'Real Thai flavor steps from UT Austin. Fresh, locally sourced ingredients, vegan & vegetarian options, and a colorful modern dining room on Guadalupe Street.',
+    },
+    menus: {
+      title: 'Menu - PD Thai Cuisine',
+      description: 'Browse our full menu and place online orders at PD Thai Cuisine. Fresh Thai dishes made with authentic ingredients and traditional recipes.',
+    },
+    gallery: {
+      title: 'Gallery - PD Thai Cuisine',
+      description: 'A look inside PD Thai Cuisine — our dishes, our dining room, and the food we serve near UT Austin.',
+    },
+    catering: {
+      title: 'Catering - PD Thai Cuisine',
+      description: 'Thai catering for birthdays, graduations, and office parties near UT Austin. Vegetarian, vegan, and gluten-free options available for pickup or delivery.',
+    },
+    parties: {
+      title: 'Parties & Events - PD Thai Cuisine',
+      description: "Planning a party or group event near UT Austin? Submit an inquiry with PD Thai Cuisine and we'll help you plan a table that fits.",
+    },
+  },
+
   // System Integration IDs
   id: '828',
+
+  // 88restaurants form slugs, read off the admin (Settings -> Website ->
+  // Forms; each tag reads <div data-88-form="<slug>"></div>). The catering
+  // and parties pages place theirs by slug too.
+  forms: {
+    contact: 'contact-us',
+    newsletter: 'email-list',
+    partyInquiry: 'party-inquiry',
+    catering: 'catering-request',
+  },
+
+  // Ordering stays on the order.pdthaiaustin.com domain the live site links
+  // to; every other urls.* key derives from `id` (lib/site.js).
+  urls: {
+    order: 'https://order.pdthaiaustin.com/pd-thai-austin-austin-tx/online_orders/new',
+  },
 
   // Social Media (placeholders for future use)
   socialMedia: {
@@ -75,6 +136,8 @@ module.exports = {
     kicker: 'Our Menus',
     title: 'Something for every craving',
     subtitle: 'From quick lunch specials to shareable dinner plates and full vegan options — browse it all and order online in minutes.',
+    // The /menus/ page's screen-reader-only h1 (the embed fills the page).
+    pageHeading: 'PD Thai Cuisine Menu and Online Ordering',
   },
   menuGallery: [
     { image: '/assets/images/old-site-pics/spring-rolls.webp', alt: 'Crispy spring rolls with dipping sauce' },
@@ -149,3 +212,7 @@ module.exports = {
     formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/party_inquiry_forms',
   },
 };
+
+// lib/site.js fills in urls.*/menuHost/hours.windows/etc. and defaults for
+// any key an older client.js doesn't set — see it for the derivation rules.
+module.exports = require('../../lib/site')(client);

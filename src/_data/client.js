@@ -70,6 +70,10 @@ const client = {
       title: 'Parties & Events - PD Thai Cuisine',
       description: "Planning a party or group event near UT Austin? Submit an inquiry with PD Thai Cuisine and we'll help you plan a table that fits.",
     },
+    404: {
+      title: 'Page Not Found - PD Thai Cuisine',
+      description: 'That page is not on the PD Thai Cuisine site. Head back to the menu or the home page.',
+    },
   },
 
   // System Integration IDs
@@ -98,6 +102,13 @@ const client = {
     twitter: '',
     yelp: '',
     googleBusiness: '',
+  },
+
+  // Reservations. `note` is quoted by the FAQ's reservation answer
+  // (src/_data/faq.js) and by the home reservations section, so the two cannot
+  // disagree.
+  reserve: {
+    note: 'We are currently accepting online reservations for parties of up to 10.',
   },
 
   // Hero Section
@@ -199,6 +210,13 @@ const client = {
     paragraphOne: "Birthdays, graduations, office parties — for eight years we've been cooking real, made-to-order Thai food for North Campus, and under Ezron's ownership that same care carries over into every catering order. Our small kitchen team preps each dish fresh, so your guests get the same quality we serve in the dining room.",
     paragraphTwo: "Vegetarian, vegan, and gluten-free options are all available, so there's something for everyone on the table. We cater parties of up to 40 guests, with pickup or delivery.",
     formNote: "Let us know your date and any special requests below, and our team will follow up to build a catering order around your event.",
+  },
+
+  // 404 page
+  notFound: {
+    kicker: '404',
+    heading: "We can't find that page",
+    text: 'The page you were looking for has moved or never existed. The menu and the home page are a click away.',
   },
 
   // Parties & Events Page

@@ -4,12 +4,18 @@
   "main": "index.js",
   "scripts": {
     "build:css": "postcss src/assets/sass/styles.scss -o src/assets/css/styles.css",
-    "build": "npm run build:css && eleventy",
-    "build:preview": "npm run build:css && PATH_PREFIX=${PATH_PREFIX:-/custom_template/} eleventy",
+    "build": "rm -rf dist && npm run build:css && eleventy",
+    "build:preview": "rm -rf dist && npm run build:css && PATH_PREFIX=${PATH_PREFIX:-/custom_template/} eleventy",
     "serve": "npm-run-all --parallel watch:css serve:eleventy",
     "serve:eleventy": "npx eleventy --serve",
     "watch:css": "postcss src/assets/sass/styles.scss -o src/assets/css/styles.css --watch",
-    "watch": "npm-run-all --parallel watch:css serve"
+    "watch": "npm-run-all --parallel watch:css serve",
+    "fonts": "node scripts/self-host-fonts.js",
+    "test:unit": "node --test scripts/upgrade/test/*.test.mjs scripts/golive/test/*.test.mjs",
+    "test:docs": "node scripts/test/doc-paths.mjs",
+    "test:smoke": "bash scripts/test/new-site-smoke.sh",
+    "test": "if [ -f template.json ]; then npm run test:unit && npm run test:docs && npm run test:smoke && npm run test:rsync; else echo 'Template-only tests: nothing to run in a client repo.'; fi",
+    "test:rsync": "bash scripts/test/deploy-rsync.sh"
   },
   "keywords": [],
   "author": "",
@@ -20,12 +26,15 @@
     "@11ty/eleventy-navigation": "^0.3.5",
     "@quasibit/eleventy-plugin-sitemap": "^2.2.0",
     "@reservationgenie/google-reviews": "github:88-RG-websites/review_scraper#v1.3.1",
-    "@sherby/eleventy-plugin-files-minifier": "^1.1.1",
     "autoprefixer": "^10.4.20",
+    "html-minifier": "^4.0.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.42",
     "postcss-cli": "^11.0.0",
     "sass": "^1.77.8",
     "tailwindcss": "^3.4.10"
+  },
+  "devDependencies": {
+    "cssnano": "^7.1.9"
   }
 }

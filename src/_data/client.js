@@ -1,3 +1,10 @@
+// Menus live on 88's menu.pdthaiaustin.com pages (menus.md): /menus/ and the old
+// /menus.html redirect there. Slugs from menu.pdthaiaustin.com/llms.txt. The links
+// in the FAQ prose below come from menuLink(), so they follow this switch.
+const domain = 'https://pdthaiaustin.com';
+const menuSubdomain = true;
+const { menuLink } = require('../../lib/site').menuLinks({ domain, menuSubdomain });
+
 const client = {
   // Basic Restaurant Information
   name: 'PD Thai Cuisine',
@@ -21,22 +28,22 @@ const client = {
         replaces: 'cuisine',
         question: 'What kind of food does PD Thai Cuisine serve?',
         answer:
-          "<p>PD Thai Cuisine serves traditional Thai cooking in North Campus, Austin, TX, made with fresh, locally grown ingredients: pad thai, drunken noodles, tom yum soup and more. <a href=\"/menus/\">See the full menu</a> for what's currently on offer.</p>",
+          "<p>PD Thai Cuisine serves traditional Thai cooking in North Campus, Austin, TX, made with fresh, locally grown ingredients: pad thai, drunken noodles, tom yum soup and more. <a href=\"" + menuLink() + "\">See the full menu</a> for what's currently on offer.</p>",
       },
       {
         question: 'Is there a Thai restaurant near UT Austin?',
         answer:
-          '<p>Yes. PD Thai Cuisine is at 3208 Guadalupe Street, an easy walk from the UT Austin campus, and quick enough for a lunch break between classes. <a href="/menus/">Browse the menu</a>.</p>',
+          '<p>Yes. PD Thai Cuisine is at 3208 Guadalupe Street, an easy walk from the UT Austin campus, and quick enough for a lunch break between classes. <a href="' + menuLink() + '">Browse the menu</a>.</p>',
       },
       {
         question: 'Is PD Thai Cuisine open late at night?',
         answer:
-          '<p>Yes. PD Thai Cuisine serves late night Thai every night of the week: the woks stay going until 3am, whether you are finishing a study session or heading home from Sixth Street. <a href="/menus/">Order online</a> or stop by Guadalupe Street.</p>',
+          '<p>Yes. PD Thai Cuisine serves late night Thai every night of the week: the woks stay going until 3am, whether you are finishing a study session or heading home from Sixth Street. <a href="' + menuLink() + '">Order online</a> or stop by Guadalupe Street.</p>',
       },
       {
         question: 'Does PD Thai Cuisine have vegetarian, vegan or gluten-free options?',
         answer:
-          '<p>Yes. PD Thai Cuisine has vegetarian, vegan and gluten-free options on the menu, so everyone at the table is covered. <a href="/menus/">See the menu</a>.</p>',
+          '<p>Yes. PD Thai Cuisine has vegetarian, vegan and gluten-free options on the menu, so everyone at the table is covered. <a href="' + menuLink() + '">See the menu</a>.</p>',
       },
       {
         question: 'Does PD Thai Cuisine cater parties and events in Austin?',
@@ -55,7 +62,8 @@ const client = {
   },
   phone: '(512) 371-8777',
   email: 'pdthaicuisine@gmail.com',
-  domain: 'https://pdthaiaustin.com',
+  domain,
+  menuSubdomain,
 
   // Ordering (88 online ordering on the order.pdthaiaustin.com domain)
   orderOnlineUrl: 'https://order.pdthaiaustin.com/pd-thai-austin-austin-tx/online_orders/new',
@@ -236,7 +244,7 @@ const client = {
   reviews: {
     google_maps_url:
       'https://www.google.com/maps/place/PD%20Thai%20Cuisine/data=!4m2!3m1!1s0x8644ca7fed1f5917:0x6e6ab314897e3efd',
-    display: { max_reviews: 12, min_rating: 5, require_text: true, min_text_length: 0 },
+    display: { max_reviews: 12, min_rating: 5, require_text: true, min_text_length: 150 },
   },
 
   // Contact Section

@@ -1,0 +1,123 @@
+    {# Head order: identity first (charset, viewport, title, description), then
+       the rest of the indexing signals, then social, then icons, then the
+       render-blocking assets. The title and description are what a person sees
+       in a tab and a search result, so they read first in the source too. #}
+    <!-- Standard meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {#- `title` is the page's client.seo.<slug>.title (eleventyComputed.js):
+        the polished, search-facing title (under ~60 chars, keyword first,
+        brand last; the homepage leads with the brand instead), falling back
+        to client.name so a new page is never titleless. A `seoTitle` in a
+        page's front matter still wins; older client pages carry one, and
+        stock pages no longer do. See
+        MUSASHI/docs/business-name-and-titles.md for the rules this follows. -#}
+    <title>{{ seoTitle if seoTitle else title }}</title>
+    <meta name="description" content="{{ description }}">
+    {#- A page can opt out of indexing with `noindex: true` in frontmatter —
+        the 404 does, since a soft-404 in the index is worse than no page.
+        A non-root PATH_PREFIX build (npm run build:preview) is never meant
+        to be indexed at all, so it overrides both: every page on a preview
+        build emits noindex, nofollow regardless of the page's own setting. -#}
+    <meta name="robots" content="{% if build.preview %}noindex, nofollow{% elif noindex %}noindex, follow{% else %}index, follow{% endif %}">
+    <link rel="canonical" href="{{ client.domain }}{{ page.url }}">
+
+    <!-- Social Media Display -->
+    <meta property="og:site_name" content="{{ client.name }}"/>
+    <meta property="og:title" content="{{ seoTitle if seoTitle else title }}"/>
+    <meta property="og:description" content="{{ description }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="{{ client.domain }}{{ page.url }}"/>
+    <meta property="og:image" content="{{ client.domain }}{{ client.ogImage }}"/>
+    <meta property="og:image:secure_url" content="{{ client.domain }}{{ client.ogImage }}"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    {#- og:image must stay JPEG or PNG (client.js, next to ogImage) — link
+        scrapers still skip webp cards — so the type is read off the file
+        extension rather than hardcoded, and stays correct if a client build
+        ever swaps in a PNG. -#}
+    <meta property="og:image:type" content="{{ 'image/png' if '.png' in client.ogImage else ('image/webp' if '.webp' in client.ogImage else 'image/jpeg') }}"/>
+    {#- lib/site.js defaults ogImageAlt to '': an empty alt says nothing, so
+        the tag waits for real text (content.md asks every build for one). -#}
+    {%- if client.ogImageAlt %}
+    <meta property="og:image:alt" content="{{ client.ogImageAlt }}"/>
+    {%- endif %}
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="{{ seoTitle if seoTitle else title }}"/>
+    <meta name="twitter:description" content="{{ description }}"/>
+    <meta name="twitter:image" content="{{ client.domain }}{{ client.ogImage }}"/>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <meta name="msapplication-TileColor" content="{{ theme.meta.tileColor }}">
+    {# The notch/status-bar fill on iOS and the address bar on Android take
+       this colour. It is the page ground, not a brand accent — the same
+       secondary-700 the `html` rule paints — so the chrome around the page
+       can never disagree with the page itself. Read straight off the palette
+       rather than configured separately: a second knob is exactly what let
+       the two drift apart. #}
+    <meta name="theme-color" content="{{ theme.colors.secondary['700'] }}">
+
+    <!-- Sitewide Stylesheets and Scripts -->
+    {% include "components/theme-vars.njk" %}
+    <link rel="stylesheet" href="/assets/css/styles.css">
+
+    {#- Fonts are served from the site (`npm run fonts`, scripts/self-host-fonts.js):
+        the Google Fonts stylesheet held up first paint from two more hosts. The
+        preload href is left to the base plugin; url() inside <style> is not, so it
+        takes `| url`. If theme.fonts changed since the script last ran,
+        fontFaces.json names another URL and the Google stylesheet is used. -#}
+    {% if fontFaces and fontFaces.sourceUrl == theme.fonts.googleFontsUrl %}
+    {% for face in fontFaces.faces %}{% if face.preload %}
+    <link rel="preload" href="{{ face.file }}" as="font" type="font/woff2" crossorigin>
+    {% endif %}{% endfor %}
+    <style>
+      {% for face in fontFaces.faces %}
+      @font-face { font-family: "{{ face.family }}"; font-style: {{ face.style }}; font-weight: {{ face.weight }}; font-display: swap; src: url("{{ face.file | url }}") format("woff2"); unicode-range: {{ face.unicodeRange }}; }
+      {% endfor %}
+    </style>
+    {#- No Google URL (a site on system fonts): `href=""` would fetch the page
+        itself as a stylesheet on every load, so the whole block waits for one. #}
+    {% elif theme.fonts.googleFontsUrl %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="{{ theme.fonts.googleFontsUrl }}">
+    {% endif %}
+
+    {# Sits with the stylesheets rather than at the top of the head: it only
+       has to run before the body paints, and the meta block above is what a
+       reader (or a crawler) should hit first. #}
+    {% if theme.style.animations.reveal %}
+    <script>
+      document.documentElement.classList.add('js-reveal');
+      // Safety net: if scroll-reveal.js never confirms it's watching the page
+      // (blocked script, stale cache, ad blocker, etc.), stop hiding content
+      // rather than leave the page permanently blank.
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!window.__scrollRevealReady) {
+            document.documentElement.classList.remove('js-reveal');
+          }
+        }, 2000);
+      });
+    </script>
+    {% endif %}
+
+    {#- Google Analytics 4 from client.analytics.ga4 (the same id the 88 admin
+        holds; the go-live tool's admin step prints it). Production builds
+        only (build.js). The id goes through `dump | safe` inside the script
+        so no character of it can be HTML-escaped into the JS, with `<` as
+        \u003c so a stray `</script>` in client.js can't close the tag. -#}
+    {% if client.analytics.ga4 and build.production %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ client.analytics.ga4 | urlencode }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', {{ client.analytics.ga4 | dump | replace("<", "\\u003c") | safe }});
+    </script>
+    {% endif %}

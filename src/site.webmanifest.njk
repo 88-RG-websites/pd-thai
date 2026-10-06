@@ -1,0 +1,39 @@
+---
+permalink: /assets/favicons/site.webmanifest
+eleventyExcludeFromCollections: true
+---
+{#- The manifest is rendered, not copied. As static JSON it drifted: it shipped
+    with the favicon generator's empty name/short_name and a stock theme colour,
+    and nothing on the page reveals either — they only surface once someone
+    installs the site or adds it to an Android home screen.
+
+    name/short_name follow client.js, and both colours are the page ground
+    (secondary-700, the same value base.njk hands to <meta name="theme-color">),
+    so an installed app cannot flash a white frame the site never uses.
+
+    icons[].src stay RELATIVE: a leading slash 404s under a preview build's
+    subfolder. -#}
+{
+  {#- `| dump` writes the JSON string INCLUDING its quotes. Interpolating into
+      hand-written quotes instead runs the value through Nunjucks' autoescaper,
+      which is an HTML escaper — and a .webmanifest is raw text, so a name
+      containing "&" reaches an Android home screen as "Foo &amp; Bar". Nothing
+      on the page reveals it. -#}
+  "name": {{ (client.restaurantName or client.name) | dump | safe }},
+  "short_name": {{ (client.shortName or client.name) | dump | safe }},
+  "icons": [
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "{{ theme.colors.secondary['700'] }}",
+  "background_color": "{{ theme.colors.secondary['700'] }}",
+  "display": "standalone"
+}

@@ -1,0 +1,89 @@
+{# Scrolling photo carousel — three across on desktop, one on mobile, with
+   arrows, dots, drag and autoplay (assets/js/carousel.js). Reads
+   client.carouselImages, falling back to the gallery photos. #}
+{% set slides = client.carouselImages if client.carouselImages.length else client.galleryImages %}
+<section id="carousel" class="section bg-white">
+  <div class="container-site">
+    <div class="section-head" data-reveal="up">
+      {% if client.carousel.eyebrow %}<p class="eyebrow">{{ client.carousel.eyebrow }}</p>{% endif %}
+      <h2 class="section-title">{{ client.carousel.title or "Gallery" }}</h2>
+      {% if client.carousel.subtitle %}
+      <p class="lede">{{ client.carousel.subtitle }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mx-auto w-full max-w-7xl px-6 lg:px-16" data-reveal="up" data-reveal-delay="1">
+    {# Arrows are centered on the photo strip only — the dots sit outside this wrapper. #}
+    <div class="relative">
+      <button type="button" id="carousel-prev" class="absolute -left-14 top-1/2 z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-gray-900 shadow-card transition hover:shadow-card-hover lg:flex" aria-label="Previous photos">
+        <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+      </button>
+      <button type="button" id="carousel-next" class="absolute -right-14 top-1/2 z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-gray-900 shadow-card transition hover:shadow-card-hover lg:flex" aria-label="Next photos">
+        <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+      </button>
+
+      <div id="carousel-viewport" class="no-scrollbar snap-x snap-mandatory overflow-x-auto scroll-smooth py-1" tabindex="0" role="region" aria-label="Photo carousel">
+      <div id="carousel-track" class="flex gap-6">
+        {%- for image in slides %}
+        <div class="w-full shrink-0 snap-start sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)]">
+          <img
+            {#- `src` is the strip rendition and `data-full-image` the master the
+                lightbox opens — the same split gallery.njk uses, and for the
+                same reason. This img renders in a card about 400px wide; taking
+                `image.full` for display meant a client who leaves
+                carouselImages empty (the documented default, which falls back
+                to galleryImages) downloaded every 1920px master to fill a row
+                of thumbnails. On one build that was 3.4MB of a 4.18MB
+                homepage, and nothing about the page looked wrong.
+
+                A data attribute is invisible to EleventyHtmlBasePlugin, which
+                only rewrites src/href, so the prefix is applied here by hand. #}
+            src="{{ image.src or image.full }}"
+            data-full-image="{{ (image.full or image.src) | url }}"
+            alt="{{ image.alt }}"
+            loading="lazy"
+            data-index="{{ loop.index0 }}"
+            class="aspect-[4/3] w-full cursor-pointer rounded-img object-cover shadow-card"
+          />
+        </div>
+        {%- endfor %}
+      </div>
+      </div>
+    </div>
+
+    {# The dot itself is 10px, drawn by .carousel-dot::before — the button
+       around it is a 44px tap target (styles.scss). #}
+    {# Wraps: a long photo set at 44px per dot would otherwise run past a
+       phone's width. #}
+    <div id="carousel-dots" class="mt-4 flex flex-wrap justify-center">
+      {%- for image in slides %}
+      <button type="button" class="carousel-dot" aria-label="Go to photo {{ loop.index }}"></button>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{# Same chrome as the gallery lightbox: arrows in reserved space, counter
+   between them on phones and under the photo from sm up. #}
+<div id="carousel-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/75 p-4 backdrop-blur-sm">
+  <button id="carousel-lightbox-close" type="button" class="fixed right-4 top-4 z-50 flex size-11 items-center justify-center rounded-full bg-black/60 text-white shadow-lg transition-colors hover:bg-black/80" aria-label="Close image viewer">
+    <svg class="size-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+  </button>
+
+  <div class="relative flex h-full max-h-full w-full max-w-5xl items-center justify-center">
+    <button id="carousel-lightbox-prev" type="button" class="absolute bottom-1 left-1/2 z-10 flex size-12 -translate-x-[calc(100%+40px)] items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/25 backdrop-blur-sm transition-colors hover:bg-white/25 sm:bottom-auto sm:left-0 sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0" aria-label="Previous image">
+      <svg class="size-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+    </button>
+
+    <button id="carousel-lightbox-next" type="button" class="absolute bottom-1 left-1/2 z-10 flex size-12 translate-x-[40px] items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/25 backdrop-blur-sm transition-colors hover:bg-white/25 sm:bottom-auto sm:left-auto sm:right-0 sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0" aria-label="Next image">
+      <svg class="size-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+    </button>
+
+    <p id="carousel-lightbox-counter" class="absolute bottom-[17px] left-1/2 z-10 -translate-x-1/2 text-[13px] font-medium tabular-nums text-white/80 sm:bottom-2.5" aria-hidden="true"></p>
+
+    <div class="flex h-full w-full items-center justify-center pb-20 pt-2 sm:px-20 sm:pb-12">
+      <img id="carousel-lightbox-image" class="max-h-full max-w-full rounded-img object-contain shadow-2xl" alt="">
+    </div>
+  </div>
+</div>

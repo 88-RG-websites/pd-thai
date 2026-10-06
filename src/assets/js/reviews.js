@@ -1,204 +1,46 @@
-/**
- * Reviews carousel: 3 slides visible on desktop, 1 on mobile.
- * Every review has its own dot; the centered card is the "selected" one.
- * Autoplay loops continuously in one direction (never snaps backward) by
- * scrolling into cloned copies of the leading slides, then silently
- * resetting position once the clones are fully in view.
- */
 export function initReviews() {
-  const viewport = document.getElementById('reviews-viewport');
-  const track = document.getElementById('reviews-track');
-  const dotsWrap = document.getElementById('reviews-dots');
-  const realSlides = track ? Array.from(track.children) : [];
-  const realCount = realSlides.length;
+  const section = document.getElementById('reviews');
+  if (!section) return;
 
-  if (!viewport || !track || realCount === 0) {
-    return;
-  }
+  const CLAMP = 'line-clamp-5';
+  const toggles = section.querySelectorAll('[data-review-toggle]');
 
-  const AUTOPLAY_MS = 5000;
-  const TRANSITION_MS = 500;
-  const MAX_VISIBLE = 3;
-  const desktopQuery = window.matchMedia('(min-width: 640px)');
-  const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let currentIndex = 0;
-  let autoplayTimer = null;
-  let wrapTimeout = null;
+  const textFor = (button) => document.getElementById(button.getAttribute('aria-controls'));
 
-  // Clone the leading slides and append them so autoplay can keep scrolling
-  // forward past the "end" into what looks like a natural continuation.
-  for (let i = 0; i < Math.min(MAX_VISIBLE, realCount); i++) {
-    const clone = realSlides[i].cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    clone.querySelectorAll('a, button').forEach((el) => el.setAttribute('tabindex', '-1'));
-    track.appendChild(clone);
-  }
-
-  function getVisibleCount() {
-    return desktopQuery.matches ? Math.min(MAX_VISIBLE, realCount) : 1;
-  }
-
-  function getCenterOffset() {
-    return Math.floor(getVisibleCount() / 2);
-  }
-
-  function getStep() {
-    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || '0') || 0;
-    return realSlides[0].getBoundingClientRect().width + gap;
-  }
-
-  function getCenterRealIndex() {
-    return (currentIndex + getCenterOffset()) % realCount;
-  }
-
-  function updateDots() {
-    if (!dotsWrap) return;
-    const centerIndex = getCenterRealIndex();
-    Array.from(dotsWrap.children).forEach((dot, i) => {
-      const isActive = i === centerIndex;
-      const bullet = dot.firstElementChild;
-      bullet.classList.toggle('bg-white', isActive);
-      bullet.classList.toggle('bg-white/40', !isActive);
-      dot.setAttribute('aria-current', isActive ? 'true' : 'false');
-    });
-  }
-
-  function render(instant) {
-    if (instant) track.style.transitionDuration = '0ms';
-    track.style.transform = `translateX(-${currentIndex * getStep()}px)`;
-    if (instant) {
-      void track.offsetHeight; // force reflow before restoring the transition
-      track.style.transitionDuration = '';
-    }
-    updateDots();
-  }
-
-  // Direct navigation (dot click): jump straight to the target, no looping tricks needed
-  function setIndex(realIndex) {
-    clearTimeout(wrapTimeout);
-    const offset = getCenterOffset();
-    currentIndex = ((realIndex - offset) % realCount + realCount) % realCount;
-    render();
-  }
-
-  // Autoplay step: always moves forward, looping seamlessly via the cloned slides
-  function advance() {
-    currentIndex += 1;
-    render();
-    if (currentIndex === realCount) {
-      wrapTimeout = setTimeout(() => {
-        currentIndex = 0;
-        render(true);
-      }, TRANSITION_MS);
-    }
-  }
-
-  function buildDots() {
-    if (!dotsWrap) return;
-    dotsWrap.innerHTML = '';
-    realSlides.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.setAttribute('aria-label', `Go to review ${i + 1}`);
-      dot.className = 'flex h-6 w-6 items-center justify-center';
-      dot.innerHTML = '<span class="h-2 w-2 rounded-full bg-white/40 transition-colors"></span>';
-      dot.addEventListener('click', () => manualGoTo(i));
-      dotsWrap.appendChild(dot);
-    });
-  }
-
-  function startAutoplay() {
-    stopAutoplay();
-    if (reducedMotionQuery.matches || realCount <= getVisibleCount()) return;
-    autoplayTimer = setInterval(advance, AUTOPLAY_MS);
-  }
-
-  function stopAutoplay() {
-    if (autoplayTimer) {
-      clearInterval(autoplayTimer);
-      autoplayTimer = null;
-    }
-  }
-
-  // Manual navigation restarts the autoplay clock so pacing stays consistent
-  function manualGoTo(realIndex) {
-    setIndex(realIndex);
-    startAutoplay();
-  }
-
-  function goToNext() {
-    manualGoTo((getCenterRealIndex() + 1) % realCount);
-  }
-
-  function goToPrevious() {
-    manualGoTo((getCenterRealIndex() - 1 + realCount) % realCount);
-  }
-
-  viewport.addEventListener('mouseenter', stopAutoplay);
-  viewport.addEventListener('mouseleave', startAutoplay);
-  viewport.addEventListener('focusin', stopAutoplay);
-  viewport.addEventListener('focusout', startAutoplay);
-
-  // Touch swipe (mobile): a horizontal drag past the threshold steps one
-  // slide forward/back, same as tapping a dot. Vertical drags are left
-  // alone so the page can still scroll normally.
-  const SWIPE_THRESHOLD = 40;
-  let touchStartX = 0;
-  let touchStartY = 0;
-  let touchDeltaX = 0;
-  let isHorizontalSwipe = false;
-
-  viewport.addEventListener('touchstart', (e) => {
-    const touch = e.touches[0];
-    touchStartX = touch.clientX;
-    touchStartY = touch.clientY;
-    touchDeltaX = 0;
-    isHorizontalSwipe = false;
-    stopAutoplay();
-  }, { passive: true });
-
-  viewport.addEventListener('touchmove', (e) => {
-    const touch = e.touches[0];
-    touchDeltaX = touch.clientX - touchStartX;
-    const touchDeltaY = touch.clientY - touchStartY;
-    if (!isHorizontalSwipe && Math.abs(touchDeltaX) > Math.abs(touchDeltaY)) {
-      isHorizontalSwipe = true;
-    }
-    if (isHorizontalSwipe && Math.abs(touchDeltaX) > 10) {
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  viewport.addEventListener('touchend', () => {
-    if (isHorizontalSwipe && Math.abs(touchDeltaX) > SWIPE_THRESHOLD) {
-      if (touchDeltaX < 0) {
-        goToNext();
-      } else {
-        goToPrevious();
+  // Only show "Read more" on reviews the clamp actually truncates. Cards
+  // still hidden behind "View more" measure 0×0, so this runs again after
+  // they're revealed. Measure after the web fonts load — the loaded faces'
+  // metrics shift what overflows.
+  const showIfClamped = () => {
+    toggles.forEach((button) => {
+      const text = textFor(button);
+      if (text && text.scrollHeight > text.clientHeight) {
+        button.classList.remove('hidden');
       }
-    } else {
-      startAutoplay();
-    }
+    });
+  };
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(showIfClamped);
+  } else {
+    showIfClamped();
+  }
+
+  toggles.forEach((button) => {
+    button.addEventListener('click', () => {
+      const text = textFor(button);
+      if (!text) return;
+      const expanded = !text.classList.toggle(CLAMP);
+      button.textContent = expanded ? 'Read less' : 'Read more';
+      button.setAttribute('aria-expanded', expanded);
+    });
   });
 
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      stopAutoplay();
-    } else {
-      startAutoplay();
-    }
-  });
-
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      render(true);
-      startAutoplay();
-    }, 150);
-  });
-
-  buildDots();
-  render(true);
-  startAutoplay();
+  const more = section.querySelector('[data-reviews-more]');
+  if (more) {
+    more.addEventListener('click', () => {
+      section.querySelectorAll('[data-review-extra]').forEach((card) => card.classList.remove('hidden'));
+      more.parentElement.remove();
+      showIfClamped();
+    });
+  }
 }

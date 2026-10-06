@@ -1,0 +1,25 @@
+---
+permalink: /404.html
+eleventyExcludeFromCollections: true
+noindex: true
+---
+{% extends "layouts/base.njk" %}
+
+{# Not-found page. Excluded from collections so it stays out of the sitemap.
+   Whether a real 404 serves this file is host config (most static hosts pick
+   up /404.html). Built from the same pieces as the catering and parties
+   pages: the cream ground, the kicker + heading, the site's own buttons. #}
+{% block content %}
+<section class="relative isolate overflow-hidden bg-[#fdfaf5] py-24">
+  <img src="/assets/images/basil-leaf.webp" alt="" aria-hidden="true" class="pointer-events-none absolute -right-24 top-0 -z-10 w-[65vw] max-w-[760px] rotate-12 select-none opacity-[0.16]" />
+  <div class="mx-auto max-w-3xl px-7 text-center">
+    <p class="mb-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-primary-600">{{ client.notFound.kicker }}</p>
+    <h1 class="text-balance mb-6 text-[32px] font-bold tracking-tight text-[#241b16] sm:text-[40px]">{{ client.notFound.heading }}</h1>
+    <p class="text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.notFound.text }}</p>
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+      <a href="/" class="inline-block rounded-full bg-primary-500 px-8 py-[15px] text-[15.5px] font-semibold text-white hover:bg-primary-600">Back to Home</a>
+      <a href="{{ client.urls.menus }}" class="inline-block rounded-full border-2 border-primary-500 px-8 py-[13px] text-[15.5px] font-semibold text-primary-600 hover:bg-primary-50">View Menu</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

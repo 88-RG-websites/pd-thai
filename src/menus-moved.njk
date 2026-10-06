@@ -1,0 +1,25 @@
+---
+layout: null
+eleventyExcludeFromCollections: true
+---
+{#- /menus/ once the menus have moved to 88's menu.<domain> pages (menus.md).
+    Same stub shape as legacy-redirects.njk, but the destination is absolute:
+    EleventyHtmlBasePlugin leaves it alone, and the canonical names it as is.
+
+    An old `/menus/#menu-<scheduleId>` link cannot become a slug here — the
+    fragment never reaches the server and the build does not know the mapping
+    — so it lands on the menu root, which opens the first menu. Anything that
+    still links to one menu should move to menuLink(slug, scheduleId). -#}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting…</title>
+    <meta name="robots" content="noindex, follow">
+    <meta http-equiv="refresh" content="0; url={{ client.urls.menus }}">
+    <link rel="canonical" href="{{ client.urls.menus }}">
+  </head>
+  <body>
+    <p>Our menu has moved to <a href="{{ client.urls.menus }}">{{ client.urls.menus }}</a>.</p>
+  </body>
+</html>

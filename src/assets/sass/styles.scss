@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* >>> template:core menu-subdomain-host */
+/* The header 88's menu pages borrow (src/_88/header.njk) keeps the bar hidden
+   on a solid ground until this sheet has loaded into its shadow root; then the
+   bar shows and the ground goes, as the page had it. :host matches nothing on
+   the site's own pages. */
+:host {
+  background-color: transparent !important;
+}
+:host #main-header {
+  visibility: visible !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+/* <<< template:core menu-subdomain-host */
+
+/* The header 88's menu pages borrow (src/_88/header.njk) is this site's own
+   #logo-header bar, which the fenced rule above (written for the template's
+   #main-header) does not name. Same reveal, for this bar. */
+:host #logo-header {
+  visibility: visible !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
@@ -12,23 +36,32 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Scroll-triggered reveal animations (fade + slide).
-   Elements only start hidden once JS adds `js-reveal` to <html>, so
-   content stays fully visible if JavaScript fails to load. */
-[data-reveal] {
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+/* >>> template:core viewport-page */
+/* Pages that never scroll themselves (the menu iframe scrolls instead) must
+   drop that gutter: with nothing to put in it the reserved strip just paints
+   the dark root ground beside the iframe's own scrollbar. The nav sits ~15px
+   wider here than on scrolling pages — the bar looked worse than the shift. */
+html.viewport-page {
+  scrollbar-gutter: auto;
+}
+/* <<< template:core viewport-page */
+
+/* The template's pages offset themselves by --header-height because its bar is
+   fixed. This site's bar is sticky and already takes its own room in the flow,
+   so the offset is zero: the menu frame then fills the rest of the screen. */
+:root {
+  --header-height: 0px;
 }
 
-.js-reveal [data-reveal="up"] {
-  opacity: 0;
-  transform: translateY(28px);
-}
-
+/* This site's own reveal variants. They sit above the fenced mechanics below
+   (which hold the base transition, the "up" and "fade" starts and the
+   .is-revealed end state) because they share its specificity: the revealed
+   state has to win by coming later. */
 /* Slide-only reveal (no fade). Use on containers holding backdrop-filter
    elements: an ancestor with opacity < 1 isolates its layer group, which
    blanks the blur until the fade completes. */
 .js-reveal [data-reveal="up-solid"] {
-  transform: translateY(28px);
+  transform: translateY(var(--reveal-distance, 28px));
 }
 
 .js-reveal [data-reveal="left"] {
@@ -41,13 +74,33 @@ body {
   transform: translateX(36px);
 }
 
+/* >>> template:core reveal-mechanics */
+/* Scroll-triggered reveal animations (fade + slide).
+   Elements only start hidden once JS adds `js-reveal` to <html>, so
+   content stays fully visible if JavaScript fails to load. Opt in per
+   element with data-reveal="up" or data-reveal="fade" (+ optional
+   data-reveal-delay="1..4" for staggering). */
+[data-reveal] {
+  transition:
+    opacity var(--reveal-duration, 0.7s) var(--reveal-ease, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--reveal-duration, 0.7s) var(--reveal-ease, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.js-reveal [data-reveal="up"] {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance, 28px));
+}
+
 .js-reveal [data-reveal="fade"] {
   opacity: 0;
 }
 
+/* `none`, not translate(0, 0): any transform makes the element the box a
+   position:fixed descendant pins to, so a form button's dialog would open
+   trapped inside the revealed column instead of over the page. */
 [data-reveal].is-revealed {
   opacity: 1;
-  transform: translate(0, 0);
+  transform: none;
 }
 
 /* Opt out of the reveal animation on mobile — element shows immediately. */
@@ -58,15 +111,40 @@ body {
   }
 }
 
-[data-reveal-delay="1"] { transition-delay: 0.1s; }
-[data-reveal-delay="2"] { transition-delay: 0.2s; }
-[data-reveal-delay="3"] { transition-delay: 0.3s; }
-[data-reveal-delay="4"] { transition-delay: 0.4s; }
+[data-reveal-delay="1"] { transition-delay: calc(1 * var(--reveal-stagger, 0.1s)); }
+[data-reveal-delay="2"] { transition-delay: calc(2 * var(--reveal-stagger, 0.1s)); }
+[data-reveal-delay="3"] { transition-delay: calc(3 * var(--reveal-stagger, 0.1s)); }
+[data-reveal-delay="4"] { transition-delay: calc(4 * var(--reveal-stagger, 0.1s)); }
+/* <<< template:core reveal-mechanics */
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* Mobile menu: the panel slides in from the right. The menu is a native
+   <dialog>; header.js opens it, adds `.is-open`, and defers .close() until
+   this transform transition ends (header.js reads the same `transform`). */
+#mobile-menu el-dialog-panel {
+  transform: translateX(100%);
+  transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#mobile-menu.is-open el-dialog-panel {
+  transform: translateX(0);
+}
+
+/* No transition means no transitionend: header.js closes at once in this
+   mode, so the panel must already sit in its final position. */
+@media (prefers-reduced-motion: reduce) {
+  #mobile-menu el-dialog-panel {
+    transition: none !important;
+  }
+
+  #mobile-menu.is-open el-dialog-panel {
+    transform: translateX(0);
   }
 }

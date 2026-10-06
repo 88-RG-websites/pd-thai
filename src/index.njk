@@ -1,6 +1,4 @@
 ---
-title: "PD Thai Cuisine - Authentic Thai Restaurant Near UT Austin"
-description: "Real Thai flavor steps from UT Austin. Fresh, locally sourced ingredients, vegan & vegetarian options, and a colorful modern dining room on Guadalupe Street."
 ---
 {% extends "layouts/base.njk" %}
 
@@ -12,22 +10,6 @@ description: "Real Thai flavor steps from UT Austin. Fresh, locally sourced ingr
   {% include "components/home/catering-parties.njk" %}
   {% include "components/home/reviews.njk" %}
   {% include "components/home/contact.njk" %}
+  {% if theme.components.faq %}{% include "components/faq.njk" %}{% endif %}
   {% include "components/home/newsletter-map.njk" %}
-  <script id="marketing-popup-script" data-restaurant-id="{{ client.id }}" src="https://88restaurants.com/uploads/popup.js"></script>
-{% endblock %}
-
-{% block bodyEnd %}
-<script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    try {
-      const response = await fetch(
-        "https://order.pdthaiaustin.com/restaurants/pd-thai-austin-austin-tx/online_orders/discount_button"
-      );
-      const html = await response.text();
-      document.body.insertAdjacentHTML("beforeend", html);
-    } catch (error) {
-      console.error("Error fetching button:", error);
-    }
-  });
-</script>
 {% endblock %}

@@ -1,0 +1,13 @@
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    <script type="module" src="/assets/js/main.js"></script>
+    <script src="https://88restaurants.com/uploads/attribution.js" defer></script>
+    {# The 88restaurants script: draws every data-88-form / data-88-widget tag
+       on the page and adds the restaurant's popups and sticky order footer on
+       its own when the admin has them on. Last in <body> and async, so it
+       never holds up the page. forms.md has the full contract. #}
+    {% if client.id and client.urls.embedScript %}
+    {% if client.questionsTab and client.forms.contact and not viewportPage %}
+    <div data-88-form="{{ client.forms.contact }}" data-88-layout="tab" data-88-position="{{ client.questionsTab.position or 'right' }}"{% if client.questionsTab.label %} data-88-label="{{ client.questionsTab.label }}"{% endif %}></div>
+    {% endif %}
+    <script src="{{ client.urls.embedScript }}" data-restaurant="{{ client.id }}" async></script>
+    {% endif %}

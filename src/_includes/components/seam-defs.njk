@@ -1,0 +1,55 @@
+{# Seam clip paths (theme.style.seam), defined once per page and referenced
+   by clip-path from the components that cut a photograph with a curve.
+
+   THE SEAM ONLY EVER CUTS A PHOTOGRAPH. It is the boundary where a photograph
+   meets a colour ground — the ground itself changes shape and nothing sits
+   between the two. It is never laid between two colour grounds (that is a
+   divider, the 2010s swoosh) and never floats above a heading as ornament.
+   A stroke along the edge was tried and cut on the first build that used
+   this: the cut edge alone is the seam.
+
+   'brush' is one traced curve — the edge between the cream panel and the
+   photograph on BITE Sushi's own composite, sampled every 8 rows and fitted
+   to cubics. Symmetric top and bottom, so the panel is widest at its middle
+   and pulls back by .115 of its box at both ends. Three orientations:
+
+     seam-v-out  the RIGHT edge of a panel laid over a photograph that bleeds
+                 off the right (about_seam). Convex: the panel bows OUT into
+                 the photograph, and the copy on the panel gets the room.
+     seam-v-in   the RIGHT edge of a photograph that bleeds off the LEFT
+                 (menus_schedule). Concave: the photograph pulls back into
+                 itself, and again the copy beside it gets the room.
+     seam-h      the edge along the BOTTOM of a stacked photograph, for the
+                 arrangement below the split breakpoint. Its own shape, not
+                 the vertical curve on its side — that read as a tilted rule
+                 across a wide shallow band. Level at both ends, one soft
+                 bow, low point at 46% so it reads drawn rather than geometric.
+
+   ADJACENT SEAMS MUST BE CONTINUOUS, NOT JUST ALIGNED. seam-v-out exits its
+   box at .885 of the panel width; seam-v-in enters at 1.0 of the photo
+   width. So when about_seam (panel 58% of the viewport) sits directly above
+   menus_schedule, the photo column there is 51.3% (= .885 x 58%) and the
+   line runs down the page as one soft S with no step at the section break.
+   Change one width and re-derive the other.
+
+   A new curve family (a diagonal, a torn edge) is added here as its own
+   three ids and picked with theme.style.seam. Trace it off something the
+   client owns — their signage, their menu, their current site — never a
+   wave vocabulary.
+
+   clipPathUnits="objectBoundingBox" puts the paths in 0-1 space, so one
+   definition stretches to any panel at any breakpoint. That also means a
+   top-edge curve grows with section height: measure it at 375 as well. #}
+<svg width="0" height="0" aria-hidden="true" focusable="false" class="absolute">
+  <defs>
+    <clipPath id="seam-v-out" clipPathUnits="objectBoundingBox">
+      <path d="M .885,0 C .958,.12 .997,.30 1,.5 C .997,.70 .958,.88 .885,1 L 0,1 L 0,0 Z" />
+    </clipPath>
+    <clipPath id="seam-v-in" clipPathUnits="objectBoundingBox">
+      <path d="M 1,0 C .927,.12 .888,.30 .885,.5 C .888,.70 .927,.88 1,1 L 0,1 L 0,0 Z" />
+    </clipPath>
+    <clipPath id="seam-h" clipPathUnits="objectBoundingBox">
+      <path d="M 0,.870 C .18,.955 .34,.975 .5,.975 C .66,.975 .82,.955 1,.870 L 1,0 L 0,0 Z" />
+    </clipPath>
+  </defs>
+</svg>

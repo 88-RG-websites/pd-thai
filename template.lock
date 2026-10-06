@@ -1,0 +1,30 @@
+{
+  "template": "restaurant-template",
+  "sha": "f34b19ef420c8955da36f9d68c2ddeca282ca8a3",
+  "syncedAt": "2026-10-06T18:33:15.171Z",
+  "base": "f34b19ef420c8955da36f9d68c2ddeca282ca8a3",
+  "migrations": [
+    "010",
+    "020",
+    "030",
+    "050",
+    "060",
+    "070",
+    "080"
+  ],
+  "skipped": {
+    "src/gallery.njk": "look",
+    "tailwind.config.js": "look",
+    "src/_includes/components/about.njk": "look",
+    "src/_includes/components/footer.njk": "look",
+    "src/_includes/components/gallery-masonry.njk": "look",
+    "src/_includes/components/gallery.njk": "look",
+    "src/_includes/components/header.njk": "look",
+    "src/_includes/components/header_center.njk": "look",
+    "src/_includes/components/hero.njk": "look",
+    "src/_includes/components/info.njk": "look",
+    "src/_includes/components/info_two.njk": "look",
+    "src/_includes/components/menus.njk": "look",
+    "src/_includes/components/parallax-break.njk": "look"
+  }
+}

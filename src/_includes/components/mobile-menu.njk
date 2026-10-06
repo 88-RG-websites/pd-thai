@@ -1,0 +1,48 @@
+{# Mobile slide-over, shared by both header variants (header.njk and
+   header_center.njk include this file). It carries the id, hooks and classes
+   assets/js/header.js looks for — #mobile-menu, [data-mobile-close], and the
+   a[href] set it closes on — so changing it changes both headers at once.
+
+   Links are centered and set large: on a phone the panel is the whole nav, so
+   the list reads as a menu screen rather than a shrunken desktop bar. #}
+<el-dialog>
+  <dialog id="mobile-menu" class="m-0 p-0 backdrop:bg-gray-900/60 lg:hidden">
+    <div tabindex="0" class="fixed inset-0 focus:outline focus:outline-0">
+      {# Panel carries the header ground so opening the menu reads as the nav
+         expanding, not a separate white sheet. #}
+      <el-dialog-panel class="fixed inset-y-0 right-0 z-50 flex w-full flex-col overflow-y-auto bg-secondary-700 p-6 text-white sm:max-w-sm sm:ring-1 sm:ring-white/10">
+        <div class="-mx-6 -mt-6 flex items-center justify-between border-b border-white/10 px-6 py-4">
+          <a href="/" aria-label="{{ client.restaurantName }} home">
+            <img src="{{ client.logo.src }}" alt="{{ client.logo.alt or client.restaurantName }}"
+                 width="{{ client.logo.width }}" height="{{ client.logo.height }}"
+                 class="mobile-nav-logo h-14 w-auto" />
+          </a>
+          {# Plain button, not a `command` — the native command would close the
+             dialog instantly and skip the slide-out (assets/js/header.js). #}
+          <button type="button" data-mobile-close class="-m-2.5 rounded-md p-2.5 text-white">
+            <span class="sr-only">Close menu</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" class="size-6">
+              <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        {# Links sit at the top of the panel, centered across it. flex-1 keeps
+           the CTA block pinned to the bottom without an mt-auto on it. #}
+        <div class="mt-10 flex flex-1 flex-col items-center gap-2">
+          {%- for item in client.nav %}
+          <a href="{% if (item.href | first) == '#' %}/{{ item.href }}{% else %}{{ item.href }}{% endif %}" class="mobile-nav-link rounded-btn px-6 py-3 text-center font-display text-3xl font-semibold uppercase leading-tight tracking-[0.06em] text-white/90 transition-colors hover:bg-white/10 hover:text-white">{{ item.label }}</a>
+          {%- endfor %}
+        </div>
+
+        {%- if client.ctas.length %}
+        <div class="space-y-3 border-t border-white/10 pt-6">
+          {%- for cta in client.ctas %}
+          <a href="{{ cta.href }}" class="mobile-nav-link block rounded-btn btn-accent px-5 py-3 text-center text-base font-semibold uppercase tracking-[0.08em]">{{ cta.label }}</a>
+          {%- endfor %}
+        </div>
+        {%- endif %}
+      </el-dialog-panel>
+    </div>
+  </dialog>
+</el-dialog>

@@ -1,10 +1,109 @@
 ---
-title: "Menu - PD Thai Cuisine"
-permalink: /menus.html
-description: "Browse our full menu and place online orders at PD Thai Cuisine. Fresh Thai dishes made with authentic ingredients and traditional recipes."
+solidHeader: true
 ---
-{% extends "layouts/menus.njk" %}
+{% extends "layouts/base.njk" %}
+
+{# The iframe branch is one viewport-tall embed, so the page itself must not
+   scroll — otherwise the browser shows an outer scrollbar next to the embed's
+   own. `viewportPage` locks the page and drops the footer (layouts/base.njk).
+   The card fallback is an ordinary scrolling page and keeps both. #}
+{% set viewportPage = client.id %}
 
 {% block content %}
-<iframe src="https://88restaurants.com/{{ client.id }}/online_orders/frame" style="width: 100%; height: 100vh; border: none;"></iframe>
+{# The scrolled header is secondary-700 at 82% with a backdrop blur, so
+   whatever sits behind this padding shows through it. On the near-white
+   secondary-50 the bar renders as a washed-out grey while the identical
+   footer stays solid — so the band carries the chrome colour explicitly. #}
+<div class="bg-secondary-700 pt-[var(--header-height)]">
+  {% if client.id %}
+  {# The embed fills the page, so the page's own heading is screen-reader
+     only — every page still needs exactly one h1.
+
+     `pageHeading` first, not the homepage section's `title`. Being invisible
+     does not make it unimportant: it is this page's strongest on-page signal
+     and the only text on it outside a cross-origin iframe, so it should say
+     what the page is rather than repeat a section headline written to sit
+     over a row of photographs. Same trap as the /gallery/ default. Falls back
+     to `title`, so a client file without the key is unchanged. #}
+  <h1 class="sr-only">{{ client.menus.pageHeading or client.menus.title or "Menu" }}</h1>
+  <iframe
+    id="menus-frame"
+    src="{{ client.urls.menusFrame }}"
+    class="block w-full border-0 h-[calc(100svh-var(--header-height))]"
+    title="{{ client.name }} Online Menu{% if client.onlineOrdering %} and Ordering{% endif %}"
+    loading="lazy"
+    allow="payment"
+  >
+    <!-- Fallback content for browsers that don't support iframes -->
+    <p class="p-8 text-center text-gray-600">
+      Your browser doesn't support iframes. 
+      <a href="{{ client.urls.menusFrame }}"
+         target="_blank" 
+         rel="noopener noreferrer"
+         class="text-primary-600 hover:text-primary-700 underline">
+        Click here to view our menu in a new window
+      </a>
+    </p>
+  </iframe>
+  {#- Deep links to one menu inside the embed, e.g. a `Catering` entry in
+      `client.nav` pointing at `/menus/#menu-2690`.
+
+      The menu lives inside a cross-origin iframe. A fragment on this page is
+      never sent to the server and cannot be read or scrolled to across the
+      origin boundary, so the only thing that reaches the embed is putting the
+      fragment on the iframe's own URL — which is what this does.
+
+      THE SHAPE IS `#menu-<scheduleId>`, and that is a fact about the embed's
+      JavaScript, not about its markup. Its `smart-menu-layout-c` controller
+      reads exactly one thing out of the URL:
+
+        resolveInitialScheduleId() {
+          if (this.initialMenuIdValue > 0) return this.initialMenuIdValue;
+          var t = window.location.hash.match(/^#menu-(\d+)$/);   // only shape
+          return t ? Number(t[1]) : null;
+        }
+
+      It then resolves `menu_schedule<id>`, takes that section's first
+      `.oc-category-section` and scrolls to it clear of the header the embed
+      pins to the top of itself. So the
+      number is the SCHEDULE id, and the element ids in the embed's markup
+      (`menu_schedule<N>` on the section, `menu<catId>` on a category) are not
+      link targets — reading the markup tells you what exists, not what a URL
+      can reach. See CLAUDE.md, "Menu deep links".
+
+      The element is REPLACED rather than having its `src` reassigned. A `src`
+      change that differs from the frame's current document only by fragment is
+      a fragment navigation: nothing reloads, `connect()` does not run again,
+      and the embed reads the hash only in `connect()`. That failure only shows
+      up on the second link — the first load works — so it hides until a site
+      has two nav entries pointing at this page. `cloneNode(true)` keeps the
+      id, `loading`, `allow` and the no-iframe fallback.
+
+      The no-match branch resets the frame to its base URL, for the back button
+      out of `/menus/#menu-<id>`, which is a same-document traversal. Guarded to
+      the one shape so no arbitrary fragment can be appended to the embed's
+      URL. -#}
+  <script>
+    (function () {
+      var frame = document.getElementById('menus-frame');
+      if (!frame) return;
+      var base = frame.src.split('#')[0];
+      function sync() {
+        var next = /^#menu-\d+$/.test(location.hash) ? base + location.hash : base;
+        if (frame.src === next) return;
+        var fresh = frame.cloneNode(true);
+        fresh.src = next;
+        frame.replaceWith(fresh);
+        frame = fresh;
+      }
+      sync();
+      window.addEventListener('hashchange', sync);
+    })();
+  </script>
+  {% else %}
+  {# No ordering ID yet (or non-restaurant client): show the menu cards from
+     the homepage section instead of a broken iframe. #}
+  {% include "components/menus.njk" %}
+  {% endif %}
+</div>
 {% endblock %}

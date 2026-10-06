@@ -7,7 +7,7 @@
       </a>
     </div>
     <div class="hidden items-center lg:flex lg:gap-x-7">
-      <a href="/menus.html" class="text-base font-medium text-[#3a2f27] hover:text-primary-700">Menu</a>
+      <a href="{{ client.urls.menus }}" class="text-base font-medium text-[#3a2f27] hover:text-primary-700">Menu</a>
       <a href="/gallery/" class="text-base font-medium text-[#3a2f27] hover:text-primary-700">Gallery</a>
       <a href="/catering/" class="text-base font-medium text-[#3a2f27] hover:text-primary-700">Catering</a>
       <a href="/parties/" class="text-base font-medium text-[#3a2f27] hover:text-primary-700">Parties</a>
@@ -16,7 +16,7 @@
     <div class="flex flex-1 items-center justify-end gap-x-3">
       <a href="{{ client.orderOnlineUrl }}" target="_blank" rel="noopener noreferrer" class="hidden lg:inline-block rounded-full bg-primary-500 px-[18px] py-[11px] text-sm font-semibold whitespace-nowrap text-white shadow-sm hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">Order Online</a>
       <a href="/#reservations" class="hidden lg:inline-block rounded-full border-2 border-primary-500 px-[18px] py-[9px] text-sm font-semibold whitespace-nowrap text-primary-600 hover:bg-primary-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">Reserve Table</a>
-      <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[#3a2f27] lg:hidden">
+      <button type="button" data-mobile-open aria-controls="mobile-menu" aria-expanded="false" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[#3a2f27] lg:hidden">
         <span class="sr-only">Open main menu</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
           <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -33,7 +33,7 @@
               <span class="sr-only">{{ client.restaurantName }}</span>
               <img src="/assets/images/logo-art.png" alt="{{ client.restaurantName }} Logo" class="h-11 w-auto" />
             </a>
-            <button type="button" command="close" commandfor="mobile-menu" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+            <button type="button" data-mobile-close class="-m-2.5 rounded-md p-2.5 text-gray-700">
               <span class="sr-only">Close menu</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
                 <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
@@ -42,7 +42,7 @@
           </div>
           <div class="mt-6 flex flex-1 flex-col">
             <div class="space-y-2">
-              <a href="/menus.html" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Menu</a>
+              <a href="{{ client.urls.menus }}" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Menu</a>
               <a href="/gallery/" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Gallery</a>
               <a href="/catering/" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Catering</a>
               <a href="/parties/" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 text-gray-900 hover:bg-gray-50">Parties</a>

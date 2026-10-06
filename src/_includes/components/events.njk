@@ -1,0 +1,59 @@
+{# Events page opener: the copy column beside one photograph of the room the
+   page is selling.
+
+   Heading shape 2 (heading in the copy column) — centered while stacked,
+   left-aligned from lg, the same shape `about` takes. It carries the page's
+   h1, so the tag comes in from the page rather than being hardcoded here.
+
+   `client.events.notes` are the practical conditions a group needs before it
+   books — table shape, large-party gratuity, how far ahead to write. They are
+   a definition list, not cards: cards would present them as three offerings to
+   choose between, and they are one set of conditions.
+
+   Every note is a promise the client has to keep. Write none of them from
+   inference — no capacity, minimum spend or lead time the business hasn't
+   stated. See the copy rules in the 2-site-build skill (references/content.md). #}
+<section class="section bg-white">
+  <div class="container-site">
+    <div class="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-8">
+      <div class="order-2 text-center lg:order-1 lg:col-span-6 lg:text-left" data-reveal="up">
+        {% if client.events.eyebrow %}<p class="eyebrow">{{ client.events.eyebrow }}</p>{% endif %}
+        <{{ eventsHeadingTag or "h2" }} class="section-title">{{ client.events.title or "Large parties" }}</{{ eventsHeadingTag or "h2" }}>
+        {% if client.events.lede %}<p class="lede mx-0 max-w-none lg:max-w-xl">{{ client.events.lede }}</p>{% endif %}
+
+        {% if client.events.notes.length %}
+        {# No data-reveal of its own: the column it sits in already carries one,
+           and a reveal inside a reveal animates the same pixels twice. #}
+        <dl class="mt-10 divide-y divide-gray-900/10 border-t border-gray-900/10 text-left">
+          {%- for note in client.events.notes %}
+          <div class="py-6">
+            <dt class="font-display text-lg font-semibold uppercase tracking-[0.06em] text-gray-900">{{ note.title }}</dt>
+            <dd class="mt-2 text-pretty text-base/7 text-gray-700">{{ note.body }}</dd>
+          </div>
+          {%- endfor %}
+        </dl>
+        {% endif %}
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+          <a href="#inquiry" class="rounded-btn border border-transparent btn-accent px-6 py-3 text-sm font-semibold uppercase tracking-[0.08em]">{{ client.events.formEyebrow or "Party inquiry" }}</a>
+          {% if client.phone %}
+          <a href="tel:{{ client.phone }}" class="rounded-btn border border-gray-300 px-6 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-gray-700 transition-colors hover:border-gray-400 hover:bg-gray-50">{{ client.phone }}</a>
+          {% endif %}
+        </div>
+      </div>
+
+      {# One frame, not a collage: the page has a single subject, and a second
+         crop of the same room only dilutes it. 4:3 on a phone so the copy
+         still starts on the first screen, taller from lg where it sets against
+         the notes list. #}
+      <div class="group order-1 aspect-[4/3] overflow-hidden rounded-img shadow-card transition-shadow duration-300 hover:shadow-card-hover lg:order-2 lg:col-span-5 lg:col-start-8 lg:aspect-[4/5]" data-reveal="up" data-reveal-delay="1">
+        <img
+          src="{{ client.events.image }}"
+          alt="{{ client.events.imageAlt or client.name }}"
+          loading="lazy"
+          class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transform-none"
+        />
+      </div>
+    </div>
+  </div>
+</section>

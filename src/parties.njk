@@ -1,6 +1,4 @@
 ---
-title: "Parties & Events - PD Thai Cuisine"
-description: "Planning a party or group event near UT Austin? Submit an inquiry with PD Thai Cuisine and we'll help you plan a table that fits."
 ---
 {% extends "layouts/base.njk" %}
 
@@ -13,9 +11,9 @@ description: "Planning a party or group event near UT Austin? Submit an inquiry 
       <h1 class="text-balance mb-6 text-[32px] font-bold tracking-tight text-[#241b16] sm:text-[40px]">{{ client.parties.heading }}</h1>
       <p class="text-[16.5px] leading-relaxed text-[#4a3d34]">{{ client.parties.paragraphOne }}</p>
     </div>
-    <div class="rounded-2xl border border-[#ece2d3] bg-white p-7 sm:p-10" data-reveal="up" data-reveal-delay="1">
+    <div data-reveal="up" data-reveal-delay="1">
       <p class="mb-6 text-center text-[15px] leading-relaxed text-[#4a3d34]">{{ client.parties.formNote }}</p>
-      <iframe src="{{ client.parties.formUrl }}" frameborder="0" width="100%" height="565" scrolling="no"></iframe>
+      <div class="w-full" data-88-form="{{ client.forms.partyInquiry }}"></div>
     </div>
   </div>
 </section>

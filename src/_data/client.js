@@ -1,8 +1,50 @@
-module.exports = {
+const client = {
   // Basic Restaurant Information
   name: 'PD Thai Cuisine',
   restaurantName: 'PD Thai Cuisine',
   cuisine: 'Thai Cuisine',
+
+  // FAQ search keywords (src/_data/faq.js hooks; the template's content.md,
+  // "The FAQ is generated"). No owner keyword group was supplied, so each
+  // phrase is one the site's own copy already uses (hero kicker, campus,
+  // about, catering and seo blocks), placed once in the question a guest
+  // would type it into:
+  //   north campus ....................... neighborhood: cuisine + location answers
+  //   thai restaurant near ut austin ..... the near-campus question
+  //   late night thai / open until 3am ... the open-late question
+  //   vegetarian, vegan, gluten-free ..... the dietary question
+  //   catering, parties of up to 40 ...... the catering question
+  neighborhood: 'North Campus',
+  faq: {
+    extra: [
+      {
+        replaces: 'cuisine',
+        question: 'What kind of food does PD Thai Cuisine serve?',
+        answer:
+          "<p>PD Thai Cuisine serves traditional Thai cooking in North Campus, Austin, TX, made with fresh, locally grown ingredients: pad thai, drunken noodles, tom yum soup and more. <a href=\"/menus/\">See the full menu</a> for what's currently on offer.</p>",
+      },
+      {
+        question: 'Is there a Thai restaurant near UT Austin?',
+        answer:
+          '<p>Yes. PD Thai Cuisine is at 3208 Guadalupe Street, an easy walk from the UT Austin campus, and quick enough for a lunch break between classes. <a href="/menus/">Browse the menu</a>.</p>',
+      },
+      {
+        question: 'Is PD Thai Cuisine open late at night?',
+        answer:
+          '<p>Yes. PD Thai Cuisine serves late night Thai every night of the week: the woks stay going until 3am, whether you are finishing a study session or heading home from Sixth Street. <a href="/menus/">Order online</a> or stop by Guadalupe Street.</p>',
+      },
+      {
+        question: 'Does PD Thai Cuisine have vegetarian, vegan or gluten-free options?',
+        answer:
+          '<p>Yes. PD Thai Cuisine has vegetarian, vegan and gluten-free options on the menu, so everyone at the table is covered. <a href="/menus/">See the menu</a>.</p>',
+      },
+      {
+        question: 'Does PD Thai Cuisine cater parties and events in Austin?',
+        answer:
+          '<p>Yes. PD Thai Cuisine caters birthdays, graduations and office parties of up to 40 guests, with pickup or delivery. <a href="/catering/">Send a catering request</a>.</p>',
+      },
+    ],
+  },
 
   // Contact Information
   address: {
@@ -23,12 +65,77 @@ module.exports = {
   googleMapsEmbedUrl: 'https://www.google.com/maps?q=3208+Guadalupe+St,+Austin,+TX+78705&output=embed',
   googlePlacesUrl: 'https://www.google.com/maps/place/PD+Thai+Restaurant+3208+Guadalupe+Street,+Austin+TX/data=!4m2!3m1!1s0x8644ca7fed1f5917:0x6e6ab314897e3efd',
 
-  // Hours
+  // Hours. `hours.schedule` is the one source the schema's
+  // openingHoursSpecification and the FAQ read (lib/site.js flattens it);
+  // the visible copy keeps its own display strings below. One all-day window,
+  // written in the `lunch` slot because that is the first key the flattener reads.
+  hours: {
+    schedule: [{ day: 'Monday - Sunday', lunch: '10:00am - 3:00am' }],
+  },
+  timezone: 'America/Chicago',
   hoursNote: 'Daily · 10am – 3am',
   hoursDisclaimer: 'Open daily from 10am to 3am.',
 
+  // Facts the template's schema block reads (core/schema.njk). Each is what
+  // the hand-written JSON-LD in base.njk said before this sync.
+  businessType: 'Restaurant',
+  priceRange: '$$',
+  cuisines: ['Thai'],
+  geo: { lat: 30.299852, lng: -97.740363 }, // the Maps place marker (!3d/!4d), not an embed's centre
+  acceptsReservations: true,
+  logo: { src: '/assets/images/logo.png', alt: 'PD Thai Cuisine Logo' },
+  ogImage: '/assets/images/og-pd-thai.jpg',
+  ogImageAlt: 'Overhead view of Thai dishes from PD Thai Cuisine: dumplings, fried banana, spring rolls and a yellow curry',
+  analytics: { ga4: 'G-VL6LLVRV6M' },
+
+  // Page titles and meta descriptions, keyed by page file slug
+  // (src/_data/eleventyComputed.js). Moved here from each page's front matter;
+  // the wording is what the live site already serves.
+  seo: {
+    index: {
+      title: 'PD Thai Cuisine - Authentic Thai Restaurant Near UT Austin',
+      description: 'Real Thai flavor steps from UT Austin. Fresh, locally sourced ingredients, vegan & vegetarian options, and a colorful modern dining room on Guadalupe Street.',
+    },
+    menus: {
+      title: 'Menu - PD Thai Cuisine',
+      description: 'Browse our full menu and place online orders at PD Thai Cuisine. Fresh Thai dishes made with authentic ingredients and traditional recipes.',
+    },
+    gallery: {
+      title: 'Gallery - PD Thai Cuisine',
+      description: 'A look inside PD Thai Cuisine — our dishes, our dining room, and the food we serve near UT Austin.',
+    },
+    catering: {
+      title: 'Catering - PD Thai Cuisine',
+      description: 'Thai catering for birthdays, graduations, and office parties near UT Austin. Vegetarian, vegan, and gluten-free options available for pickup or delivery.',
+    },
+    parties: {
+      title: 'Parties & Events - PD Thai Cuisine',
+      description: "Planning a party or group event near UT Austin? Submit an inquiry with PD Thai Cuisine and we'll help you plan a table that fits.",
+    },
+    404: {
+      title: 'Page Not Found - PD Thai Cuisine',
+      description: 'That page is not on the PD Thai Cuisine site. Head back to the menu or the home page.',
+    },
+  },
+
   // System Integration IDs
   id: '828',
+
+  // 88restaurants form slugs, read off the admin (Settings -> Website ->
+  // Forms; each tag reads <div data-88-form="<slug>"></div>). The catering
+  // and parties pages place theirs by slug too.
+  forms: {
+    contact: 'contact-us',
+    newsletter: 'email-list',
+    partyInquiry: 'party-inquiry',
+    catering: 'catering-request',
+  },
+
+  // Ordering stays on the order.pdthaiaustin.com domain the live site links
+  // to; every other urls.* key derives from `id` (lib/site.js).
+  urls: {
+    order: 'https://order.pdthaiaustin.com/pd-thai-austin-austin-tx/online_orders/new',
+  },
 
   // Social Media (placeholders for future use)
   socialMedia: {
@@ -37,6 +144,13 @@ module.exports = {
     twitter: '',
     yelp: '',
     googleBusiness: '',
+  },
+
+  // Reservations. `note` is quoted by the FAQ's reservation answer
+  // (src/_data/faq.js) and by the home reservations section, so the two cannot
+  // disagree.
+  reserve: {
+    note: 'We are currently accepting online reservations for parties of up to 10.',
   },
 
   // Hero Section
@@ -75,6 +189,8 @@ module.exports = {
     kicker: 'Our Menus',
     title: 'Something for every craving',
     subtitle: 'From quick lunch specials to shareable dinner plates and full vegan options — browse it all and order online in minutes.',
+    // The /menus/ page's screen-reader-only h1 (the embed fills the page).
+    pageHeading: 'PD Thai Cuisine Menu and Online Ordering',
   },
   menuGallery: [
     { image: '/assets/images/old-site-pics/spring-rolls.webp', alt: 'Crispy spring rolls with dipping sauce' },
@@ -127,7 +243,6 @@ module.exports = {
   contact: {
     heading: 'Find us on Guadalupe',
     formHeading: 'Send Us a Message',
-    formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/contact_forms',
   },
 
   // Catering Page
@@ -137,7 +252,13 @@ module.exports = {
     paragraphOne: "Birthdays, graduations, office parties — for eight years we've been cooking real, made-to-order Thai food for North Campus, and under Ezron's ownership that same care carries over into every catering order. Our small kitchen team preps each dish fresh, so your guests get the same quality we serve in the dining room.",
     paragraphTwo: "Vegetarian, vegan, and gluten-free options are all available, so there's something for everyone on the table. We cater parties of up to 40 guests, with pickup or delivery.",
     formNote: "Let us know your date and any special requests below, and our team will follow up to build a catering order around your event.",
-    formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/catering_submissions/new',
+  },
+
+  // 404 page
+  notFound: {
+    kicker: '404',
+    heading: "We can't find that page",
+    text: 'The page you were looking for has moved or never existed. The menu and the home page are a click away.',
   },
 
   // Parties & Events Page
@@ -146,6 +267,9 @@ module.exports = {
     heading: 'Host Your Next Get-Together With Us',
     paragraphOne: "Birthday dinner, team lunch, or just a big group craving Thai food — we love hosting parties at PD Thai. Send us a few details about what you have in mind and we'll help you find a table that fits.",
     formNote: "Tell us your group size, preferred date, and any details about your event below, and our team will follow up to help plan it.",
-    formUrl: 'https://88restaurants.com/pd-thai-austin-austin-tx/party_inquiry_forms',
   },
 };
+
+// lib/site.js fills in urls.*/menuHost/hours.windows/etc. and defaults for
+// any key an older client.js doesn't set — see it for the derivation rules.
+module.exports = require('../../lib/site')(client);

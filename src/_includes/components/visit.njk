@@ -1,0 +1,64 @@
+{# Visit section: map beside three detail cards (address / hours / phone). #}
+<section id="visit" class="section bg-white">
+  <div class="container-site">
+    <div class="section-head" data-reveal="up">
+      {% if client.visit.eyebrow %}<p class="eyebrow">{{ client.visit.eyebrow }}</p>{% endif %}
+      <h2 class="section-title">{{ client.visit.title or "Visit us" }}</h2>
+      <p class="lede">{{ client.visit.lede or (client.address.street + ", " + client.address.city + ", " + client.address.state) }}</p>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-3 lg:items-stretch" data-reveal="up" data-reveal-delay="1">
+      <div class="h-80 overflow-hidden rounded-card shadow-card outline outline-1 outline-black/5 sm:h-[26rem] lg:col-span-2 lg:h-auto lg:min-h-[28rem]">
+        {# data-map-src, not src: assets/js/map-loader.js starts the embed just
+           before it scrolls in and restarts it if Google's frame dies mid-init,
+           which `loading="lazy"` cannot do. The URL is absolute, so unlike the
+           gallery's data-full-image it needs no `| url`. #}
+        <iframe data-map-src="{{ client.googleMapsEmbedUrl }}" title="Map to {{ client.name }}" class="block h-full w-full border-0" allowfullscreen></iframe>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-3 lg:grid-cols-1">
+        <div class="flex flex-col justify-center rounded-card bg-secondary-50 p-6 text-center outline outline-1 outline-black/5 lg:flex-1">
+          <span class="mx-auto mb-4 flex size-10 items-center justify-center rounded-full bg-primary-500 text-white">
+            <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          </span>
+          <h3 class="text-sm font-semibold uppercase tracking-[0.14em] text-gray-500">{{ client.visit.addressLabel or "Address" }}</h3>
+          <address class="mt-2 not-italic text-base/7 text-gray-900">
+            {{ client.address.street }}<br>
+            {{ client.address.city }}, {{ client.address.state }} {{ client.address.zip }}
+          </address>
+          <a href="{{ client.googleMapsUrl }}" target="_blank" rel="noopener noreferrer" class="mt-2 text-sm font-medium text-primary-600 underline underline-offset-4 hover:text-primary-700">{{ client.visit.mapLinkLabel or "Open in Google Maps" }}</a>
+        </div>
+
+        <div class="flex flex-col justify-center rounded-card bg-secondary-50 p-6 text-center outline outline-1 outline-black/5 lg:flex-1">
+          <span class="mx-auto mb-4 flex size-10 items-center justify-center rounded-full bg-primary-500 text-white">
+            <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          </span>
+          <h3 class="text-sm font-semibold uppercase tracking-[0.14em] text-gray-500">{{ client.visit.hoursLabel or "Hours" }}</h3>
+          <dl class="mt-2 space-y-2 text-sm/6 text-gray-600">
+            {% for schedule in client.hours.schedule %}
+            <div>
+              <dt class="font-medium text-gray-900">{{ schedule.day }}</dt>
+              {# A business with one continuous range leaves `lunch` off — don't print a stray comma. #}
+              <dd>{{ schedule.lunch }}{% if schedule.lunch and schedule.dinner %}, {% endif %}{{ schedule.dinner }}</dd>
+            </div>
+            {% endfor %}
+          </dl>
+        </div>
+
+        <div class="flex flex-col justify-center rounded-card bg-secondary-50 p-6 text-center outline outline-1 outline-black/5 lg:flex-1">
+          <span class="mx-auto mb-4 flex size-10 items-center justify-center rounded-full bg-primary-500 text-white">
+            <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+          </span>
+          <h3 class="text-sm font-semibold uppercase tracking-[0.14em] text-gray-500">{{ client.visit.contactLabel or "Get in touch" }}</h3>
+          <p class="mt-2 text-base/7">
+            <a href="tel:{{ client.phone }}" class="font-medium text-gray-900 hover:text-primary-600">{{ client.phone }}</a>
+            {#- Optional; see contact.njk. The <br> is inside the guard so a
+                client with no email gets one clean line, not a trailing break. #}
+            {%- if client.email %}<br>
+            <a href="mailto:{{ client.email }}" class="break-all text-gray-600 hover:text-primary-600">{{ client.email }}</a>{% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

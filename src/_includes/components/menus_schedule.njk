@@ -1,0 +1,71 @@
+{# MENUS, schedule variant (theme.components.menus = 'menus_schedule'; needs
+   theme.style.seam set and client.serviceRows filled).
+
+   For a kitchen with one list and a schedule — lunch, dinner, a happy hour —
+   rather than three menus. Three equal cards there would be an invention
+   dressed as information; this sets the schedule as typography: rows on
+   hairlines, the one that matters lit in the accent, and the photograph
+   bleeding off the left edge to carry the weight the cards used to.
+
+   The photograph is a 51.3% column from lg, its right edge cut with the
+   concave seam so the copy beside it gets the wide side of the bow. That
+   width is not arbitrary: it is where about_seam's panel edge leaves off
+   (.885 x 58%), so the two seams meet at the section break. The copy
+   column's right padding is the site wrapper's own text edge.
+
+   THE ROWS READ AS TWO COLUMNS FROM xl, NOT lg. At 1024-1279 the copy column
+   is ~370px and a 9.5rem label cell squeezes the description to 243px.
+   Stacked below xl: name left, hours right on one baseline, description
+   under both.
+
+   ONE LEFT EDGE. Heading, rows and buttons all start on the column's own
+   padding edge. Pulling the rows leftward on their own to sit in the bow
+   read as three left edges on the build that tried it.
+
+   The panel is bound by HEIGHT and srcset only knows width, so it asks for
+   100vw and takes the largest frame rather than a 1200px file it would then
+   upscale after the cover crop. #}
+<section id="menus" class="ground-ink relative overflow-hidden bg-secondary-700">
+  <div class="relative lg:grid lg:min-h-[44rem] lg:grid-cols-[51.3%_minmax(0,1fr)]">
+
+    <div class="relative lg:col-start-1 lg:row-start-1">
+      <img
+        src="{{ client.menus.image }}"
+        alt="{{ client.menus.imageAlt or '' }}"
+        loading="lazy"
+        decoding="async"
+        sizes="100vw"
+        class="h-72 w-full object-cover [clip-path:url(#seam-h)] sm:h-96 lg:h-full lg:min-h-[44rem] lg:[clip-path:url(#seam-v-in)]"
+      />
+    </div>
+
+    <div class="px-6 py-20 sm:py-24 lg:col-start-2 lg:row-start-1 lg:py-28 lg:pl-10 lg:pr-[calc(max((100vw-80rem)/2,0px)+2rem)] xl:pl-12">
+      <div class="mx-auto max-w-xl text-center lg:mx-0 lg:text-left" data-reveal="up">
+        {% if client.menus.eyebrow %}<p class="eyebrow">{{ client.menus.eyebrow }}</p>{% endif %}
+        <h2 class="section-title !mt-0 text-white lg:after:mx-0">{{ client.menus.title or "Our Menus" }}</h2>
+        {% if client.menus.subtitle %}
+        <p class="mt-5 text-pretty text-lg/8 text-gray-300">{{ client.menus.subtitle }}</p>
+        {% endif %}
+      </div>
+
+      <dl class="mx-auto mt-12 max-w-xl lg:mx-0 lg:max-w-2xl" data-reveal="up" data-reveal-delay="1">
+        {% for row in client.serviceRows %}
+        <div class="border-t border-white/15 py-6 first:border-t-0 first:pt-0 xl:grid xl:grid-cols-[9.5rem_minmax(0,1fr)] xl:gap-x-8 xl:py-7" data-reveal="up" data-reveal-delay="{{ loop.index }}">
+          <dt class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 xl:flex-col xl:items-start xl:justify-start xl:gap-y-1.5">
+            <span class="font-display text-2xl font-semibold {% if row.note %}text-accent-500{% else %}text-white{% endif %}">{{ row.title }}</span>
+            <span class="text-sm font-medium tracking-wide {% if row.note %}text-accent-400{% else %}text-gray-300{% endif %}">{{ row.when }}</span>
+          </dt>
+          <dd class="mt-2 text-pretty text-lg/8 text-gray-300 xl:mt-0">{{ row.body }}</dd>
+        </div>
+        {% endfor %}
+      </dl>
+
+      <div class="mt-10 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-center lg:justify-start" data-reveal="up" data-reveal-delay="2">
+        <a href="{{ client.urls.menus }}" class="btn-accent rounded-btn border border-transparent px-7 py-3.5 text-center text-sm font-semibold uppercase tracking-[0.08em] whitespace-nowrap">{{ client.menus.ctaLabel or "See the Full Menu" }}</a>
+        {%- if client.id %}
+        <a href="{{ client.urls.order }}" class="rounded-btn border border-white/35 px-7 py-3.5 text-center text-sm font-semibold uppercase tracking-[0.08em] text-white whitespace-nowrap transition-colors hover:border-accent-500 hover:text-accent-500">{{ client.menus.orderLabel or "Order Online" }}</a>
+        {%- endif %}
+      </div>
+    </div>
+  </div>
+</section>

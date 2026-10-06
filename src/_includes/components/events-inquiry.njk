@@ -1,0 +1,55 @@
+{# The inquiry band: the 88restaurants party-inquiry form on the brand ground,
+   so the form reads as the page's destination rather than as another pale
+   panel below the copy. The form paints its own card (background, corners,
+   padding) from the restaurant's Forms settings, so there is no wrapper. #}
+<section id="inquiry" class="section bg-primary-600">
+  <div class="container-site">
+    <div class="section-head max-w-none" data-reveal="up">
+      {% if client.events.formEyebrow %}<p class="eyebrow text-primary-100">{{ client.events.formEyebrow }}</p>{% endif %}
+      <h2 class="section-title mx-auto max-w-2xl text-white">{{ client.events.formTitle or "Party inquiry" }}</h2>
+      {% if client.events.formLede %}<p class="lede text-white/85 lg:max-w-5xl">{{ client.events.formLede }}</p>{% endif %}
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-3 lg:items-stretch" data-reveal="up" data-reveal-delay="1">
+      {# The form leads on this page — it is what the page is for — so it takes
+         two columns and comes first in the DOM at every width. #}
+      <div class="lg:col-span-2">
+        {# Two of three columns is ~800px at lg: the form pairs its fields two
+           per row above 575px of its own width and stacks them below. #}
+        <div data-88-form="{{ client.forms.partyInquiry }}"></div>
+      </div>
+
+      <div class="rounded-card bg-primary-700 p-8 text-white shadow-card lg:p-10">
+        <h3 class="text-sm font-semibold uppercase tracking-[0.14em] text-white/80">{{ client.events.reachTitle or "Rather talk it through?" }}</h3>
+        {% if client.events.reachBody %}
+        {%- set phoneLink %}<a href="tel:{{ client.phone }}" class="font-medium text-white underline underline-offset-4 hover:text-primary-100">{{ client.phone }}</a>{% endset %}
+        <p class="mt-4 text-pretty text-base/7 text-white/90">{{ client.events.reachBody | replace("{phone}", phoneLink) | safe }}</p>
+        {% endif %}
+
+        <dl class="mt-8 space-y-5 border-t border-white/20 pt-6 text-base/7">
+          {% if client.email %}
+          <div>
+            <dt class="font-medium">Email</dt>
+            <dd><a href="mailto:{{ client.email }}" class="break-all text-white/90 underline underline-offset-4 hover:text-white">{{ client.email }}</a></dd>
+          </div>
+          {% endif %}
+          <div>
+            <dt class="font-medium">{{ client.visit.addressLabel or "Address" }}</dt>
+            <dd class="text-white/90">
+              {{ client.address.street }}<br>
+              {{ client.address.city }}, {{ client.address.state }} {{ client.address.zip }}
+            </dd>
+          </div>
+          <div>
+            <dt class="font-medium">{{ client.visit.hoursLabel or "Hours" }}</dt>
+            <dd class="text-white/90">
+              {%- for row in client.hours.schedule %}
+              <span class="block">{{ row.day }} — {% if row.lunch %}{{ row.lunch }}, {% endif %}{{ row.dinner }}</span>
+              {%- endfor %}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>

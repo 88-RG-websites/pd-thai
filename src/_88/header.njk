@@ -32,7 +32,9 @@ solidHeader: true
       literal and every family after the first is dropped. Chrome and Safari ignore @font-face in a
       shadow root, so 88 also loads this Google Fonts @import (up to three, fonts.googleapis.com
       only) in the menu page's <head>; any other web font here would not reach the header. -#}
+  {%- if theme.fonts.googleFontsUrl %}
   @import url({{ theme.fonts.googleFontsUrl | dump | safe }});
+  {%- endif %}
   @import url({{ (origin + "/assets/css/styles.css") | dump | safe }});
   :host { display: block; font-family: var(--font-body, Roboto, sans-serif); background-color: var(--c-secondary-700, #0a1123); }
   /* This site's bar is `#logo-header` (sticky on its own pages). Here it flows in the host page.

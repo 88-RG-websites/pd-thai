@@ -30,7 +30,7 @@ solidHeader: true
     id="menus-frame"
     src="{{ client.urls.menusFrame }}"
     class="block w-full border-0 h-[calc(100svh-var(--header-height))]"
-    title="{{ client.name }} Online Menu and Ordering"
+    title="{{ client.name }} Online Menu{% if client.onlineOrdering %} and Ordering{% endif %}"
     loading="lazy"
     allow="payment"
   >

@@ -4,6 +4,48 @@ const client = {
   restaurantName: 'PD Thai Cuisine',
   cuisine: 'Thai Cuisine',
 
+  // FAQ search keywords (src/_data/faq.js hooks; the template's content.md,
+  // "The FAQ is generated"). No owner keyword group was supplied, so each
+  // phrase is one the site's own copy already uses (hero kicker, campus,
+  // about, catering and seo blocks), placed once in the question a guest
+  // would type it into:
+  //   north campus ....................... neighborhood: cuisine + location answers
+  //   thai restaurant near ut austin ..... the near-campus question
+  //   late night thai / open until 3am ... the open-late question
+  //   vegetarian, vegan, gluten-free ..... the dietary question
+  //   catering, parties of up to 40 ...... the catering question
+  neighborhood: 'North Campus',
+  faq: {
+    extra: [
+      {
+        replaces: 'cuisine',
+        question: 'What kind of food does PD Thai Cuisine serve?',
+        answer:
+          "<p>PD Thai Cuisine serves traditional Thai cooking in North Campus, Austin, TX, made with fresh, locally grown ingredients: pad thai, drunken noodles, tom yum soup and more. <a href=\"/menus/\">See the full menu</a> for what's currently on offer.</p>",
+      },
+      {
+        question: 'Is there a Thai restaurant near UT Austin?',
+        answer:
+          '<p>Yes. PD Thai Cuisine is at 3208 Guadalupe Street, an easy walk from the UT Austin campus, and quick enough for a lunch break between classes. <a href="/menus/">Browse the menu</a>.</p>',
+      },
+      {
+        question: 'Is PD Thai Cuisine open late at night?',
+        answer:
+          '<p>Yes. PD Thai Cuisine serves late night Thai every night of the week: the woks stay going until 3am, whether you are finishing a study session or heading home from Sixth Street. <a href="/menus/">Order online</a> or stop by Guadalupe Street.</p>',
+      },
+      {
+        question: 'Does PD Thai Cuisine have vegetarian, vegan or gluten-free options?',
+        answer:
+          '<p>Yes. PD Thai Cuisine has vegetarian, vegan and gluten-free options on the menu, so everyone at the table is covered. <a href="/menus/">See the menu</a>.</p>',
+      },
+      {
+        question: 'Does PD Thai Cuisine cater parties and events in Austin?',
+        answer:
+          '<p>Yes. PD Thai Cuisine caters birthdays, graduations and office parties of up to 40 guests, with pickup or delivery. <a href="/catering/">Send a catering request</a>.</p>',
+      },
+    ],
+  },
+
   // Contact Information
   address: {
     street: '3208 Guadalupe Street',

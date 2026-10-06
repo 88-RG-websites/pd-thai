@@ -60,6 +60,11 @@ to `dist/`.
   `{{ client.* }}` in frontmatter, and a page file left as the template's is
   one the upgrade tool can keep refreshing. An older client page's own
   frontmatter `seoTitle` (or `title:`) still wins where it exists.
+- The homepage FAQ is the client's search-keyword vehicle: `src/_data/faq.js`
+  generates it, and a client's keyword phrases go in through
+  `client.neighborhood` and `client.faq.extra`, each phrase once in the answer
+  a guest would search it for (`content.md`, "The FAQ is generated"). Never
+  edit `faq.js` for one client; it is `owned`.
 - Navigation and CTAs are data: `client.nav` and `client.ctas`. Never hardcode
   links in header components. `client.ctas` renders in three places (header,
   hero, mobile menu); grep before editing.

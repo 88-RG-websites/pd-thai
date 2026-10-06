@@ -105,10 +105,17 @@ module.exports = function (eleventyConfig) {
     "gi"
   );
   const assetHashes = new Map();
+  // eleventy-img writes <content hash>-<width>.<ext> into dist (a client's `image`
+  // shortcode), so there is no source file to hash and the name already is the
+  // version. Reuse it as ?v= rather than warn: a warning then means a real miss.
+  const generatedImage = /^assets\/images\/([\w-]{10})-\d+\.(?:avif|webp|jpe?g|png)$/i;
   const assetHash = (relative) => {
     if (!assetHashes.has(relative)) {
       const file = path.join("src", relative);
-      if (fs.existsSync(file)) {
+      const generated = generatedImage.exec(relative);
+      if (generated && !fs.existsSync(file)) {
+        assetHashes.set(relative, generated[1]);
+      } else if (fs.existsSync(file)) {
         const digest = crypto.createHash("md5").update(fs.readFileSync(file)).digest("hex");
         assetHashes.set(relative, digest.slice(0, 10));
       } else {

@@ -44,7 +44,7 @@ beside the embed's own scrollbar.
 | 8 | `parallax-break` | `components.parallaxBreak` | — | bare photo band, no reveal |
 | 9 | `visit` | `components.visit` | — | white |
 | 10 | `reviews` | `client.reviews` block present (see `reviews.md`) | — | secondary-50 |
-| 11 | `faq` | `components.faq` (on) and entries in `src/_data/faq.js` | — | secondary-50; white when `reviews` renders |
+| 11 | `faq` | `components.faq` (on) and entries in `src/_data/faq.js` (+ `client.neighborhood`, `client.faq.extra`: the SEO keyword hooks; `client.onlineOrdering` gates the ordering question) | — | secondary-50; white when `reviews` renders |
 | 12 | `gallery` (+ `gallery-masonry`) | `components.galleryOnHome` (+ `galleryMasonry`) | — | `galleryTone` dark (secondary-700) / brand (primary-900); masonry white |
 | 13 | `newsletter` | `components.newsletter` **and** `client.id` | — | primary-600 |
 | 14 | `contact` | always | `contact` / `contact_with_image` / `contact_with_map` / `contact_with_parallax` | secondary-50 / white / white / photo |
@@ -89,7 +89,8 @@ relight the eyebrow on dark grounds.
   (title, meta, OG/Twitter, favicons, theme colour), `core/schema.njk` (the
   business node and its `@id`, in `{% block schema %}`) and `core/scripts.njk`.
   The homepage FAQ and its FAQPage schema come from `src/_data/faq.js`, which
-  reads `client.js`/`theme.js`.
+  reads `client.js`/`theme.js`. The FAQ carries the client's SEO keyword group:
+  `neighborhood` and `faq.extra` (`content.md`, "The FAQ is generated").
 
 ## client.js, block by block
 

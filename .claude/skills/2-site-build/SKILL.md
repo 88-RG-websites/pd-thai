@@ -58,7 +58,8 @@ component only to change it.
 5. **Extra pages** only where the business has real content (content.md,
    "Which pages exist"). Every page, stock ones included, gets its own
    `client.seo.<slug>.title`. Read the generated FAQ (`faq.js`) once the data
-   is real. Stop at any `BLOCKING` question per the contract.
+   is real, then place the owner's SEO keyword group in it (`neighborhood`,
+   `faq.extra`; content.md, "The FAQ is generated"). Stop at any `BLOCKING` question per the contract.
 6. **Favicons and `og-image.jpg`** (JPEG or PNG, never webp) (theming.md, "Generated assets"). Look at
    the 32px favicon before accepting it.
 7. `npm run build` passes, then `git diff` the built CSS against the previous

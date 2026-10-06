@@ -3,43 +3,53 @@ permalink: /llms.txt
 layout: null
 eleventyExcludeFromCollections: true
 ---
-# {{ client.restaurantName or client.name }}
+{# Plain text, not HTML: every value goes out through `| safe`, or Nunjucks
+   ships "Sushi & Tapas" as "Sushi &amp; Tapas". `(a or b) | safe` needs the
+   brackets: `a or b | safe` marks only b. -#}
+# {{ (client.restaurantName or client.name) | safe }}
 
-{{ client.seo.index.description }}
+{{ client.seo.index.description | safe }}
 
-{{ client.address.city }}, {{ client.address.state }}
+{{ client.address.city | safe }}, {{ client.address.state | safe }}
 {% if client.address.street -%}
-{{ client.addressLine }}
+{{ client.addressLine | safe }}
 {% endif -%}
 {% if client.phone -%}
-Phone: {{ client.phone }}
+Phone: {{ client.phone | safe }}
 {% endif -%}
 {% if client.email -%}
-Email: {{ client.email }}
+Email: {{ client.email | safe }}
 {% endif %}
 
 {% if client.hours.schedule.length -%}
 ## Hours
 {% for row in client.hours.schedule -%}
-{{ row.day }}: {% if row.lunch %}Lunch {{ row.lunch }}{% endif %}{% if row.lunch and row.dinner %}, {% endif %}{% if row.dinner %}Dinner {{ row.dinner }}{% endif %}
+{{ row.day | safe }}: {% if row.lunch and row.dinner %}Lunch {{ row.lunch | safe }}, Dinner {{ row.dinner | safe }}{% else %}{{ (row.lunch or row.dinner) | safe }}{% endif %}
 
 {% endfor %}
 {% endif -%}
 {% if client.id and client.urls.reserve -%}
 ## Reservations
-{{ client.urls.reserve }}
+- [Book a table]({{ client.urls.reserve | safe }})
 
 {% endif -%}
 ## Menus
 {% if client.menuSubdomain and client.urls.menuPagesAbsolute and client.urls.menuPagesAbsolute.length -%}
-Full menus, with every section and item, are on {{ client.menuHost }}:
+Full menus, with every section and item, are on {{ client.menuHost | safe }}:
 {% for m in client.menuPages -%}
-- {{ m.name }}: {{ client.urls.menuPagesAbsolute[loop.index0] }}
+- [{{ m.name | safe }}]({{ client.urls.menuPagesAbsolute[loop.index0] | safe }})
 {% endfor -%}
 
-Machine-readable menu list, generated from the same menus: {{ client.menuHost }}/llms.txt
+- [Machine-readable menu list]({{ client.menuHost | safe }}/llms.txt): generated from the same menus
 {% elif client.menuSubdomain -%}
-Full menus, with every section and item, are on {{ client.urls.menusAbsolute }}, generated from the same menus as {{ client.menuHost }}/llms.txt.
+- [Full menus]({{ client.urls.menusAbsolute | safe }}): every section and item
+- [Machine-readable menu list]({{ client.menuHost | safe }}/llms.txt): generated from the same menus
 {% else -%}
-The menu: {{ client.domain }}{{ client.urls.menus }}
+- [Menu]({{ client.domain | safe }}{{ client.urls.menus | safe }})
+{% endif -%}
+{% if client.llms.notes.length %}
+## More
+{% for note in client.llms.notes -%}
+- {{ note | safe }}
+{% endfor -%}
 {% endif -%}

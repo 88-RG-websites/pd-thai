@@ -59,6 +59,16 @@ root, the images in `src/assets/images/`, and legacy-site screenshots under
 `extraction/`. A blocked source or a missing fact becomes a `gaps` entry, never
 a stall.
 
+Ask the owner for their **SEO keyword group** (the phrases they want to rank
+for, e.g. "italian restaurants near wall street") and record it verbatim in
+`BUILD.md`; phase 2 places each phrase in the FAQ. No list means none to place:
+never invent one.
+
+Record **`onlineOrdering`** (true/false) in `extraction.json`: does the live
+site or its socials mention ordering online, takeout or delivery? An 88 ordering
+account alone does not make it true. Default false when unsure and put the
+question to the owner.
+
 Four facts need a specific method, and each gets its own `extraction.json` key
 so that the build phase uses the value without re-deriving it:
 

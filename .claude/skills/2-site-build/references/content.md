@@ -121,6 +121,22 @@ any menu href in `nav`, `menuCards` or elsewhere.
 `core/head.njk` and `core/schema.njk` emit canonical, OG, Twitter, the sitemap and the business schema
 for free. What the build writes by hand:
 
+- **`llms.txt` carries one extra section on request.** `client.llms.notes`
+  (`[]` omits it) adds a "More" bullet list for a fact an AI should know that no
+  other section holds: in-room dining, a hotel's name. Markdown links are fine;
+  every line obeys the same rule as the FAQ (only what the live site or the
+  client's own public page says). Never edit `llms.txt.njk` for one client; it
+  is `owned`.
+- **Claim online ordering only where the live site does.** `extraction.json`'s
+  `onlineOrdering` records whether the current site and socials mention
+  ordering online. When it is false, set `onlineOrdering: false` in `client.js`
+  (the FAQ drops its ordering question) and keep the topic out of every
+  crawler- and AI-facing surface: copy, `client.seo`, `description`, FAQ
+  extras, `llms.txt`, schema, `ctas` and nav. Takeout and delivery are the same
+  claim. Build, then grep `dist` for `online.?order|order online|takeout|delivery`
+  after a control that must match. An 88 account that only runs room service,
+  say, is not a public ordering claim.
+
 - **Titles:** every page (`index`, `menus`, `gallery`, `404`, any page
   added) gets a hand-written `client.seo.<slug>.title`, which is what
   `<title>`, `og:title` and `twitter:title` read. Pages carry no title in
@@ -145,11 +161,58 @@ for free. What the build writes by hand:
   when there is no real short form), `areaServed`, `currenciesAccepted`,
   `paymentAccepted` and `acceptsReservations`. The comments beside each in
   `client.js` and `core/schema.njk` say what they emit.
-- **The FAQ is generated.** `src/_data/faq.js` builds the homepage FAQ and its
-  FAQPage schema from `client.js`/`theme.js`, and is usually right with no
-  edits. Read the generated questions once the data is real: drop any that
-  don't apply (no `events` means no large-party question) and check none
-  quotes a price or a count that belongs on the menu.
+- **The FAQ is generated, and it is the keyword vehicle.** `src/_data/faq.js`
+  builds the homepage FAQ and its FAQPage schema from `client.js`/`theme.js`.
+  Read the generated questions once the data is real: drop any that don't
+  apply (no `events` means no large-party question) and check none quotes a
+  price or a count that belongs on the menu. Then place the client's SEO
+  keyword group (the owner's list, kept in `BUILD.md`; ask for it if absent):
+  - **Each phrase lands once, in the answer whose question a guest would type
+    it into**, worded the way a person says it. "Italian restaurants near Wall
+    Street" becomes "Is there an Italian restaurant near Wall Street?", never
+    a stuffed list, never the same phrase in every answer. Two phrases that
+    suit one answer can share it.
+  - **Three hooks in `client.js`, no edits to `faq.js`:** `neighborhood`
+    (spliced into the cuisine and location answers, e.g. "Lower Manhattan's
+    Financial District"), `faq.extra` (`[{ question, answer }]`, appended) and
+    `faq.extra[].replaces: '<key>'` (rewords a generated question in place;
+    keys are `reservations`, `hours`, `cuisine`, `order`, `events`,
+    `location`, `hiring`; dropped when that entry isn't generated). Answers
+    are HTML from the tag set in the `faq.js` header.
+  - **The three questions a keyword group usually maps to** (Antica's shape,
+    copy it for any restaurant):
+    1. *What kind of food?* (`replaces: 'cuisine'`): lead with the style and
+       cuisine words the owner uses ("authentic Italian cuisine"), then the
+       neighborhood. Name the business in the first sentence, link the menu.
+    2. *Is X a modern/upscale/<style> <cuisine> restaurant?* (`extra`): the
+       home for every style word that is not the cuisine itself ("modern",
+       "upscale", "family-owned"), backed by the room, the dishes and the wine
+       the client copy already describes.
+    3. *Is X located near <landmarks>?* (`extra`): list every district and
+       landmark the owner wants, in the words a guest searches ("Wall Street",
+       "Ground Zero", "Battery Park"). A private-dining or large-party keyword
+       goes in the events question (`replaces: 'events'`).
+    The generated location answer already carries `neighborhood`.
+  - **Measure every proximity claim.** Put each landmark's latitude and
+    longitude through the haversine against `client.geo` (a ten-line `node -e`);
+    "a short walk" holds to about 0.75 mi straight line, anything farther is
+    named by distance or left out. Keep the measured distances in a comment
+    beside the extras, as Antica's `client.js` does, so the next editor can
+    re-check.
+  - **Owner copy is kept, tidied.** Write "we" as the business name (an answer
+    is extracted from its page and has to name the business alone) and fix
+    typos. A superlative ("the premier private dining space") or a count
+    ("several menus") is the owner's claim: check what the code can back (the
+    menu pages, the events page), keep it if the owner supplied it, and say in
+    the report which claims the owner owns.
+  - **Rules of `faq.js` still hold:** open with a direct yes/no that names the
+    business, link to where a guest acts, no prices or counts, and nothing
+    `client.js` doesn't already say. A proximity claim ("steps from", "a short
+    walk") needs a source: the client's own copy, or `geo` measured against
+    the landmark. Use only what the client copy or `geo` backs.
+  - **An answer that restates a fact the page copy already carries** (what's
+    on the menu, what the events page offers) quotes that wording, so the two
+    can't drift.
 - **`ogImage` is JPEG or PNG, never webp**, with an `ogImageAlt`: link
   scrapers, not browsers, fetch it, and LinkedIn/Slack-class crawlers still
   skip webp cards (`core/head.njk` reads the type off the extension).

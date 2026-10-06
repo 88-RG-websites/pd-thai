@@ -37,7 +37,7 @@
         scrapers still skip webp cards — so the type is read off the file
         extension rather than hardcoded, and stays correct if a client build
         ever swaps in a PNG. -#}
-    <meta property="og:image:type" content="{{ 'image/png' if '.png' in client.ogImage else 'image/jpeg' }}"/>
+    <meta property="og:image:type" content="{{ 'image/png' if '.png' in client.ogImage else ('image/webp' if '.webp' in client.ogImage else 'image/jpeg') }}"/>
     {#- lib/site.js defaults ogImageAlt to '': an empty alt says nothing, so
         the tag waits for real text (content.md asks every build for one). -#}
     {%- if client.ogImageAlt %}
@@ -80,7 +80,9 @@
       @font-face { font-family: "{{ face.family }}"; font-style: {{ face.style }}; font-weight: {{ face.weight }}; font-display: swap; src: url("{{ face.file | url }}") format("woff2"); unicode-range: {{ face.unicodeRange }}; }
       {% endfor %}
     </style>
-    {% else %}
+    {#- No Google URL (a site on system fonts): `href=""` would fetch the page
+        itself as a stylesheet on every load, so the whole block waits for one. #}
+    {% elif theme.fonts.googleFontsUrl %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="{{ theme.fonts.googleFontsUrl }}">

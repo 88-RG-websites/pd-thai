@@ -39,4 +39,12 @@
     --reveal-ease: {{ theme.style.animations.easing }};
     --reveal-stagger: {{ theme.style.animations.stagger }};
   }
+  /* Fallback only: a stylesheet written before the sticky header (an older
+     site's) never defines it, and every page that pads or sizes by it then
+     loses the padding and collapses the menu frame. :where() keeps this at
+     zero specificity, so the stylesheet's own :root rule wins either way. */
+  :where(:root) { --header-height: 5.5rem; }
+  @media (min-width: 1024px) {
+    :where(:root) { --header-height: 6rem; }
+  }
 </style>

@@ -52,7 +52,6 @@
         {%- if client.description %}
         "description": {{ client.description | dump | safe }},
         {%- endif %}
-        "url": {{ (client.domain + page.url) | dump | safe }},
         {#- `logo.schema` (lib/site.js, `src` when unset): the mark on a light
             ground, for a client whose `src` is cut light-on-dark. -#}
         "logo": {{ (client.domain + (client.logo.schema or client.logo.src)) | dump | safe }},
@@ -145,7 +144,14 @@
           }
         },
         {%- endif %}
-        "priceRange": {{ client.priceRange | dump | safe }}
+        {#- `priceRange` is optional, and `url` ends this run of trailing-comma keys
+            because it is always present: the optional blocks after it open with
+            their own comma, so the node is valid whichever of them (or this
+            one) a client leaves out. -#}
+        {%- if client.priceRange %}
+        "priceRange": {{ client.priceRange | dump | safe }},
+        {%- endif %}
+        "url": {{ (client.domain + page.url) | dump | safe }}
         {#- Everything from here to the end of this node is optional, so each
             block opens with its own comma instead of trailing one: the node
             may end at any of them without a stray comma breaking the JSON. -#}

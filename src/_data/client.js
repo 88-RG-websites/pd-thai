@@ -244,7 +244,7 @@ const client = {
   reviews: {
     google_maps_url:
       'https://www.google.com/maps/place/PD%20Thai%20Cuisine/data=!4m2!3m1!1s0x8644ca7fed1f5917:0x6e6ab314897e3efd',
-    display: { max_reviews: 12, min_rating: 5, require_text: true, min_text_length: 0 },
+    display: { max_reviews: 12, min_rating: 5, require_text: true, min_text_length: 150 },
   },
 
   // Contact Section

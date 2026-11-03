@@ -4,9 +4,114 @@
     "name": "PD Thai Cuisine"
   },
   "feature_id": "0x8644ca7fed1f5917:0x6e6ab314897e3efd",
-  "updated_at": "2026-10-03T06:18:17.719Z",
-  "review_count": 598,
+  "updated_at": "2026-11-03T06:18:52.970Z",
+  "review_count": 605,
   "reviews": [
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2tweVpUSkxla3Q2VmtVNGF6RTNXR2xyU2tGbk9HYxAB",
+      "source": "google",
+      "rating": 4,
+      "text": "Food is good, we order from here regularly. Only problem is they are STINGY with the rice when you order takeout. One rice is not enough for even one person. We always have to either order extra rice ($2 for another tiny portion) or make more at home. Super annoying.",
+      "author": {
+        "name": "Amb",
+        "profile_url": "https://www.google.com/maps/contrib/110286683714878882252/reviews?hl=en-US"
+      },
+      "published_at": "2026-10-25T03:50:52.542Z",
+      "edited_at": null,
+      "language": "en",
+      "owner_response": null,
+      "images": null
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2s5bFowOXRjbmRzVFcxYWVVdFNOR0Z1UWtSWGFWRRAB",
+      "source": "google",
+      "rating": 1,
+      "text": "Inaccurate prices displayed on Favor app. Very frustrating.",
+      "author": {
+        "name": "s C",
+        "profile_url": "https://www.google.com/maps/contrib/109029051592341312527/reviews?hl=en-US"
+      },
+      "published_at": "2026-10-22T00:06:46.512Z",
+      "edited_at": null,
+      "language": null,
+      "owner_response": null,
+      "images": null
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2s5MVdWZzBNRGRPVkRkWmVtMWlNMWN5VVRsdVJVRRAB",
+      "source": "google",
+      "rating": 5,
+      "text": "Best Thai food after a night out… and even sober. The first time I had it was after a night and it was the best thing in the entire world. Had to get it again the next day to see if it was still as good as I remebered. And it was. Since then, this has been my go to place to order pad Thai from. So saucy. Great texture noodles. Very flavorful. Best pad Thai in Austin!!!",
+      "author": {
+        "name": "Sophia Hung",
+        "profile_url": "https://www.google.com/maps/contrib/107476462944560239267/reviews?hl=en-US"
+      },
+      "published_at": "2026-10-15T04:26:14.302Z",
+      "edited_at": null,
+      "language": "en",
+      "owner_response": null,
+      "images": null
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2xWalNUaHRUa3BqVDFORE5GWllaVEZHUlV0RU0xRRAB",
+      "source": "google",
+      "rating": 4,
+      "text": "Tonight we walked to this Thai restaurant from our Airbnb a few blocks away. Food was excellent and service was great. Poor waitress was all alone but we got there before everyone else showed up for their dinners.<br><br>I gave it a 3 star for atmosphere because its super dark in there at night. Its more ambience lighting.",
+      "author": {
+        "name": "Debra Gonz-Jack",
+        "profile_url": "https://www.google.com/maps/contrib/110809321933469121450/reviews?hl=en-US"
+      },
+      "published_at": "2026-10-13T01:59:50.547Z",
+      "edited_at": null,
+      "language": "en",
+      "owner_response": null,
+      "images": null
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT25KeE1Ya3lPVFp1YkRsamJUUjNVUzFMVURSelpWRRAB",
+      "source": "google",
+      "rating": 5,
+      "text": "Delicious vegan options! from Houston and make sure to stop in and get our fix every time",
+      "author": {
+        "name": "Caterin Rios",
+        "profile_url": "https://www.google.com/maps/contrib/107244251823292821873/reviews?hl=en-US"
+      },
+      "published_at": "2026-10-12T04:41:06.296Z",
+      "edited_at": null,
+      "language": "en",
+      "owner_response": null,
+      "images": null
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2t4VmJtVnVSbEowVDJjelYzZG1RV2RwVG5Ca1JrRRAB",
+      "source": "google",
+      "rating": 2,
+      "text": "",
+      "author": {
+        "name": "Nikodem Jedrzejewski",
+        "profile_url": "https://www.google.com/maps/contrib/111851335479751576995/reviews?hl=en-US"
+      },
+      "published_at": "2026-10-09T23:39:07.421Z",
+      "edited_at": null,
+      "language": null,
+      "owner_response": null,
+      "images": null
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2tFeGFqUTFUMmRqTVcwMmNFVlJURGQzVDA0M1NHYxAB",
+      "source": "google",
+      "rating": 2,
+      "text": "unfortunately pad see ew was flavorless.",
+      "author": {
+        "name": "Y",
+        "profile_url": "https://www.google.com/maps/contrib/109096287186327759298/reviews?hl=en-US"
+      },
+      "published_at": "2026-10-08T17:37:48.804Z",
+      "edited_at": null,
+      "language": null,
+      "owner_response": null,
+      "images": null
+    },
     {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT2s5NWQzZFRSV3hYY1ZGYVFVNVJUVTAyZURaQ2MwRRAB",
       "source": "google",

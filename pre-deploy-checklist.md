@@ -325,9 +325,11 @@ Which check applies depends on the type of site being deployed.
 nothing about what the box does with it. All of this is `ssh` + `curl` and
 **must stay read-only** — never edit server config from an agent session.
 
-- [ ] **Take a backup first.** A read-only pull of what is currently live,
-      before anything overwrites it. `--delete` has no undo and the box has no
-      snapshot:
+- [ ] **Take a backup first.** `deploy.sh` copies the live `_site` to
+      `~/site-backups/<domain>/prev` on the server before every production
+      rsync, and `./deploy.sh rollback` swaps it back. That copy holds one
+      generation and the next deploy overwrites it, so for a first cutover or
+      a big release also keep a local pull of what is currently live:
 
       rsync -az <user>@<host>:/var/www/<site>/_site/ ~/<site>-backup-$(date +%Y%m%d)-pre-deploy/
 

@@ -19,9 +19,10 @@ First read `.claude/skills/build-client-site/references/handoff.md` and do its
 ./deploy.sh preview
 ```
 
-**Never deploy to production.** Production is human-only: `deploy.sh`
-requires an interactive terminal and a typed site-name confirmation, and no
-flag bypasses it. Do not work around the guard.
+**This skill never deploys to production.** Production is the owner's call:
+they run `./deploy.sh production` and type the domain, or ask in chat for that
+specific site, and only then does Claude run `./deploy.sh production --confirm
+<domain>` (readme "Deploying"). Do not work around either guard.
 
 If the preview host is unreachable (see Follow-ups from setup), stop here and
 hand the deploy command to the user.
@@ -80,4 +81,4 @@ Write it into the reply, built from the files:
 ## Finish
 
 Mark `5-site-ship` ✅ in `BUILD.md` with the preview URL, set Next to
-"production deploy: human only, after client approval", commit and push.
+"production deploy: owner's call, after client approval", commit and push.

@@ -141,9 +141,10 @@ question and stops; answer it there and run the phase again.
 
 **Guardrails**
 
-- **Preview only.** `deploy.sh production` requires an interactive terminal and
-  a typed **domain** confirmation (not the site name). No flag bypasses it;
-  automation can't go live.
+- **Preview only.** The build pipeline ends at a preview deploy. Production
+  is either a person at a terminal typing the **domain**, or
+  `deploy.sh production --confirm <domain>`, which Claude runs only when the
+  owner asks for that specific site in chat (see Deploying below).
 - **The result is a rework, not a clone.** The old site contributes brand
   identity — colors, logo, photos. Layout, typography and polish come from this
   template. Two consecutive builds should not look like siblings — tokens carry
@@ -157,8 +158,8 @@ question and stops; answer it there and run the phase again.
   `GH_ORG=<org>` targets a different org.
 
 **What a human still owns:** the 88restaurants ordering `id` (unscrapeable), a
-Google Analytics id if wanted (`client.analytics.ga4`), DNS, and the
-production deploy.
+Google Analytics id if wanted (`client.analytics.ga4`), DNS, and the decision
+to go live.
 
 Details: `.claude/skills/build-client-site/` (the router and the phase
 contract) and each `.claude/skills/<n>-site-*/SKILL.md` with its references.
@@ -287,8 +288,30 @@ Two things that bite:
 ```bash
 ./deploy.sh            # prompts for a target
 ./deploy.sh preview    # non-interactive; what automation uses
-./deploy.sh production # human-only: needs a TTY and the typed domain
+./deploy.sh production # needs a terminal and the typed domain
+./deploy.sh production --confirm <domain> --note "<request>"            # no terminal; guarded (below)
+./deploy.sh production --confirm <domain> --note "<request>" --dry-run  # every guard, then rsync -n
+./deploy.sh rollback   # swap the previous live _site back (typed domain or --confirm)
 ```
+
+`--confirm` is the non-interactive production door. Claude runs it only when
+the owner asks for that specific site in chat, never from a scheduled task,
+and never for the app repos. It refuses unless all of these hold:
+
+1. `<domain>` equals `PROD_DOMAIN` (it stops a deploy to the wrong site);
+2. the git tree is clean, on `main`, and equal to `origin/main`;
+3. the `site-check` skill (`~/.claude/skills/site-check/check.js`) passes on
+   the production build about to ship;
+4. the same commit is already on preview. `./deploy.sh preview` records the
+   commit it shipped in `~/deploy-state/preview/<slug>` on the server, so
+   preview from `main` after merging, then deploy.
+
+Every production deploy, by either door, first copies the live `_site` to
+`~/site-backups/<domain>/prev` on the server (with the redirects conf and the
+commit it held). `./deploy.sh rollback` swaps that copy and the live site, so
+running it twice undoes the rollback. Every run, refusals included, appends a
+line to `~/.claude/plans/deploy-ledger.tsv` (`DEPLOY_LEDGER` overrides it;
+`--note "<request>"`, required with `--confirm`, fills the note column).
 
 `SITE_NAME` near the top of `deploy.sh` is stamped in by `new-site.sh`. Preview
 deploys are served from a `/${SITE_NAME}/` subfolder, so the script builds them

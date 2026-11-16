@@ -253,8 +253,18 @@ from `locationSlug`, per-location `--c-primary-*` overrides via
   init. Assume nothing beyond git/npm; `jq` and `python3` are Homebrew here,
   not guaranteed elsewhere. Optional tools get detected, and their absence is
   a reported skip, never a failed build.
-- **Production deploys are human-only**, enforced by `deploy.sh` (interactive
-  terminal + typed **domain** confirmation). Automation deploys to preview.
+- **Production deploys have two doors**, both in `deploy.sh`. A person runs
+  `./deploy.sh production` at a terminal and types the **domain**. Claude may
+  run `./deploy.sh production --confirm <domain>` only when the owner asks for
+  that specific site in chat: never from a scheduled task or on its own
+  initiative, and never for the app repos (rg_new and the rest stay PR-only).
+  `--confirm` refuses unless the domain equals `PROD_DOMAIN`, the tree is
+  clean on `main` and equal to `origin/main`, `site-check` passes on the build
+  being shipped, and the same commit is already on preview (a preview deploy
+  records it on the server). `--dry-run` runs every guard plus `rsync -n`.
+  Every production deploy backs the live `_site` up on the server first, and
+  `./deploy.sh rollback` swaps it back. Every run appends to
+  `~/.claude/plans/deploy-ledger.tsv`. Other automation deploys to preview.
   Webroots on the client server are `www-data`-owned, which is why
   `deploy.sh`'s rsync flags are tested (`scripts/test/deploy-rsync.sh`).
 - Merging a template PR deletes its branch on the remote, so a merged local

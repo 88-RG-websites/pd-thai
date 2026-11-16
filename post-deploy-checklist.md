@@ -236,7 +236,9 @@ The production rsync runs `--delete`, so a release can take files off the live
 site that no page of the *new* build references but something outside it might.
 
 - [ ] Confirm the pre-deploy backup still exists and is the version that was
-      live before this deploy. Keep it until this checklist passes.
+      live before this deploy (`ssh <host> cat ~/site-backups/<domain>/prev.commit`,
+      plus any local pull). Keep it until this checklist passes; a failure
+      here is `./deploy.sh rollback`.
 - [ ] Spot-check that the removals were the intended ones — old CSS/JS from the
       site being replaced, not a page. Every URL in §1 and §5 returning 200 is
       the real proof no page was lost.

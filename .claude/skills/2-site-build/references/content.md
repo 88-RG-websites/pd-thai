@@ -40,7 +40,7 @@ any menu href in `nav`, `menuCards` or elsewhere.
   eyebrows, pretitles or CTA labels (CSS-uppercased), nor ledes and body copy.
 - **Say what is actually true of this business.** `serviceRows` lists only
   services it offers; the newsletter lede says what the list sends, not "join
-  our newsletter"; `heroBar.hoursNote` is one line, not the schedule.
+  our newsletter"; `heroBar.hoursNote` (the About card's headline) is one line, not the schedule.
 - `hero_eyebrow`, if any, renders white. The accent goes on buttons, never on
   type over a photograph.
 - **Alt text describes the frame.** Every gallery and hero photo gets alt
@@ -88,8 +88,8 @@ any menu href in `nav`, `menuCards` or elsewhere.
   parts it has. A food `businessType` other than `Restaurant`
   (`FoodEstablishment`, `CafeOrCoffeeShop`, `Bakery`, …; the list is
   `FOOD_TYPES` in `lib/site.js`) still emits `servesCuisine` and the menu
-  links. The seeded components that print the street (`footer`, `hero-bar`,
-  `visit`, `info`, `events-inquiry`, the `contact` variants) print it
+  links. The seeded components that print the street (`footer`, `about`,
+  `hero-bar`, `visit`, `info`, `events-inquiry`, the `contact` variants) print it
   unguarded: guard the ones the site uses (wraps-and-kebabs guards its four).
 
 ## Platform ids and forms

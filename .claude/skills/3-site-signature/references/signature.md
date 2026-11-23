@@ -24,8 +24,8 @@ Pick from these. Two well-executed departures beat four half-ones.
 ### 1. Internal composition
 
 **This is the main axis.** Not the order of the sections — the organisation
-*inside* them. The stock spine (`hero → about → menus → carousel → reserve →
-visit → newsletter → contact`) is the order that works, and shuffling it is
+*inside* them. The stock spine (`hero → about → menus → wall → reserve →
+faq → newsletter → contact`) is the order that works, and shuffling it is
 not what makes a site distinctive; it mostly makes it worse. What makes two
 sites read as different designers' work is that each section is arranged for
 its own client.
@@ -57,10 +57,11 @@ fill, add one they have real content for. Dropping and adding is fine —
 reordering the spine is the move to leave alone.
 
 If a genuine reason to reorder does appear, **re-derive the ground
-alternation** afterwards. The stock grounds are white / secondary-50 / white /
-photo / white / secondary-700 / primary-600 / secondary-50, arranged so no two
-neighbours share one; a naive reorder puts two light sections together and the
-page reads as one slab.
+alternation** afterwards. The stock grounds are hero photo / about white /
+menus secondary-50 / wall dark (`galleryTone`) / reserve photo / faq
+secondary-50 / newsletter primary-600 / contact secondary-50, arranged so no
+two neighbours share one (`template-map.md`, "Homepage, in order"); a naive
+reorder puts two light sections together and the page reads as one slab.
 
 ### 2. Ground and value
 
@@ -95,8 +96,10 @@ Rules that apply to all three:
 
 - **Body text over a texture must still pass WCAG AA.** Check it, don't
   eyeball it.
-- **Never on the hero.** The hero photography is never dimmed, tinted,
-  patterned or filtered (`2-site-build`'s theming.md, "Two things that are not choices").
+- **Never on the hero as a frame.** The hero photography is never dimmed,
+  tinted, patterned or filtered across its frame (`2-site-build`'s theming.md,
+  "Two things that are not choices"). The one approved exception is a local
+  pool of shade behind the copy (below).
 - **A decorative raster is capped at half its source width in CSS pixels** —
   a 1200px-wide file is upscaled and visibly blocky past ~600 CSS px on a 2x
   screen. `magick identify` the file first, then size it.
@@ -158,13 +161,23 @@ extracted — then it needs no explanation on the page.
 
 - **A section that bleeds to the viewport edge uses a breakout grid, never a
   positioned percentage.** The shape is
-  `grid-cols-[minmax(2rem,1fr)_minmax(0,Xrem)_minmax(0,Yrem)_minmax(2rem,1fr)]`:
+  `grid-cols-[minmax(Grem,1fr)_minmax(0,Xrem)_minmax(0,Yrem)_minmax(Grem,1fr)]`:
   copy sits in an inner column, and the bleeding panel spans its inner column
-  *plus* the outer gutter. **X + Y = 76rem, not 80**: `.container-site` is
-  border-box `max-w-7xl px-8`, so its text edge is `(100vw − 1280px)/2 + 32px`,
-  and `1fr` outer tracks only agree with that at 76rem. Size the middle at 80
-  and the section's type sits 32px left of every other section's at every
-  width. A percentage fails worse: a panel edge is a share of the *viewport*
+  *plus* the outer gutter. The outer tracks' minimum `G` is the container's
+  gutter at that width, so it changes with the breakpoint: `1.5rem` base,
+  `lg:` `2.5rem`, `2xl:` `4rem` (`.container-site` is border-box `max-w-[96rem]
+  px-6 lg:px-10 2xl:px-16`). **X + Y = 88rem at 2xl, not 96**: the box is
+  96rem but its text column is 96 − 2×4 = 88rem, and `1fr` outer tracks only
+  land the copy on that edge, `(100vw − 96rem)/2 + 4rem`, at 88rem. Size the
+  middle at 96 and the section's type sits 4rem left of every other section's
+  on a big monitor. Below `2xl` the container has no cap to speak of (it is the
+  viewport less `2×G`, at most 1535 − 80 = 1455px), so the middle only has to be
+  at least that: write it generously there (X + Y of 91rem or more) and let the
+  tracks shrink while the outer minimums hold the gutter, then cap it at
+  `2xl:` with the 88rem pair. The header, hero and footer use `.container-wide`
+  (120rem): a breakout aligned to them does the same sum with 120rem (X + Y =
+  112rem at 2xl). Check it by comparing the section's text left edge with
+  `.container-site`'s at 1024, 1440, 1536 and 1920. A percentage fails worse: a panel edge is a share of the *viewport*
   while a grid column is a share of a centred *container*, so they drift apart
   as the window widens, and the value that clears an object at 1440 cuts
   through it at 2560.
@@ -182,9 +195,12 @@ These survive every signature pass. "Add personality" is not license to
 reopen them:
 
 - **The header is always `header.njk`** — transparent over the hero, taking a
-  ground only on scroll. No boxed, plaqued or centred-logo nav.
-- **The hero photography is never dimmed.** No scrim, tint, overlay, pattern
-  or filter over the hero slides.
+  ground only on scroll. No boxed, plaqued or centred-logo nav, and no logo
+  plaque floating off the bar (`header_center` stays forbidden).
+- **The hero photography is never dimmed *as a frame*.** No scrim, tint,
+  overlay, pattern or filter over the slides, and no even wash or vignette
+  across the frame. A corner shade pool behind the copy is allowed (below); a
+  frame scrim is not.
 - **Menu content stays in the ordering iframe.** No hand-typed food, drink,
   wine or catering pages, however good a structural idea it seems — that's a
   second source of truth that goes stale at the next price change.
@@ -193,6 +209,44 @@ reopen them:
   Restructure inside them; don't re-pick `py-*` and heading sizes per section.
 - Quality floor: responsive to 375px, visible keyboard focus, reduced motion
   respected, alt text.
+
+## Approved departures (written up, not built into the template)
+
+The owner has approved these on the v2 sites. They are not template variants:
+a build that wants one builds it in its own repo, as one of its two to four
+departures, and says so in `design-notes.md`. Copy the pattern from the site
+that has it.
+
+- **A hanging logo that settles on scroll** (mountain-oasis, atoz-rooftop,
+  duomo51). Over the hero the lockup is oversized and hangs past the bar; once
+  the bar tints (scrolled, or a page that starts tinted) it eases back to its
+  in-bar height, so it never sits over page copy. Heights only, from a fixed
+  top; the link box around it keeps the in-bar width so the nav never moves;
+  under reduced motion the size swaps without the tween. It is the *opposite*
+  of a floating plaque: no box, no ground, no frame behind the mark, and the
+  bar underneath stays the clean fixed-height bar. Only where the mark suits
+  (square or compact; a wide wordmark just overflows). The bar and the
+  `src/_88/header.njk` menu fragment share one `header.njk`, so the change
+  lands once; the oversized state must not reach `/menus/` or any
+  `solidHeader` page (the bar starts tinted there, so it is already settled).
+- **A corner shade pool behind the hero copy** (atoz-rooftop,
+  mountain-oasis). Copy sits bottom-left over a `.hero-shade` layer: a radial
+  gradient anchored at the bottom-left corner, sized to the copy column
+  (about 62–70% by 70% of the frame at `sm` and up, solid ink at the corner
+  to nothing well before the middle), and on a phone, where the copy spans the
+  width, a linear rise from the bottom edge. It sits above the slides and
+  below the copy, `pointer-events: none`. Its job is to carry type on a busy
+  corner while the subject on the other side stays at full strength. It is a
+  pool, not a frame: if the gradient reaches the far edges or covers the
+  subject, it has become a scrim.
+- **Themed wall tiles** (the walls of the v2 sites; `homeWall` ships neutral
+  on purpose). A site may theme its tiles (a gold hairline gap, square
+  corners, a clipped centre tile) and place its own `grid-template-areas`
+  map. Do it by overriding `.hwall` rules in the site's own `styles.scss`, not by
+  editing the template's variants, and keep the last row a wide strip so the
+  button still lands on one tile. Themed tile shadows and gaps are what make
+  two walls read as different designers' work, which is why the template does
+  not pick them.
 
 ## Per-section variation, and what each axis has already spent
 
@@ -246,15 +300,18 @@ pick it deliberately:
 | `components.about` | `about` / `about_parallax` / `about_seam` |
 | `components.menus` | `menus` / `menus_schedule` |
 | `components.contact` | `contact` / `contact_with_image` / `contact_with_map` / `contact_with_parallax` |
-| `components.catering`, `.employment`, `.events`, `.info`, `.parallaxBreak` | on / off, by what the client actually has |
+| `components.homeWall` | `mosaic` / `strip` / `bento` (a shape-changing slot: the wall's map differs, not only its tone) |
+| `components.catering`, `.employment`, `.events`, `.info`, `.parallaxBreak`, `.visit` | on / off, by what the client actually has |
 | `style.seam` | `none` / `brush` |
 | `style.titleRule` | `none` / `bar` |
 | `style.animations.hero`, `.navUnderline`, `.reveal` + duration/distance | `none`/`rise`, on/off, quiet / composed / lively |
 | `style.button.text`, `heroBarTone`, `galleryTone`, radii, shadows | as `2-site-build`'s theming.md |
 
 **Differ from every previous build on at least three slots that change
-shape, not colour** — about, menus, seam, an extra band — before the
-hand-built departures below add the rest. A tuple that only differs in
+shape, not colour** — about, menus, the `homeWall` variant, seam, an extra
+band. `homeWall` counts: pick the wall no sibling has, and if the three
+variants are all spent, theme the tiles (above) rather than repeat one. The
+hand-built departures (above) add the rest. A tuple that only differs in
 `galleryTone` and radius is the same page in a new coat. Write the chosen
 tuple at the top of `design-notes.md` so the next build can read it in ten
 seconds.

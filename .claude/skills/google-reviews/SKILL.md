@@ -132,6 +132,7 @@ work. Register it?"*
 ```bash
 ssh rg@104.237.128.61
 grep -qx /home/rg/sites/<repo> ~/sites/reviews-sites.txt && echo ALREADY-LISTED
+export PATH="$HOME/opt/node/bin:$PATH"   # Node 22 lives here (readme.md); a non-login shell has no npm
 git clone git@github.com:88-RG-websites/<repo>.git ~/sites/<repo>
 cd ~/sites/<repo> && npm install --no-audit --no-fund
 ```
@@ -172,7 +173,7 @@ user sets it up.
 
 - **The log is the only alert.** Nothing emails. Each run appends a summary
   table to `~/logs/reviews-monthly.log` on the server
-  (`ssh rg@104.237.128.61 tail -40 ~/logs/reviews-monthly.log`). Per-site
+  (`ssh rg@104.237.128.61 'tail -40 ~/logs/reviews-monthly.log'`). Per-site
   build logs are in the `/tmp/reviews-monthly.*` directory the summary names.
 - `FAILED … git pull failed` usually means the server clone diverged from
   origin, for example after a force-push or a laptop commit that rewrote

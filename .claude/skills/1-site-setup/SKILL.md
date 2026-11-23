@@ -59,6 +59,12 @@ root, the images in `src/assets/images/`, and legacy-site screenshots under
 `extraction/`. A blocked source or a missing fact becomes a `gaps` entry, never
 a stall.
 
+Photos finish with three template steps (details in extraction.md): run
+`scripts/optimize-gallery.sh` to write `src/_data/galleryDims.json` and the
+`gN-r.webp` tiles, curate `client.homeWall` (9) so the tile under the floating
+button is plain, and give every `heroImages[]` entry `width`, `height`, `alt`
+and `focus`.
+
 Ask the owner for their **SEO keyword group** (the phrases they want to rank
 for, e.g. "italian restaurants near wall street") and record it verbatim in
 `BUILD.md`; phase 2 places each phrase in the FAQ. No list means none to place:
@@ -120,4 +126,5 @@ Next: cd ../<site_name> && claude, then /2-site-build
 ```
 
 A new session in the client repo is the context reset, and it loads that
-repo's own `CLAUDE.md` and skills.
+repo's own `CLAUDE.md` (the site stub), skills and the shared client-site rules
+the SessionStart hook injects.

@@ -31,21 +31,27 @@ die with it.
    - the repo path, the server URL, and the page list: `/` plus every
      `client.nav` target;
    - "Read `.claude/skills/4-site-review/references/design-review.md` and
-     follow its Setup, Capture gotchas and Critique checklist. Capture 375,
-     768 and 1440 for every page; take the numeric 375 checks (overflow, h1
-     line count, mobile dialog, tap targets) from Playwright at 375x812.";
+     follow its Setup, Capture gotchas, Probes and Critique checklist. Use the
+     built-in browser (own tab, `tabs_close` after, `desktop` resize at the
+     end), never Playwright. Capture 375, 768 and 1440 for every page; take
+     the numeric 375 checks (overflow, h1 line count, mobile dialog, tap
+     targets) in that browser at `mobile`, and run the probe list: the
+     header-height table, the x-scroll sweep, orphans, the 320x568 reveal
+     sweep, the wall button and contact columns. The owner's pane has
+     reduced motion on and a hidden pane runs no IO/rAF, so a motion check
+     made there is UNMET.";
    - the direction and departures from `BUILD.md` / `design-notes.md` in two
      lines, so "template sameness" and "direction incoherence" are judged
      against intent;
    - findings already fixed in earlier passes, so it verifies them rather
      than re-reporting them;
-   - "Save captures under `extraction/review/pass-<n>/`. Change no files.
+   - "Change no files (a screenshot stays in your own context; save none).
      Return only a findings list, most severe first, each with: severity
      (critical/major/polish), page, viewport, section, what is wrong, the
-     measurement that shows it, the likely file, and the capture path."
+     measurement that shows it, and the likely file."
 3. **Fix** from the findings: every critical, every major unless there's a
    stated reason, polish if quick. Fixes follow the rules in the reference:
-   never a scrim on the hero, a heading break is measured and not guessed. To
+   never a scrim across the hero frame, a heading break is measured and not guessed. To
    check one fix visually, open a single capture or a clip of one section,
    never a full-page set.
 4. Rebuild, then the next pass with a **new** subagent, until a pass returns
@@ -61,8 +67,7 @@ The subagent is not needed for these; their output is text:
 - **Page weight** per page (the same file's python snippet).
 - The repo's **`pre-deploy-checklist.md`**. The placeholder grep must be
   clean.
-- Stop the server. `extraction/review/` is gitignored; the findings that
-  matter are in `BUILD.md`.
+- Stop the server. The findings that matter are in `BUILD.md`.
 
 ## Record in BUILD.md
 

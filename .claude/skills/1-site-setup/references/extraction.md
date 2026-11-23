@@ -15,7 +15,7 @@ only their own assets (their photos, their logo, their copy as source facts).
    hours, locations, gallery. Stay on the same domain; a handful of pages is
    enough — this is extraction, not archiving.
 3. **JS-rendered site** (thin HTML, empty body, everything client-side):
-   fall back to browser tooling (Playwright/Chrome MCP): navigate, use page
+   fall back to browser tooling (the built-in browser, or Claude in Chrome for a logged-in source; never Playwright): navigate, use page
    text + snapshot to read content.
 4. Screenshot the live homepage at 1440px width and save it into the new repo
    at `extraction/legacy-desktop.png` — the "vibe reference" for later design
@@ -98,16 +98,40 @@ around the room, the exterior and the brand artwork instead.
 - Name to template conventions: `hero-1.webp`, `gallery-1.webp`…,
   `logo.png`/`logo.svg`. The OG card is `og-image.jpg` (never webp), cut in
   2-site-build.
-- **Three renditions per photograph, not one.** The master (maxedge 2000, what
-  the lightbox opens), a ~1200px `m*.webp` for anything rendering in a column
-  or a carousel card, and the square `t*.webp` thumb for the gallery grid. A
-  site that only has masters serves them into 400px cards and nothing looks
-  wrong — see the page-weight check in `4-site-review`'s design-review.md:
+- **Renditions per photograph, not one.** The master (maxedge 2000, what the
+  lightbox opens, `gallery/gN.webp` under `src/assets/images/`), a ~1200px `m*.webp` for
+  anything rendering in a column or a card, and the gallery tile. A site that
+  only has masters serves them into 400px cards and nothing looks wrong — see
+  the page-weight check in `4-site-review`'s design-review.md. The tile and
+  the sizes come from one script, not a hand-cut square:
 
   ```bash
-  magick gallery/g$n.webp -resize 1200x -quality 80 gallery/m$n.webp
-  magick gallery/g$n.webp -gravity center -resize 800x800^ -crop 800x800+0+0 +repage -quality 80 gallery/t$n.webp
+  scripts/optimize-gallery.sh           # gN-r.webp tiles + src/_data/galleryDims.json
+  scripts/optimize-gallery.sh --dims-only   # only (re)write the JSON
   ```
+
+  It writes `gN-r.webp` at 800px wide **in the photo's own ratio** (never a
+  square crop: `/gallery/` lays out justified rows from each image's
+  width/height, and the homepage wall crops with CSS), and records
+  `{full: [w, h], thumb: [w, h], tile}` per photo in `galleryDims.json`
+  (matched to `client.galleryImages` by the gN in `full`; `tile` becomes the thumb). Re-run it
+  after adding or replacing any gallery photo and commit the output. Without
+  it the build still works (a photo with no dims is laid out 4:3 and the build
+  warns), but the rows are wrong.
+- **Curate `client.homeWall` (9 photos).** The homepage wall shows nine tiles
+  in the order given and a floating "see the gallery" button sits over tile 9,
+  the wide strip in the last row. Choose tile 9 first: it must be plain (a
+  table, a bar top, a wall of bottles), never a face, a lone dish or
+  lettering. Put the strongest landscape in tile 1 (the big feature tile in
+  the default `mosaic` map) and portraits in 2 and 3. Leave `homeWall` empty
+  only if the first nine `galleryImages` already satisfy this; fewer than nine
+  leaves holes. Look at the built wall at 375, 768 and 1440 before moving on.
+- **Hero entries carry `width`, `height`, `alt` and `focus`.**
+  `client.heroImages[]` is `{src, portrait, width, height, alt, focus}` (plus
+  optional `tagline`/`blurb` for per-slide copy): the dimensions stop the first
+  paint shifting, `alt` is the slide's description, and `focus` is the
+  `object-position` that keeps the subject in the crop. Read the dimensions off
+  the files; never leave them off.
 - **Pick the hero frames by cropping candidates to 8:5 and looking at THAT.**
   A contact sheet shows whole photographs; a viewport-tall hero shows a
   letterbox slice with the top and bottom gone, and the two rank differently.

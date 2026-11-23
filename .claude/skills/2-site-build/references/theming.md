@@ -241,7 +241,10 @@ condensed display face over pill buttons and a soft shadow reads confused.
   deliberate choice), and `animations` ({reveal, duration, distance, easing,
   stagger} — `reveal: false` disables entrance animation entirely), plus
   `heroBarTone`: `'dark'` (default — the hero info strip matches the nav and
-  footer) or `'brand'` (primary-600 accent band).
+  footer) or `'brand'` (primary-600 accent band). The strip only renders when
+  `components.heroBar` is on, and **it is off by default**: the v2 sites each
+  dropped it (the owner rejected it outright), and the address, grouped hours,
+  phone and socials sit in the About card instead. Leave it off.
 - `style.titleRule` — `'none'` or `'bar'`, a short rule under **every**
   section title in the eyebrow's colour. All or nothing.
 - `style.seam` — `'none'` or `'brush'`, the curve that cuts a photograph in
@@ -251,11 +254,31 @@ condensed display face over pill buttons and a soft shadow reads confused.
   a preset for the whole site: **quiet** (reveal 0.45s, hero none, no
   underline), **composed** (0.9s / 10px, rise, underline), **lively** (0.7s /
   28px, rise, underline).
-- `galleryTone` — `'dark'` (secondary-700) or `'brand'` (primary-900). The
-  gallery band sits directly above the footer and the footer is *also*
-  secondary-700, so on `'dark'` the photo grid, the footer and the scrolled
-  header share one colour and the bottom of every page reads as a single slab.
-  Prefer `'brand'` whenever the client's primary-900 is a usable dark.
+- `galleryTone` — `'dark'` (secondary-700), `'brand'` (primary-900) or `'ink'`
+  (secondary-900 with `.ground-ink`). It is the ground of the homepage photo
+  wall and of `/gallery/`. On `/gallery/` the band sits directly above the
+  footer and the footer is *also* secondary-700, so on `'dark'` the photo
+  grid, the footer and the scrolled header share one colour and the bottom of
+  the page reads as a single slab. Prefer `'brand'` whenever the client's
+  primary-900 is a usable dark. On the homepage the wall sits under the menus
+  band: with `menus_schedule` (also secondary-700) `'dark'` merges the two, so
+  pick `'ink'` or `'brand'` there.
+- **Header and logo.** The bar is a fixed height (`--header-height`: 4rem, 4.5rem
+  from lg) and the logo fills it: `.nav-logo` is `calc(var(--header-height) -
+  4px)` tall (60px, 68px from lg), width from the file, and `logo.width`/
+  `height` must be the file's real pixels so the box is reserved. Hand the
+  build a logo with a real horizontal wordmark at that height; a very wide
+  one can overflow the bar at 1024 beside five links and two CTAs. The relief,
+  in order: the CTAs already print `short` labels below `xl` (set
+  `client.ctas[].short`), trim the file's empty margin so the mark is the
+  height of its ink, then drop a nav link (the footer still carries it). The
+  template has no other relief: it is a measurement, not a token. Do not shrink the
+  bar or let the logo grow past it. Measure 1024/1280/1400/1440 whenever the
+  logo, nav or CTAs change (`4-site-review`, the header-height table).
+- **Container widths.** `.container-site` is 96rem (body sections) and
+  `.container-wide` 120rem (header, hero, footer), gutters `px-6 lg:px-10
+  2xl:px-16`. They are the system; a section that needs its own width
+  restructures inside them (`3-site-signature`, breakout grid).
 **Which sections exist is decided here; what shape they take is not.** Set
 the presence flags from what the client actually has (`events`, `catering`,
 `employment`, `newsletter`, `galleryOnHome`, `galleryMasonry`) and write the
@@ -274,8 +297,16 @@ sibling builds. The notes below are what that phase chooses from.
 - `components.catering` / `components.employment` — on only for a client
   with a real catering business / a real hiring form; each has its own
   `client.*` block.
+- `components.homeWall` — `'mosaic'` (default), `'strip'` or `'bento'`, or `''`
+  for no wall. Photography is on the homepage as a full wall, not a carousel
+  (`carousel` is off by default and loses to the wall when both are set). The
+  variant is a shape-changing slot that `3-site-signature` picks against the
+  siblings; the wall needs nine photos in `client.homeWall`, tile 9 plain
+  (`1-site-setup`).
 - `components` — `galleryOnHome` (photos are already on `/gallery/`; turn this
-  on only for a client with photography worth repeating), `newsletter` (the
+  on only for a client with photography worth repeating), `visit` (off by
+  default: the About card already prints address, hours and phone; turn it on
+  only when the map is the point), `newsletter` (the
   email-list band, on by default — off for a business with no list), and pick variants
   that fit the content: `contact_with_map` when
   the location is the story, `contact_with_parallax` with strong photography,

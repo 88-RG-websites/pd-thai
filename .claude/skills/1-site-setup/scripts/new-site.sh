@@ -84,6 +84,12 @@ stamp() {
   mv "$tmp" "$file"
 }
 
+# The site's CLAUDE.md is the short site stub, not the template's own file:
+# shared rules live in ~/.claude/context/client-site.md (template CLAUDE.md,
+# "What a client repo gets"). template.json lists both under `never`.
+mv CLAUDE.site.md CLAUDE.md
+stamp CLAUDE.md "s/SITE_NAME/${SITE_NAME}/g"
+
 # Stamp the site name into the deploy + preview-build config.
 stamp deploy.sh    "s/^SITE_NAME=.*/SITE_NAME=\"${SITE_NAME}\"/"
 stamp package.json "s|PATH_PREFIX:-/custom_template/|PATH_PREFIX:-/${SITE_NAME}/|"

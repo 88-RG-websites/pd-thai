@@ -26,9 +26,10 @@ grounds.
    the template on disk; older ones may be under `~/Software`. Only the notes,
    not the repos.
 2. **Pick the variant tuple** (signature.md, "The first layer is a tuple"):
-   `components.about/menus/contact`, the opt-in bands, `style.seam`,
+   `components.about/menus/contact/homeWall`, the opt-in bands, `style.seam`,
    `style.titleRule`, the motion preset. It must differ from every sibling on
-   at least three shape-changing slots. Fill any `client.js` keys the chosen
+   at least three shape-changing slots (`homeWall` is one: pick the wall no
+   sibling has, or theme the tiles). Fill any `client.js` keys the chosen
    variants read.
 3. **Two to four departures** from the four axes: internal composition,
    ground and value, texture, one signature element. Each encodes something
@@ -47,16 +48,35 @@ grounds.
    - Two adjacent seams: the second enters at the x where the first exits.
    - Motion is one family: reveal, hero entrance and title rule share an ease
      and a tempo. Name the preset (quiet / composed / lively).
+   - **The premium floor.** Build to both "Owner's recurring calls" lists in
+     `4-site-review/references/design-review.md` from the start, not as review
+     findings. In short:
+     - Photo cards with the text on the image, laid out asymmetrically at equal row heights.
+     - An edge-to-edge gallery wall framed by its own gap, with no copy on the page.
+     - Google reviews.
+     - No blank space beside short copy.
+     - Bare form iframes sized to the form.
+     - Small legacy photos remade, with the before/after sheet sent for a yes.
+     - A photograph in every homepage band.
+
+     The 2026-11-18 lone-star-riverboat revamp is the reference build: its
+     `site/tour-board.njk`, `boats-grid.njk` and `photo-wall.njk`.
 6. **Write `design-notes.md`** at the repo root: tuple first, then direction,
    departures (what and why), and what was left stock on purpose.
 7. `npm run build` passes.
 
 ## Invariants
 
-`header.njk` always; hero never dimmed; menu content stays in the iframe;
+`header.njk` always (no plaque, no floating logo box); hero never dimmed
+as a frame (a corner shade pool behind the copy is allowed, a scrim across
+the frame is not); menu content stays in the iframe;
 decorative rasters capped at half their source width; body text over any
 texture passes AA; the `.section` / `.container-site` / `.section-head`
-system stays the vertical and typographic system.
+system stays the vertical and typographic system. A full-bleed section
+aligns to `.container-site` (96rem box, 88rem of text at 2xl) with the
+breakout math in signature.md. Approved departures that are written up but
+not built (settling hanging logo, corner shade pool, themed wall tiles) are in
+signature.md, "Approved departures".
 
 ## Record in BUILD.md
 

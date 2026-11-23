@@ -40,8 +40,10 @@ component only to change it.
    the reason from the research, before any token.
 2. **`theme.js`**: colour scales (plus `accent` when the brand makes a bad
    button), fonts and `googleFontsUrl` with the weights actually used, overlay,
-   radii, shadows, motion, `meta.tileColor`, and the presence flags for
-   sections the client has content for. Shape variants stay stock
+   radii, shadows, motion, `meta.tileColor`, `galleryTone`, and the presence
+   flags for sections the client has content for. `heroBar` and `carousel`
+   stay off (the kit's defaults; the About card carries the facts, the
+   `homeWall` carries the photos). Shape variants stay stock
    (theming.md, "theme.js checklist").
    Then `npm run fonts` to self-host the faces, and commit what it writes.
 3. **Type against the face.** Re-measure the display face's ink and adjust the
@@ -49,9 +51,10 @@ component only to change it.
    (theming.md, "The leading ladder" and "Fonts").
 4. **`client.js`**: every block in `template-map.md`, written per
    `content.md`: copy, SEO strings and schema fields, `hoursSchedule`,
-   contact, `domain`, `geo`, `cuisines`, `heroImages` with portrait crops and
-   real alt text, `nav`, `ctas`, `menuCards`,
-   `carouselImages` pairs, `legacyRedirects.js`.
+   contact, `domain`, `geo`, `cuisines`, `heroImages` (each with
+   `width`/`height`/`alt`/`focus`, portrait crops where the source allows),
+   `nav`, `ctas` (with `short` labels), `menuCards`, `homeWall` (9, from
+   phase 1), `legacyRedirects.js`.
    **Reviews:** when the business has a Google listing, turn them on per
    `/google-reviews` Part A (Maps URL, backfill, commit `reviews-cache.json`).
    Registering for the monthly cron waits for production (Part B).
